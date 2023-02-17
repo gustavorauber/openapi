@@ -1,0 +1,246 @@
+openapi: 3.0.3
+info:
+  title: NASA - OpenAPI 3.0
+  description: |-
+    Collection of public APIs from NASA (National Aeronautics and Space Administration)
+    
+    Some useful links:
+    - [NASA](https://www.nasa.gov/)
+    - [NASA Open APIs](https://api.nasa.gov/)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: rauber@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: NASA APIs
+  url: https://api.nasa.gov
+servers:
+  - url: https://api.nasa.gov
+tags:
+  - name: planetary
+    description: Planetary APIs
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /planetary/apod/:
+    get:
+      tags:
+        - planetary
+      summary: Astronomy Picture of the Day
+      description: Returns the picture of the day
+      parameters:
+        - name: date
+          in: query
+          description: The date of the APOD image to retrieve
+          required: false
+          schema: 
+            type: string
+            format: date
+            default: today
+            example: 2021-09-21
+        - name: start_date
+          in: query
+          description: The start of a date range, when requesting date for a range of dates. Cannot be used with date.
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          description: The end of the date range, when used with start_date.
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: count
+          in: query
+          description: If this is specified then count randomly chosen images will be returned. Cannot be used with date or start_date and end_date.
+          required: false
+          schema:
+            type: integer
+        - name: thumbs
+          in: query
+          description: Return the URL of video thumbnail. If an APOD is not a video, this parameter is ignored.
+          schema:
+            type: boolean
+            default: false
+        - name: api_key
+          in: query
+          description: api.nasa.gov key for expanded usage
+          required: true
+          schema:
+            type: string
+            default: DEMO_KEY
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    copyright:
+                      type: string
+                    date:
+                      type: string
+                      format: date
+                    explanation:
+                      type: string
+                    hdurl:
+                      type: string
+                    media_type:
+                      type: string
+                    service_version:
+                      type: string
+                    title:
+                      type: string
+                    url:
+                      type: string
+        '400':
+          description: Date must be posterior to Jun 16, 1995
+      security:
+        - ApiKeyAuth: []
+  /planetary/earth/imagery:
+    get:
+      tags:
+        - planetary
+      summary: Retrieves the closest Landsat 8 image. 
+      description: This endpoint retrieves the Landsat 8 image for the supplied location and date. The response will include the date and URL to the image that is closest to the supplied date. The requested resource may not be available for the exact date in the request. You can retrieve a JSON that contains the inputs you provided and a URL to the resulting image through the assets endpoint.
+      parameters:
+        - name: lat
+          in: query
+          description: Latitude
+          required: true
+          schema:
+            type: number
+            format: float
+            example: 1.5
+        - name: lon
+          in: query
+          description: Longitude
+          required: true
+          schema:
+            type: number
+            format: float
+            example: 100.75
+        - name: dim
+          in: query
+          description: Width and height of image in degrees
+          required: false
+          schema:
+            type: number
+            format: float
+            example: 0.025
+        - name: date
+          in: query
+          description: date of image; if not supplied, then the most recent image (i.e., closest to today) is returned
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2014-02-01
+        - name: api_key
+          in: query
+          description: api.nasa.gov key for expanded usage
+          required: true
+          schema:
+            type: string
+            default: DEMO_KEY
+      responses:
+        '200':
+          description: OK
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary        
+        '400':
+          description: Invalid data
+      security:
+        - ApiKeyAuth: []
+  /planetary/earth/assets:
+    get:
+      tags:
+        - planetary
+      summary: Retrieves the date-times and asset names for closest available Landsat 8 imagery.
+      description: This endpoint retrieves the date-times and asset names for closest available imagery for a supplied location and date. The satellite passes over each point on earth roughly once every sixteen days. This is an amazing visualization of the acquisition pattern for Landsat 8 imagery. The objective of this endpoint is primarily to support the use of the imagery endpoint.
+      parameters:
+        - name: lat
+          in: query
+          description: Latitude
+          required: true
+          schema:
+            type: number
+            format: float
+            example: 1.5
+        - name: lon
+          in: query
+          description: Longitude
+          required: true
+          schema:
+            type: number
+            format: float
+            example: 100.75
+        - name: dim
+          in: query
+          description: Width and height of image in degrees
+          required: false
+          schema:
+            type: number
+            format: float
+            example: 0.025
+        - name: date
+          in: query
+          description: beginning of 30 day date range that will be used to look for closest image to that date
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2014-02-01
+        - name: api_key
+          in: query
+          description: api.nasa.gov key for expanded usage
+          required: true
+          schema:
+            type: string
+            default: DEMO_KEY
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      format: date
+                    id:
+                      type: string
+                    resource:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        properties:
+                          dataset:
+                            type: string
+                          planet:
+                            type: string      
+        '400':
+          description: Invalid data
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+security:
+  - ApiKeyAuth: []
