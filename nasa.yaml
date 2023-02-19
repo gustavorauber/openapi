@@ -13,7 +13,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: NASA APIs
   url: https://api.nasa.gov
@@ -26,7 +26,7 @@ tags:
       description: Find out more
       url: http://swagger.io
 paths:
-  /planetary/apod/:
+  /planetary/apod:
     get:
       tags:
         - planetary
@@ -198,7 +198,7 @@ paths:
         - name: date
           in: query
           description: beginning of 30 day date range that will be used to look for closest image to that date
-          required: false
+          required: true
           schema:
             type: string
             format: date
