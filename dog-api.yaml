@@ -1,0 +1,335 @@
+openapi: 3.0.3
+info:
+  title: Dog API - OpenAPI 3.0
+  description: |-
+    Collection of public APIs from Dog API
+    
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: rauber@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Dog API
+  url: https://dog.ceo/dog-api/
+servers:
+  - url: https://dog.ceo/api
+tags:
+  - name: all
+    description: General Dog API Endpoints
+    externalDocs:
+      description: Find out more
+      url: https://dog.ceo/dog-api/documentation
+  - name: by-breed
+    description: Dog API Endpoints by Breed
+    externalDocs:
+      description: Find out more
+      url: https://dog.ceo/dog-api/documentation/breed
+  - name: by-sub-breed
+    description: Dog API Endpoints by Breed and Sub-breed
+    externalDocs:
+      description: Find out more
+      url: https://dog.ceo/dog-api/documentation/sub-breed
+paths:
+  /breeds/list/all:
+    get:
+      tags:
+        - all
+      summary: List all breeds
+      description: Returns all breeds available.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: object
+                      description: Breed
+                      items:
+                        type: array
+                        description: Sub-breed
+                  status:
+                    type: string
+                    description: Status description
+  /breeds/image/random:
+    get:
+      tags:
+        - all
+      summary: Get a random image.
+      description: Display a single random image from all dogs collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Image URL
+                  status:
+                    type: string
+                    description: Status description
+  /breeds/image/random/{qty}:
+    get:
+      tags:
+        - all
+      summary: Get multiple random images.
+      description: Display multiple random images from all dogs collection.
+      parameters:
+        - name: qty 
+          in: path
+          required: true
+          schema: 
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Image URL
+                  status:
+                    type: string
+                    description: Status description
+  /breed/{breed}/list:
+    get:
+      tags:
+        - by-breed
+      summary: List sub-breeds from a breed 
+      description: Returns an array of all the sub-breeds from a breed.
+      parameters:
+        - name: breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: hound
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Sub-breed
+                  status:
+                    type: string
+                    description: Request status description
+  /breed/{breed}/images:
+    get:
+      tags:
+        - by-breed
+      summary: Image from a breed
+      description: Returns an array of all the images from a breed.
+      parameters:
+        - name: breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: hound
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Image URL
+                  status:
+                    type: string
+                    description: Status description
+  /breed/{breed}/{sub_breed}/images:
+    get:
+      tags:
+        - by-sub-breed
+      summary: Images from a sub-breed
+      description: Returns an array of all the images from the sub-breed.
+      parameters:
+        - name: breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: hound
+        - name: sub_breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: afghan
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /breed/{breed}/images/random:
+    get:
+      tags:
+        - by-breed
+      summary: Random image from a breed
+      description: Returns a random dog image from a breed.
+      parameters:
+        - name: breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: hound
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Image URL
+                  status:
+                    type: string
+                    description: Status description
+  /breed/{breed}/images/random/{qty}:
+    get:
+      tags:
+        - by-breed
+      summary: Multiple random images from a breed
+      description: Returns multiple random dog images from a breed.
+      parameters:
+        - name: breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: hound
+        - name: qty 
+          in: path
+          required: true
+          schema: 
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Image URL
+                  status:
+                    type: string
+                    description: Status description
+  /breed/{breed}/{sub_breed}/images/random:
+    get:
+      tags:
+        - by-sub-breed
+      summary: Random image from a sub-breed
+      description: Returns a single random image from the sub-breed.
+      parameters:
+        - name: breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: hound
+        - name: sub_breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: afghan
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Image URL
+                  status:
+                    type: string
+                    description: Status description
+  /breed/{breed}/{sub_breed}/images/random/{qty}:
+    get:
+      tags:
+        - by-sub-breed
+      summary: Multiple random images from a sub-breed
+      description: Return multiple random dog images from a sub-breed.
+      parameters:
+        - name: breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: hound
+        - name: sub_breed 
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: afghan
+        - name: qty 
+          in: path
+          required: true
+          schema: 
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Image URL
+                  status:
+                    type: string
+                    description: Status description
