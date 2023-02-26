@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: University Domains and Names API - OpenAPI 3.0
+  description: "An API which contains domains, names and countries of most of the universities of the world."
+  contact:
+    email: rauber@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: University Domains and Names API Docs
+  url: https://github.com/Hipo/university-domains-list-api
+servers:
+  - url: http://universities.hipolabs.com
+tags:
+  - name: search
+    description: University Search Endpoint
+paths:
+  /search:
+    get:
+      tags:
+        - search
+      summary: "University look-up."
+      description: "Provides a search endpoint you can search for an autocomplete for university name or/and filter by country."
+      operationId: search
+      parameters:
+        - name: name
+          in: query
+          description: "Filter by name."
+          required: false
+          schema:
+            type: string
+            example: "middle"
+        - name: country
+          in: query
+          description: "Filter by country."
+          required: false
+          schema:
+            type: string
+            example: "turkey"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/University'
+components:
+  schemas:
+    University:
+      type: object
+      properties:
+        web_pages:
+          type: array
+          items:
+            type: string
+        country:
+          type: string
+        state-province:
+          type: string
+        domains:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        alpha_two_code:
+          type: string
+      xml:
+        name: University
