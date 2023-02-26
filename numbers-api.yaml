@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Numbers API - OpenAPI 3.0
+  description: "Bring meaning to your metrics and stories to your dates with our API of interesting number facts."
+  contact:
+    email: rauber@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Numbers API Docs
+  url: http://numbersapi.com
+servers:
+  - url: http://numbersapi.com
+tags:
+  - name: numbers
+    description: Numbers Endpoints
+paths:
+  /{number}/{type}:
+    get:
+      tags:
+        - numbers
+      summary: "Get facts about a number or a date."
+      operationId: number
+      parameters:
+        - name: number
+          in: path
+          description: "number is an integer; or the keyword **random**, for which we will try to return a random available fact; or a day of year in the form month/day (eg. 2/29, 1/09, 04/1), if type is date; or ranges of numbers. To get facts about multiple numbers in one request, specify ranges. A number range (inclusive) is specified as **min..max**. Separate multiple ranges and individual numbers with , (a comma)."
+          required: true
+          schema:
+            type: string
+            example: "random"
+        - name: type
+          in: path
+          description: "Number Type"
+          required: true
+          schema:
+            type: string
+            default: "trivia"
+            enum:
+            - trivia
+            - math
+            - date
+            - year
+        - name: json
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "json"
+        - name: fragment
+          in: query
+          description: "Return the fact as a sentence fragment that can be easily included as part of a larger sentence. This means that the first word is lowercase and ending punctuation is omitted. For trivia and math, a noun phrase is returned that can be used in a sentence like 'We now have more users than [fact as fragment]!'."
+          required: false
+          schema:
+            type: string
+            default: "1"
+        - name: notfound
+          in: query
+          description: "The notfound field tells us what to do if the number is not found. You can give us: **default** to return one of our pre-written missing messages, or a message you supply with the default query field. This is the default behaviour. **floor** to round down to the largest number that does have an associated fact, and return that fact. **ceil**, which is like floor but rounds up to the smallest number that has an associated fact."
+          required: false
+          schema:
+            type: string
+            enum:
+            - default
+            - floor
+            - ceil 
+        - name: default
+          in: query
+          description: "The value of the `default` query field tells us what to return if we don't have a fact for the requested number."
+          required: false
+          schema:
+            type: string
+            example: "Boring+number+is+boring"
+        - name: min
+          in: query
+          description: "Restrict the range of values returned to the inclusive range [**min**, **max**] when random is given as the number."
+          required: false
+          schema:
+            type: integer
+            example: 10
+        - name: max
+          in: query
+          description: "Restrict the range of values returned to the inclusive range [**min**, **max**] when random is given as the number."
+          required: false
+          schema:
+            type: integer
+            example: 20
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Number'
+components:
+  schemas:
+    Number:
+      type: object
+      properties:
+        text:
+          type: string
+        year:
+          type: integer
+        number:
+          type: integer
+        found:
+          type: boolean
+        type:
+          type: string
+      xml:
+        name: number
