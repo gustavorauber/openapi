@@ -1,0 +1,275 @@
+openapi: 3.0.3
+info:
+  title: Open Brewery DB - OpenAPI 3.0
+  description: |-
+    Open Brewery DB is a free dataset and API with public information on breweries, cideries, brewpubs, and bottleshops.
+    
+    Some useful links:
+    - [Open Brewery DB](https://www.openbrewerydb.org)
+  contact:
+    email: rauber@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Open Brewery DB Docs
+  url: https://www.openbrewerydb.org/documentation
+servers:
+  - url: https://api.openbrewerydb.org/
+tags:
+  - name: breweries
+    description: Breweries Endpoints
+paths:
+  /breweries/{obdb-id}:
+    get:
+      tags:
+        - breweries
+      summary: "Get a single brewery."
+      description: "Get a single brewery by ID."
+      operationId: get-brewery
+      parameters:
+        - name: obdb-id
+          in: path
+          description: "Brewery ID"
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brewery'
+        '400':
+          description: "Invalid Brewery ID supplied"
+        '404':
+          description: "Brewery not found"
+        '405':
+          description: "Validation exception"
+  /breweries:
+    get:
+      tags:
+        - breweries
+      summary: "Returns a list of breweries."
+      operationId: list-breweries
+      parameters:
+        - name: by_city
+          in: query
+          description: "Filter breweries by city. For the parameters, you can use underscores or url encoding for spaces."
+          required: false
+          schema:
+            type: string
+            example: "seattle"
+        - name: by_dist
+          in: query
+          description: "Sort the results by distance from an origin point, denoted by latitude, longitude."
+          required: false
+          schema:
+            type: string
+            example: "38.8977,77.0365"
+        - name: by_name
+          in: query
+          description: "Filter breweries by name."
+          required: false
+          schema:
+            type: string
+            example: "brewdog"
+        - name: by_state
+          in: query
+          description: "Filter breweries by state. Full state name is required, no abbreviations. For the parameters, you can use underscores or url encoding for spaces."
+          required: false
+          schema:
+            type: string
+            example: "new_york"
+        - name: by_postal
+          in: query
+          description: "Filter breweries by postal code. May be filtered by basic (5 digit) postal code or more precisely filtered by postal+4 (9 digit) code. **Note**: If filtering by postal+4 the search must include either a hyphen or an underscore."
+          required: false
+          schema:
+            type: string
+            example: "44107"
+        - name: by_type
+          in: query
+          description: "Filter by type of brewery."
+          required: false
+          schema:
+            type: string
+            example: "brewpub"
+            enum:
+            - micro
+            - nano
+            - regional
+            - brewpub
+            - large
+            - planning
+            - bar
+            - contract
+            - proprietor
+            - closed
+        - name: page
+          in: query
+          description: "The offset or page of breweries to return."
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: per_page
+          in: query
+          description: "Number of breweries to return on each call. **Note**: Default per page is 20. Max per page is 50."
+          required: false
+          schema:
+            type: integer
+            example: 10
+            default: 20
+        - name: sort
+          in: query
+          description: "Sort the results by one or more fields. **asc** for ascending order, **desc** for descending order. **Note**: by_dist does not work with the sort filter since it is a filter of its own."
+          required: false
+          schema:
+            type: string
+            example: "type,name:asc"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Brewery'          
+        '400':
+          description: "Invalid status value"
+  /breweries/random:
+    get:
+      tags:
+        - breweries
+      summary: "Get a random brewery."
+      operationId: random-brewery
+      parameters:
+        - name: size
+          in: query
+          description: "Number of breweries to return on each call. **Note:** Default is 1. Max is 50."
+          required: false
+          schema:
+            type: integer
+            default: 1
+            example: 3
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Brewery'          
+        '400':
+          description: "Invalid status value"
+  /breweries/search:
+    get:
+      tags:
+        - breweries
+      summary: "Search for breweries based on a term."
+      description: "Search for breweries based on a search term. **Note:** For the query parameter, you can use underscores or url encoding for spaces."
+      operationId: search-brewery
+      parameters:
+        - name: query
+          in: query
+          description: "Search term."
+          required: false
+          schema:
+            type: string
+            example: "dog"
+        - name: per_page
+          in: query
+          description: "Number of breweries to return on each call. **Note**: Default per page is 20. Max per page is 50."
+          required: false
+          schema:
+            type: integer
+            example: 10
+            default: 20
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Brewery'          
+        '400':
+          description: "Invalid status value"
+  /breweries/autocomplete:
+    get:
+      tags:
+        - breweries
+      summary: "Typically used for a drop-down selection."
+      description: "Return a list of names and ids of breweries based on a search term. This endpoint is typically used for a drop-down selection. **Notes:** For the query parameter, you can use underscores or url encoding for spaces. The maximum number of breweries returned is 15."
+      operationId: autocomplete
+      parameters:
+        - name: query
+          in: query
+          description: "Search term"
+          required: false
+          schema:
+            type: string
+            example: "dog"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: 
+                      type: string
+                    name:
+                      type: string
+        '400':
+          description: "Invalid status value"
+components:
+  schemas:
+    Brewery:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        brewery_type:
+          type: string
+        street:
+          type: string
+        address_2:
+          type: string
+        address_3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        county_province:
+          type: string
+        postal_code:
+          type: string
+        country:
+          type: string
+        longitude:
+          type: string
+        latitude:
+          type: string
+        phone:
+          type: string
+        website_url:
+          type: string
+        updated_at:
+          type: string
+        created_at:
+          type: string
+      xml:
+        name: brewery
