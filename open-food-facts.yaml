@@ -46,7 +46,7 @@ paths:
       description: |
         A product can be fetched via its unique barcode.
         It returns all the details of that product response.
-      operationId: get-product-by-barcode
+      operationId: getProductByBarcode
   /api/v2/search:
     get:
       summary: Search for Products
@@ -59,7 +59,7 @@ paths:
             application/json:
               schema:
                 type: object
-      operationId: get-search
+      operationId: search
       description: |
         Search request allows you to get the nutritional data of products that match your search criteria.
         It allows you create many custom APIs for your use case.
@@ -212,8 +212,7 @@ components:
         example: '90'
       in: query
       name: angle
-      required: true
-      
+      required: true      
     sort_by:
       schema:
         type: string
