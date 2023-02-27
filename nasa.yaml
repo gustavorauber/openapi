@@ -13,7 +13,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.1
+  version: 1.0.2
 externalDocs:
   description: NASA APIs
   url: https://api.nasa.gov
@@ -32,6 +32,7 @@ paths:
         - planetary
       summary: Astronomy Picture of the Day
       description: Returns the picture of the day
+      operationId: getPictureOfTheDay
       parameters:
         - name: date
           in: query
@@ -112,6 +113,7 @@ paths:
         - planetary
       summary: Retrieves the closest Landsat 8 image. 
       description: This endpoint retrieves the Landsat 8 image for the supplied location and date. The response will include the date and URL to the image that is closest to the supplied date. The requested resource may not be available for the exact date in the request. You can retrieve a JSON that contains the inputs you provided and a URL to the resulting image through the assets endpoint.
+      operationId: getEarthImagery
       parameters:
         - name: lat
           in: query
@@ -170,6 +172,7 @@ paths:
         - planetary
       summary: Retrieves the date-times and asset names for closest available Landsat 8 imagery.
       description: This endpoint retrieves the date-times and asset names for closest available imagery for a supplied location and date. The satellite passes over each point on earth roughly once every sixteen days. This is an amazing visualization of the acquisition pattern for Landsat 8 imagery. The objective of this endpoint is primarily to support the use of the imagery endpoint.
+      operationId: getEarthImageryAssets
       parameters:
         - name: lat
           in: query
