@@ -39,6 +39,7 @@ paths:
         - all
       summary: List all breeds
       description: Returns all breeds available.
+      operationId: getAllBreeds
       responses:
         '200':
           description: OK
@@ -64,6 +65,7 @@ paths:
         - all
       summary: Get a random image.
       description: Display a single random image from all dogs collection.
+      operationId: getRandomImage
       responses:
         '200':
           description: OK
@@ -86,6 +88,7 @@ paths:
         - all
       summary: Get multiple random images.
       description: Display multiple random images from all dogs collection.
+      operationId: getManyRandomImages
       parameters:
         - name: qty 
           in: path
@@ -115,6 +118,7 @@ paths:
         - by-breed
       summary: List sub-breeds from a breed 
       description: Returns an array of all the sub-breeds from a breed.
+      operationId: getSubBreeds
       parameters:
         - name: breed 
           in: path
@@ -142,8 +146,9 @@ paths:
     get:
       tags:
         - by-breed
-      summary: Image from a breed
+      summary: Images from a breed
       description: Returns an array of all the images from a breed.
+      operationId: getBreedImages
       parameters:
         - name: breed 
           in: path
@@ -173,6 +178,7 @@ paths:
         - by-sub-breed
       summary: Images from a sub-breed
       description: Returns an array of all the images from the sub-breed.
+      operationId: getSubBreedImages
       parameters:
         - name: breed 
           in: path
@@ -199,6 +205,7 @@ paths:
         - by-breed
       summary: Random image from a breed
       description: Returns a random dog image from a breed.
+      operationId: getBreedRandomImage
       parameters:
         - name: breed 
           in: path
@@ -228,6 +235,7 @@ paths:
         - by-breed
       summary: Multiple random images from a breed
       description: Returns multiple random dog images from a breed.
+      operationId: getManyBreedRandomImages
       parameters:
         - name: breed 
           in: path
@@ -263,6 +271,7 @@ paths:
         - by-sub-breed
       summary: Random image from a sub-breed
       description: Returns a single random image from the sub-breed.
+      operationId: getSubBreedRandomImage
       parameters:
         - name: breed 
           in: path
@@ -298,6 +307,7 @@ paths:
         - by-sub-breed
       summary: Multiple random images from a sub-breed
       description: Return multiple random dog images from a sub-breed.
+      operationId: getManySubBreedRandomImages
       parameters:
         - name: breed 
           in: path
