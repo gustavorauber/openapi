@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: France Adresse - OpenAPI 3.0
+  description: |-
+    France Adresse - OpenAPI specification
+    
+    Some useful links:
+    - [French National Addresses Site](https://adresse.data.gouv.fr)
+
+  contact:
+    email: rauber@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: API Docs
+  url: https://adresse.data.gouv.fr/api-doc/adresse
+servers:
+  - url: https://api-adresse.data.gouv.fr
+tags:
+  - name: geocoding
+    description: Geocoding
+paths:
+  /search/:
+    get:
+      tags:
+        - geocoding
+      summary: Forward Geocoding
+      description: Get Latitude and Longitude of a given address, forward geocoding.
+      operationId: search
+      parameters:
+        - name: q
+          in: query
+          description: Search terms
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Limit the number of results
+          required: false
+          schema:
+            type: integer
+            example: 5
+        - name: autocomplete
+          in: query
+          description: Activates or deactivates address auto completion
+          required: false
+          schema:
+            type: integer
+            enum:
+            - 0
+            - 1
+        - name: lat
+          in: query
+          description: Nearby Latitude
+          required: false
+          schema:
+            type: string
+            example: "48.789"
+        - name: lon
+          in: query
+          description: Nearby Longitude
+          required: false
+          schema:
+            type: string
+            example: "2.789"
+        - name: postcode
+          in: query
+          description: Restricts search by postal code
+          schema:
+            type: integer
+            example: 75000
+        - name: citycode
+          in: query
+          description: Restricts search by city code
+          schema:
+            type: integer
+            example: 75101
+        - name: type
+          in: query
+          description: Type of Address
+          required: false
+          schema:
+            type: string
+            enum:
+            - housenumber
+            - street
+            - locality
+            - municipality
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid status value
+  /reverse/:
+    get:
+      tags:
+        - geocoding
+      summary: Reverse geocoding
+      description: Get address based on given latitude and longitude, reverse geocoding.
+      operationId: reverse
+      parameters:
+        - name: lat
+          in: query
+          description: Latitude
+          required: true
+          schema:
+            type: string
+            example: "48.857739"
+        - name: lon
+          in: query
+          description: Longitude
+          required: true
+          schema:
+            type: string
+            example: "2.294844"
+        - name: type
+          in: query
+          description: Type of Address
+          required: false
+          schema:
+            type: string
+            enum:
+            - housenumber
+            - street
+            - locality
+            - municipality
+        - name: limit
+          in: query
+          description: Limit the number of results
+          required: false
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid status value
+      
