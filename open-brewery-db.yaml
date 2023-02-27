@@ -27,7 +27,7 @@ paths:
         - breweries
       summary: "Get a single brewery."
       description: "Get a single brewery by ID."
-      operationId: get-brewery
+      operationId: getBrewery
       parameters:
         - name: obdb-id
           in: path
@@ -53,7 +53,7 @@ paths:
       tags:
         - breweries
       summary: "Returns a list of breweries."
-      operationId: list-breweries
+      operationId: getListOfBreweries
       parameters:
         - name: by_city
           in: query
@@ -146,7 +146,7 @@ paths:
       tags:
         - breweries
       summary: "Get a random brewery."
-      operationId: random-brewery
+      operationId: getRandomBrewery
       parameters:
         - name: size
           in: query
@@ -173,7 +173,7 @@ paths:
         - breweries
       summary: "Search for breweries based on a term."
       description: "Search for breweries based on a search term. **Note:** For the query parameter, you can use underscores or url encoding for spaces."
-      operationId: search-brewery
+      operationId: searchBrewery
       parameters:
         - name: query
           in: query
