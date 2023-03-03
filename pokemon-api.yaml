@@ -13,7 +13,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.0.0
+  version: 2.0.1
 externalDocs:
   description: API Docs
   url: https://pokeapi.co/docs/v2
@@ -2311,7 +2311,7 @@ components:
           type: boolean
         growth_rate:
           $ref: '#/components/schemas/NamedAPIResource'
-        pokedes_numbers:
+        pokedex_numbers:
           type: array
           items:
             $ref: '#/components/schemas/PokemonSpeciesDexEntry'
