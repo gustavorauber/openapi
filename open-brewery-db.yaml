@@ -11,7 +11,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: Open Brewery DB Docs
   url: https://www.openbrewerydb.org/documentation
@@ -106,7 +106,7 @@ paths:
             - planning
             - bar
             - contract
-            - proprietor
+            - proprieter
             - closed
         - name: page
           in: query
