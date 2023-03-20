@@ -1,4 +1,3 @@
----
 openapi: 3.0.3
 info:
   title: Pokemon API v2 - OpenAPI 3.0
@@ -7,28 +6,29 @@ info:
      
      Some useful links:
      - [Pokemon API Site](https://pokeapi.co)
-     - [Bulbapedia](http://bulbapedia.bulbagarden.net) 
+     - [Bulbapedia](http://bulbapedia.bulbagarden.net)
   contact:
     email: rauber@gmail.com
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   version: 2.0.2
 externalDocs:
   description: API Docs
-  url: https://pokeapi.co/docs/v2
+  url: 'https://pokeapi.co/docs/v2'
 servers:
-  - url: https://pokeapi.co/api/v2
+  - url: 'https://pokeapi.co/api/v2'
 tags:
   - name: pokemon
   - name: utility
 paths:
-  "/ability/{id_or_name}/":
+  '/ability/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Ability Information
-      description: Abilities provide passive effects for Pokémon in battle or in the
+      description: >-
+        Abilities provide passive effects for Pokémon in battle or in the
         overworld. Pokémon have multiple possible abilities but can have only
         one ability at a time.
       operationId: getAbility
@@ -41,7 +41,7 @@ paths:
             type: string
             example: stench
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -55,33 +55,34 @@ paths:
                   is_main_series:
                     type: boolean
                   generation:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   names:
-                    $ref: "#/components/schemas/ArrayOfNames"
+                    $ref: '#/components/schemas/ArrayOfNames'
                   effect_entries:
                     type: array
                     items:
-                      $ref: "#/components/schemas/VerboseEffect"
+                      $ref: '#/components/schemas/VerboseEffect'
                   effect_changes:
                     type: array
                     items:
-                      $ref: "#/components/schemas/AbilityEffectChange"
+                      $ref: '#/components/schemas/AbilityEffectChange'
                   flavor_text_entries:
                     type: array
                     items:
-                      $ref: "#/components/schemas/AbilityFlavorText"
+                      $ref: '#/components/schemas/AbilityFlavorText'
                   pokemon:
                     type: array
                     items:
-                      $ref: "#/components/schemas/AbilityPokemon"
-  "/characteristic/{id}/":
+                      $ref: '#/components/schemas/AbilityPokemon'
+  '/characteristic/{id}/':
     get:
       tags:
         - pokemon
       summary: Characteristic Information
-      description: Characteristics indicate which stat contains a Pokémon's highest
-        IV. A Pokémon's Characteristic is determined by the remainder of its
-        highest IV divided by 5 (gene_modulo).
+      description: >-
+        Characteristics indicate which stat contains a Pokémon's highest IV. A
+        Pokémon's Characteristic is determined by the remainder of its highest
+        IV divided by 5 (gene_modulo).
       operationId: getCharacteristic
       parameters:
         - name: id
@@ -92,7 +93,7 @@ paths:
             type: integer
             example: 1
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -108,49 +109,18 @@ paths:
                     items:
                       type: integer
                   descriptions:
-                    $ref: "#/components/schemas/ArrayOfDescriptions"
+                    $ref: '#/components/schemas/ArrayOfDescriptions'
                   highest_stat:
-                    $ref: "#/components/schemas/NamedAPIResource"
-  "/egg-group/{id_or_name}/":
-    get:
-      tags:
-        - pokemon
-      summary: Egg Group Information
-      description: Egg Groups are categories which determine which Pokémon are able to
-        interbreed. Pokémon may belong to either one or two Egg Groups.
-      operationId: getEggGroup
-      parameters:
-        - name: id_or_name
-          in: path
-          description: ID or name of an egg group
-          required: true
-          schema:
-            type: string
-            example: monster
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  names:
-                    $ref: "#/components/schemas/ArrayOfNames"
-                  pokemon_species:
-                    $ref: "#/components/schemas/ArrayOfNamedAPIResources"
-  "/gender/{id_or_name}/":
+                    $ref: '#/components/schemas/NamedAPIResource'
+  '/gender/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Gender Information
-      description: Genders were introduced in Generation II for the purposes of
-        breeding Pokémon but can also result in visual differences or even
-        different evolutionary lines.
+      description: >-
+        Genders were introduced in Generation II for the purposes of breeding
+        Pokémon but can also result in visual differences or even different
+        evolutionary lines.
       operationId: getGender
       parameters:
         - name: id_or_name
@@ -161,7 +131,7 @@ paths:
             type: string
             example: female
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -175,53 +145,10 @@ paths:
                   pokemon_species_details:
                     type: array
                     items:
-                      $ref: "#/components/schemas/PokemonSpeciesGender"
+                      $ref: '#/components/schemas/PokemonSpeciesGender'
                   required_for_evolution:
-                    $ref: "#/components/schemas/ArrayOfNamedAPIResources"
-  "/growth-rate/{id_or_name}/":
-    get:
-      tags:
-        - pokemon
-      summary: Growth Rate Information
-      description: Growth rates are the speed with which Pokémon gain levels through
-        experience.
-      operationId: getGrowthRate
-      parameters:
-        - name: id_or_name
-          in: path
-          description: ID or name of a growth rate
-          required: true
-          schema:
-            type: string
-            example: slow
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  formula:
-                    type: string
-                  descriptions:
-                    $ref: "#/components/schemas/ArrayOfDescriptions"
-                  levels:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        level:
-                          type: integer
-                        experience:
-                          type: integer
-                  pokemon_species:
-                    $ref: "#/components/schemas/ArrayOfNamedAPIResources"
-  "/nature/{id_or_name}/":
+                    $ref: '#/components/schemas/ArrayOfNamedAPIResources'
+  '/nature/{id_or_name}/':
     get:
       tags:
         - pokemon
@@ -237,7 +164,7 @@ paths:
             type: string
             example: bold
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -249,13 +176,13 @@ paths:
                   name:
                     type: string
                   decreased_stat:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   increased_stat:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   hates_flavor:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   likes_flavor:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   pokeathlon_stat_changes:
                     type: array
                     items:
@@ -264,7 +191,7 @@ paths:
                         max_change:
                           type: integer
                         pokeathlon_stat:
-                          $ref: "#/components/schemas/NamedAPIResource"
+                          $ref: '#/components/schemas/NamedAPIResource'
                   move_battle_style_preferences:
                     type: array
                     items:
@@ -275,57 +202,20 @@ paths:
                         high_hp_preference:
                           type: integer
                         move_battle_style:
-                          $ref: "#/components/schemas/NamedAPIResource"
+                          $ref: '#/components/schemas/NamedAPIResource'
                   names:
-                    $ref: "#/components/schemas/ArrayOfNames"
-  "/pokeathlon-stat/{id_or_name}/":
-    get:
-      tags:
-        - pokemon
-      summary: Pokeathlon Stats Information
-      description: Pokeathlon Stats are different attributes of a Pokémon's
-        performance in Pokéathlons. In Pokéathlons, competitions happen on
-        different courses; one for each of the different Pokéathlon stats.
-      operationId: getPokeathlonStat
-      parameters:
-        - name: id_or_name
-          in: path
-          description: ID or name of a pokeathlon stat
-          required: true
-          schema:
-            type: string
-            example: speed
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  names:
-                    $ref: "#/components/schemas/ArrayOfNames"
-                  affecting_natures:
-                    type: object
-                    properties:
-                      increase:
-                        $ref: "#/components/schemas/ArrayOfNaturePokeathlonStatAffect"
-                      decrease:
-                        $ref: "#/components/schemas/ArrayOfNaturePokeathlonStatAffect"
-  "/pokemon/{id_or_name}/":
+                    $ref: '#/components/schemas/ArrayOfNames'
+  '/pokemon/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Pokemon Information
-      description: Pokémon are the creatures that inhabit the world of the Pokémon
-        games. They can be caught using Pokéballs and trained by battling with
-        other Pokémon. Each Pokémon belongs to a specific species but may take
-        on a variant which makes it differ from other Pokémon of the same
-        species, such as base stats, available abilities and typings.
+      description: >-
+        Pokémon are the creatures that inhabit the world of the Pokémon games.
+        They can be caught using Pokéballs and trained by battling with other
+        Pokémon. Each Pokémon belongs to a specific species but may take on a
+        variant which makes it differ from other Pokémon of the same species,
+        such as base stats, available abilities and typings.
       operationId: getPokemon
       parameters:
         - name: id_or_name
@@ -336,7 +226,7 @@ paths:
             type: string
             example: clefairy
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -360,38 +250,38 @@ paths:
                   abilities:
                     type: array
                     items:
-                      $ref: "#/components/schemas/PokemonAbility"
+                      $ref: '#/components/schemas/PokemonAbility'
                   forms:
-                    $ref: "#/components/schemas/ArrayOfNamedAPIResources"
+                    $ref: '#/components/schemas/ArrayOfNamedAPIResources'
                   game_indices:
-                    $ref: "#/components/schemas/ArrayOfGenerationGameIndex"
+                    $ref: '#/components/schemas/ArrayOfGenerationGameIndex'
                   held_items:
                     type: array
                     items:
-                      $ref: "#/components/schemas/PokemonHeldItem"
+                      $ref: '#/components/schemas/PokemonHeldItem'
                   location_area_encounters:
                     type: string
                   moves:
                     type: array
                     items:
-                      $ref: "#/components/schemas/PokemonMove"
+                      $ref: '#/components/schemas/PokemonMove'
                   past_types:
                     type: array
                     items:
-                      $ref: "#/components/schemas/PokemonTypePast"
+                      $ref: '#/components/schemas/PokemonTypePast'
                   sprites:
-                    $ref: "#/components/schemas/PokemonSprites"
+                    $ref: '#/components/schemas/PokemonSprites'
                   species:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   stats:
                     type: array
                     items:
-                      $ref: "#/components/schemas/PokemonStat"
+                      $ref: '#/components/schemas/PokemonStat'
                   types:
                     type: array
                     items:
-                      $ref: "#/components/schemas/PokemonType"
-  "/pokemon/{id_or_name}/encounters":
+                      $ref: '#/components/schemas/PokemonType'
+  '/pokemon/{id_or_name}/encounters':
     get:
       tags:
         - pokemon
@@ -407,7 +297,7 @@ paths:
             type: string
             example: clefairy
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -415,20 +305,21 @@ paths:
                 type: object
                 properties:
                   location_area:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   version_details:
                     type: array
                     items:
-                      $ref: "#/components/schemas/VersionEncounterDetail"
-  "/pokemon-color/{id_or_name}/":
+                      $ref: '#/components/schemas/VersionEncounterDetail'
+  '/pokemon-color/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Pokemon Color Information
-      description: Colors used for sorting Pokémon in a Pokédex. The color listed in
-        the Pokédex is usually the color most apparent or covering each
-        Pokémon's body. No orange category exists; Pokémon that are primarily
-        orange are listed as red or brown.
+      description: >-
+        Colors used for sorting Pokémon in a Pokédex. The color listed in the
+        Pokédex is usually the color most apparent or covering each Pokémon's
+        body. No orange category exists; Pokémon that are primarily orange are
+        listed as red or brown.
       operationId: getPokemonColor
       parameters:
         - name: id_or_name
@@ -439,7 +330,7 @@ paths:
             type: string
             example: black
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -451,18 +342,19 @@ paths:
                   name:
                     type: string
                   names:
-                    $ref: "#/components/schemas/ArrayOfNames"
+                    $ref: '#/components/schemas/ArrayOfNames'
                   pokemon_species:
-                    $ref: "#/components/schemas/ArrayOfNamedAPIResources"
-  "/pokemon-form/{id_or_name}/":
+                    $ref: '#/components/schemas/ArrayOfNamedAPIResources'
+  '/pokemon-form/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Pokemon Form Information
-      description: Some Pokémon may appear in one of multiple, visually different
-        forms. These differences are purely cosmetic. For variations within a
-        Pokémon species, which do differ in more than just visuals, the
-        'Pokémon' entity is used to represent such a variety.
+      description: >-
+        Some Pokémon may appear in one of multiple, visually different forms.
+        These differences are purely cosmetic. For variations within a Pokémon
+        species, which do differ in more than just visuals, the 'Pokémon' entity
+        is used to represent such a variety.
       operationId: getPokemonForm
       parameters:
         - name: id_or_name
@@ -473,7 +365,7 @@ paths:
             type: string
             example: arceus-bug
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -497,26 +389,27 @@ paths:
                   form_name:
                     type: string
                   pokemon:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   types:
                     type: array
                     items:
-                      $ref: "#/components/schemas/PokemonFormType"
+                      $ref: '#/components/schemas/PokemonFormType'
                   sprites:
-                    $ref: "#/components/schemas/PokemonFormSprites"
+                    $ref: '#/components/schemas/PokemonFormSprites'
                   version_group:
-                    $ref: "#/components/schemas/NamedAPIResource"
+                    $ref: '#/components/schemas/NamedAPIResource'
                   names:
-                    $ref: "#/components/schemas/ArrayOfNames"
+                    $ref: '#/components/schemas/ArrayOfNames'
                   form_names:
-                    $ref: "#/components/schemas/ArrayOfNames"
-  "/pokemon-habitat/{id_or_name}/":
+                    $ref: '#/components/schemas/ArrayOfNames'
+  '/pokemon-habitat/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Pokemon Habitat Information
-      description: Habitats are generally different terrain Pokémon can be found in
-        but can also be areas designated for rare or legendary Pokémon.
+      description: >-
+        Habitats are generally different terrain Pokémon can be found in but can
+        also be areas designated for rare or legendary Pokémon.
       operationId: getPokemonHabitat
       parameters:
         - name: id_or_name
@@ -527,7 +420,7 @@ paths:
             type: string
             example: cave
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -539,10 +432,10 @@ paths:
                   name:
                     type: string
                   names:
-                    $ref: "#/components/schemas/ArrayOfNames"
+                    $ref: '#/components/schemas/ArrayOfNames'
                   pokemon_species:
-                    $ref: "#/components/schemas/ArrayOfNamedAPIResources"
-  "/pokemon-shape/{id_or_name}/":
+                    $ref: '#/components/schemas/ArrayOfNamedAPIResources'
+  '/pokemon-shape/{id_or_name}/':
     get:
       tags:
         - pokemon
@@ -558,7 +451,7 @@ paths:
             type: string
             example: ball
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
@@ -572,20 +465,21 @@ paths:
                   awesome_names:
                     type: array
                     items:
-                      $ref: "#/components/schemas/AwesomeName"
+                      $ref: '#/components/schemas/AwesomeName'
                   names:
-                    $ref: "#/components/schemas/ArrayOfNames"
+                    $ref: '#/components/schemas/ArrayOfNames'
                   pokemon_species:
-                    $ref: "#/components/schemas/ArrayOfNamedAPIResources"
-  "/pokemon-species/{id_or_name}/":
+                    $ref: '#/components/schemas/ArrayOfNamedAPIResources'
+  '/pokemon-species/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Pokemon Species Information
-      description: A Pokémon Species forms the basis for at least one Pokémon.
-        Attributes of a Pokémon species are shared across all varieties of
-        Pokémon within the species. A good example is Wormadam; Wormadam is the
-        species which can be found in three different varieties, Wormadam-Trash,
+      description: >-
+        A Pokémon Species forms the basis for at least one Pokémon. Attributes
+        of a Pokémon species are shared across all varieties of Pokémon within
+        the species. A good example is Wormadam; Wormadam is the species which
+        can be found in three different varieties, Wormadam-Trash,
         Wormadam-Sandy and Wormadam-Plant.
       operationId: getPokemonSpecies
       parameters:
@@ -597,20 +491,21 @@ paths:
             type: string
             example: wormadam
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PokemonSpecies"
-  "/stat/{id_or_name}/":
+                $ref: '#/components/schemas/PokemonSpecies'
+  '/stat/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Stats Information
-      description: Stats determine certain aspects of battles. Each Pokémon has a
-        value for each stat which grows as they gain levels and can be altered
-        momentarily by effects in battles.
+      description: >-
+        Stats determine certain aspects of battles. Each Pokémon has a value for
+        each stat which grows as they gain levels and can be altered momentarily
+        by effects in battles.
       operationId: getStats
       parameters:
         - name: id_or_name
@@ -621,21 +516,22 @@ paths:
             type: string
             example: attack
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Stat"
-  "/type/{id_or_name}/":
+                $ref: '#/components/schemas/Stat'
+  '/type/{id_or_name}/':
     get:
       tags:
         - pokemon
       summary: Type Information
-      description: "Types are properties for Pokémon and their moves. Each type has
-        three properties: which types of Pokémon it is super effective against,
-        which types of Pokémon it is not very effective against, and which types
-        of Pokémon it is completely ineffective against."
+      description: >-
+        Types are properties for Pokémon and their moves. Each type has three
+        properties: which types of Pokémon it is super effective against, which
+        types of Pokémon it is not very effective against, and which types of
+        Pokémon it is completely ineffective against.
       operationId: getType
       parameters:
         - name: id_or_name
@@ -646,13 +542,13 @@ paths:
             type: string
             example: ground
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Type"
-  "/language/{id_or_name}/":
+                $ref: '#/components/schemas/Type'
+  '/language/{id_or_name}/':
     get:
       tags:
         - utility
@@ -666,22 +562,20 @@ paths:
           required: true
           schema:
             type: string
-            example: "1"
+            example: '1'
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Language"
+                $ref: '#/components/schemas/Language'
   /ability/:
     get:
       tags:
         - pokemon
       summary: Ability Information List
-      description: List for all Abilities provide passive effects for Pokémon in
-        battle or in the overworld. Pokémon have multiple possible abilities but
-        can have only one ability at a time.
+      description: List for all Abilities.
       operationId: getAbilityList
       parameters:
         - name: limit
@@ -697,20 +591,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /characteristic/:
     get:
       tags:
         - pokemon
       summary: Characteristic Information List
-      description: List for all Characteristics indicate which stat contains a
-        Pokémon's highest IV. A Pokémon's Characteristic is determined by the
-        remainder of its highest IV divided by 5 (gene_modulo).
+      description: List for all Characteristics.
       operationId: getCharacteristicList
       parameters:
         - name: limit
@@ -726,49 +618,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithURL"
-  /egg-group/:
-    get:
-      tags:
-        - pokemon
-      summary: Egg Group Information List
-      description: List for all Egg Groups are categories which determine which
-        Pokémon are able to interbreed. Pokémon may belong to either one or two
-        Egg Groups.
-      operationId: getEggGroupList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithURL'
   /gender/:
     get:
       tags:
         - pokemon
       summary: Gender Information List
-      description: List for all Genders were introduced in Generation II for the
-        purposes of breeding Pokémon but can also result in visual differences
-        or even different evolutionary lines.
+      description: List for all Genders.
       operationId: getGenderList
       parameters:
         - name: limit
@@ -784,46 +645,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
-  /growth-rate/:
-    get:
-      tags:
-        - pokemon
-      summary: Growth Rate Information List
-      description: List for all Growth rates are the speed with which Pokémon gain
-        levels through experience.
-      operationId: getGrowthRateList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /nature/:
     get:
       tags:
         - pokemon
       summary: Nature Information List
-      description: List for all Nature influence how a Pokémon's stats grow.
+      description: List for all Nature.
       operationId: getNatureList
       parameters:
         - name: limit
@@ -839,48 +672,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
-  /pokeathlon-stat/:
-    get:
-      tags:
-        - pokemon
-      summary: Pokeathlon Stats Information List
-      description: List for all Pokeathlon Stats are different attributes of a
-        Pokémon's performance in Pokéathlons. In Pokéathlons, competitions
-        happen on different courses; one for each of the different Pokéathlon
-        stats.
-      operationId: getPokeathlonStatList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /pokemon/:
     get:
       tags:
         - pokemon
       summary: Pokemon Location Area Information List
-      description: List for all Pokémon Location Areas are ares where Pokémon can be found.
+      description: List for all Pokémon Location Areas.
       operationId: getPokemonList
       parameters:
         - name: limit
@@ -896,21 +699,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /pokemon-color/:
     get:
       tags:
         - pokemon
       summary: Pokemon Color Information List
-      description: List for all Colors used for sorting Pokémon in a Pokédex. The
-        color listed in the Pokédex is usually the color most apparent or
-        covering each Pokémon's body. No orange category exists; Pokémon that
-        are primarily orange are listed as red or brown.
+      description: List for all Colors used for sorting Pokémon in a Pokédex.
       operationId: getPokemonColorList
       parameters:
         - name: limit
@@ -926,21 +726,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /pokemon-form/:
     get:
       tags:
         - pokemon
       summary: Pokemon Form Information List
-      description: List for all Some Pokémon may appear in one of multiple, visually
-        different forms. These differences are purely cosmetic. For variations
-        within a Pokémon species, which do differ in more than just visuals, the
-        'Pokémon' entity is used to represent such a variety.
+      description: List for all pokemon forms.
       operationId: getPokemonFormList
       parameters:
         - name: limit
@@ -956,20 +753,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /pokemon-habitat/:
     get:
       tags:
         - pokemon
       summary: Pokemon Habitat Information List
-      description: List for all Habitats are generally different terrain Pokémon can
-        be found in but can also be areas designated for rare or legendary
-        Pokémon.
+      description: List for all Habitats.
       operationId: getPokemonHabitatList
       parameters:
         - name: limit
@@ -985,12 +780,12 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /pokemon-shape/:
     get:
       tags:
@@ -1012,22 +807,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /pokemon-species/:
     get:
       tags:
         - pokemon
       summary: Pokemon Species Information List
-      description: List for all A Pokémon Species forms the basis for at least one
-        Pokémon. Attributes of a Pokémon species are shared across all varieties
-        of Pokémon within the species. A good example is Wormadam; Wormadam is
-        the species which can be found in three different varieties,
-        Wormadam-Trash, Wormadam-Sandy and Wormadam-Plant.
+      description: List for all A Pokémon Species.
       operationId: getPokemonSpeciesList
       parameters:
         - name: limit
@@ -1043,20 +834,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /stat/:
     get:
       tags:
         - pokemon
       summary: Stats Information List
-      description: List for all Stats determine certain aspects of battles. Each
-        Pokémon has a value for each stat which grows as they gain levels and
-        can be altered momentarily by effects in battles.
+      description: List for all Stats.
       operationId: getStatList
       parameters:
         - name: limit
@@ -1072,22 +861,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /type/:
     get:
       tags:
         - pokemon
       summary: Type Information List
-      description: "List for all Types are properties for Pokémon and their moves.
-        Each type has three properties: which types of Pokémon it is super
-        effective against, which types of Pokémon it is not very effective
-        against, and which types of Pokémon it is completely ineffective
-        against."
+      description: List for all Types.
       operationId: getTypeList
       parameters:
         - name: limit
@@ -1103,18 +888,18 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
   /language/:
     get:
       tags:
         - utility
       summary: Language Information List
-      description: List for all Languages for translations of API resource information.
+      description: List for all Languages.
       operationId: getLanguageList
       parameters:
         - name: limit
@@ -1130,12 +915,12 @@ paths:
             type: integer
             default: 0
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginatedResourceWithNameURL"
+                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
 components:
   schemas:
     AbilityEffectChange:
@@ -1149,16 +934,16 @@ components:
               effect:
                 type: string
               language:
-                $ref: "#/components/schemas/NamedAPIResource"
+                $ref: '#/components/schemas/NamedAPIResource'
     AbilityFlavorText:
       type: object
       properties:
         flavor_text:
           type: string
         language:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         version_group:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     AbilityPokemon:
       type: object
       properties:
@@ -1167,7 +952,7 @@ components:
         slot:
           type: integer
         pokemon:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     APIResource:
       type: object
       properties:
@@ -1176,62 +961,62 @@ components:
     ArrayOfAPIResources:
       type: array
       items:
-        $ref: "#/components/schemas/APIResource"
+        $ref: '#/components/schemas/APIResource'
     ArrayOfChainLinks:
       type: array
       items:
-        $ref: "#/components/schemas/ChainLink"
+        $ref: '#/components/schemas/ChainLink'
     ArrayOfDescriptions:
       type: array
       items:
-        $ref: "#/components/schemas/Description"
+        $ref: '#/components/schemas/Description'
     ArrayOfGenerationGameIndex:
       type: array
       items:
-        $ref: "#/components/schemas/GenerationGameIndex"
+        $ref: '#/components/schemas/GenerationGameIndex'
     ArrayOfMoveStatAffect:
       type: array
       items:
-        $ref: "#/components/schemas/MoveStatAffect"
+        $ref: '#/components/schemas/MoveStatAffect'
     ArrayOfNames:
       type: array
       items:
-        $ref: "#/components/schemas/Name"
+        $ref: '#/components/schemas/Name'
     ArrayOfNamedAPIResources:
       type: array
       items:
-        $ref: "#/components/schemas/NamedAPIResource"
+        $ref: '#/components/schemas/NamedAPIResource'
     ArrayOfNaturePokeathlonStatAffect:
       type: array
       items:
-        $ref: "#/components/schemas/NaturePokeathlonStatAffect"
+        $ref: '#/components/schemas/NaturePokeathlonStatAffect'
     AwesomeName:
       type: object
       properties:
         awesome_name:
           type: string
         language:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     ChainLink:
       type: object
       properties:
         is_baby:
           type: boolean
         species:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         evolution_details:
           type: array
           items:
-            $ref: "#/components/schemas/EvolutionDetail"
+            $ref: '#/components/schemas/EvolutionDetail'
         evolves_to:
-          $ref: "#/components/schemas/ArrayOfChainLinks"
+          $ref: '#/components/schemas/ArrayOfChainLinks'
     Description:
       type: object
       properties:
         description:
           type: string
         language:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     Encounter:
       type: object
       properties:
@@ -1240,28 +1025,28 @@ components:
         max_level:
           type: integer
         condition_values:
-          $ref: "#/components/schemas/ArrayOfNamedAPIResources"
+          $ref: '#/components/schemas/ArrayOfNamedAPIResources'
         chance:
           type: integer
         method:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     EvolutionDetail:
       type: object
       properties:
         item:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         trigger:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         gender:
           type: integer
         held_item:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         known_move:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         known_move_type:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         location:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         min_level:
           type: integer
         min_happiness:
@@ -1273,15 +1058,15 @@ components:
         needs_overworld_rain:
           type: boolean
         party_species:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         party_type:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         relative_physical_stats:
           type: integer
         time_of_day:
           type: string
         trade_species:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         turn_upside_down:
           type: boolean
     FlavorText:
@@ -1290,23 +1075,23 @@ components:
         flavor_text:
           type: string
         language:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         version:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     GenerationGameIndex:
       type: object
       properties:
         game_index:
           type: integer
         generation:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     Genus:
       type: object
       properties:
         genus:
           type: string
         language:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     Language:
       type: object
       properties:
@@ -1321,28 +1106,28 @@ components:
         iso3166:
           type: string
         names:
-          $ref: "#/components/schemas/ArrayOfNames"
+          $ref: '#/components/schemas/ArrayOfNames'
     MoveStatAffect:
       type: object
       properties:
         change:
           type: integer
         move:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     MoveStatAffectSets:
       type: object
       properties:
         increase:
-          $ref: "#/components/schemas/ArrayOfMoveStatAffect"
+          $ref: '#/components/schemas/ArrayOfMoveStatAffect'
         decrease:
-          $ref: "#/components/schemas/ArrayOfMoveStatAffect"
+          $ref: '#/components/schemas/ArrayOfMoveStatAffect'
     Name:
       type: object
       properties:
         name:
           type: string
         language:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     NamedAPIResource:
       type: object
       properties:
@@ -1354,16 +1139,16 @@ components:
       type: object
       properties:
         increase:
-          $ref: "#/components/schemas/ArrayOfNamedAPIResources"
+          $ref: '#/components/schemas/ArrayOfNamedAPIResources'
         decrease:
-          $ref: "#/components/schemas/ArrayOfNamedAPIResources"
+          $ref: '#/components/schemas/ArrayOfNamedAPIResources'
     NaturePokeathlonStatAffect:
       type: object
       properties:
         max_change:
           type: integer
         nature:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     PalParkEncounterArea:
       type: object
       properties:
@@ -1372,7 +1157,7 @@ components:
         rate:
           type: integer
         area:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     PokemonAbility:
       type: object
       properties:
@@ -1381,58 +1166,58 @@ components:
         slot:
           type: integer
         ability:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     PokemonSpeciesGender:
       type: object
       properties:
         rate:
           type: integer
         pokemon_species:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     PokemonType:
       type: object
       properties:
         slot:
           type: integer
         type:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     PokemonFormType:
       type: object
       properties:
         slot:
           type: integer
         type:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     PokemonHeldItem:
       type: object
       properties:
         item:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         version_details:
-          $ref: "#/components/schemas/PokemonHeldItemVersion"
+          $ref: '#/components/schemas/PokemonHeldItemVersion'
     PokemonHeldItemVersion:
       type: object
       properties:
         version:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         rarity:
           type: integer
     PokemonMove:
       type: object
       properties:
         move:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         version_group_details:
           type: array
           items:
-            $ref: "#/components/schemas/PokemonMoveVersion"
+            $ref: '#/components/schemas/PokemonMoveVersion'
     PokemonMoveVersion:
       type: object
       properties:
         move_learn_method:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         version_group:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         level_learned_at:
           type: integer
     PokemonFormSprites:
@@ -1474,59 +1259,59 @@ components:
         forms_switchable:
           type: boolean
         growth_rate:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         pokedex_numbers:
           type: array
           items:
-            $ref: "#/components/schemas/PokemonSpeciesDexEntry"
+            $ref: '#/components/schemas/PokemonSpeciesDexEntry'
         egg_groups:
-          $ref: "#/components/schemas/ArrayOfNamedAPIResources"
+          $ref: '#/components/schemas/ArrayOfNamedAPIResources'
         color:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         shape:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         evolves_from_species:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         evolution_chain:
-          $ref: "#/components/schemas/APIResource"
+          $ref: '#/components/schemas/APIResource'
         habitat:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         generation:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         names:
-          $ref: "#/components/schemas/ArrayOfNames"
+          $ref: '#/components/schemas/ArrayOfNames'
         pal_park_encounters:
           type: array
           items:
-            $ref: "#/components/schemas/PalParkEncounterArea"
+            $ref: '#/components/schemas/PalParkEncounterArea'
         flavor_text_entries:
           type: array
           items:
-            $ref: "#/components/schemas/FlavorText"
+            $ref: '#/components/schemas/FlavorText'
         form_descriptions:
-          $ref: "#/components/schemas/ArrayOfDescriptions"
+          $ref: '#/components/schemas/ArrayOfDescriptions'
         genera:
           type: array
           items:
-            $ref: "#/components/schemas/Genus"
+            $ref: '#/components/schemas/Genus'
         varieties:
           type: array
           items:
-            $ref: "#/components/schemas/PokemonSpeciesVariety"
+            $ref: '#/components/schemas/PokemonSpeciesVariety'
     PokemonSpeciesDexEntry:
       type: object
       properties:
         entry_number:
           type: integer
         pokedex:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     PokemonSpeciesVariety:
       type: object
       properties:
         is_default:
           type: boolean
         pokemon:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     PokemonSprites:
       type: object
       properties:
@@ -1550,7 +1335,7 @@ components:
       type: object
       properties:
         stat:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         effort:
           type: integer
         base_stat:
@@ -1559,11 +1344,11 @@ components:
       type: object
       properties:
         generation:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         types:
           type: array
           items:
-            $ref: "#/components/schemas/PokemonType"
+            $ref: '#/components/schemas/PokemonType'
     Stat:
       type: object
       properties:
@@ -1576,15 +1361,15 @@ components:
         is_battle_only:
           type: boolean
         affecting_moves:
-          $ref: "#/components/schemas/MoveStatAffectSets"
+          $ref: '#/components/schemas/MoveStatAffectSets'
         affecting_natures:
-          $ref: "#/components/schemas/NatureStatAffectSets"
+          $ref: '#/components/schemas/NatureStatAffectSets'
         characteristics:
-          $ref: "#/components/schemas/ArrayOfAPIResources"
+          $ref: '#/components/schemas/ArrayOfAPIResources'
         move_damage_class:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         names:
-          $ref: "#/components/schemas/ArrayOfNames"
+          $ref: '#/components/schemas/ArrayOfNames'
     Type:
       type: object
       properties:
@@ -1593,54 +1378,54 @@ components:
         name:
           type: string
         damage_relations:
-          $ref: "#/components/schemas/TypeRelations"
+          $ref: '#/components/schemas/TypeRelations'
         past_damage_relations:
           type: array
           items:
-            $ref: "#/components/schemas/TypeRelationsPast"
+            $ref: '#/components/schemas/TypeRelationsPast'
         game_indices:
-          $ref: "#/components/schemas/ArrayOfGenerationGameIndex"
+          $ref: '#/components/schemas/ArrayOfGenerationGameIndex'
         generation:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         move_damage_class:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         names:
-          $ref: "#/components/schemas/ArrayOfNames"
+          $ref: '#/components/schemas/ArrayOfNames'
         pokemon:
           type: array
           items:
-            $ref: "#/components/schemas/TypePokemon"
+            $ref: '#/components/schemas/TypePokemon'
         moves:
-          $ref: "#/components/schemas/ArrayOfNamedAPIResources"
+          $ref: '#/components/schemas/ArrayOfNamedAPIResources'
     TypePokemon:
       type: object
       properties:
         slot:
           type: integer
         pokemon:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     TypeRelations:
       type: object
       properties:
         no_damage_to:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         half_damage_to:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         double_damage_to:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         no_damage_from:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         half_damage_from:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         double_damage_from:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     TypeRelationsPast:
       type: object
       properties:
         generation:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         damage_relations:
-          $ref: "#/components/schemas/TypeRelations"
+          $ref: '#/components/schemas/TypeRelations'
     VerboseEffect:
       type: object
       properties:
@@ -1649,18 +1434,18 @@ components:
         short_effect:
           type: string
         language:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
     VersionEncounterDetail:
       type: object
       properties:
         version:
-          $ref: "#/components/schemas/NamedAPIResource"
+          $ref: '#/components/schemas/NamedAPIResource'
         max_chance:
           type: integer
         encounter_details:
           type: array
           items:
-            $ref: "#/components/schemas/Encounter"
+            $ref: '#/components/schemas/Encounter'
     PaginatedResourceWithNameURL:
       type: object
       properties:
