@@ -11,7 +11,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 2.0.2
+  version: 2.0.3
 externalDocs:
   description: API Docs
   url: 'https://pokeapi.co/docs/v2'
