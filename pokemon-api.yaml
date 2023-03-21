@@ -71,42 +71,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AbilityPokemon'
-  '/characteristic/{id}/':
-    get:
-      tags:
-        - pokemon
-      summary: Characteristic Information
-      description: >-
-        Characteristics indicate which stat contains a Pokémon's highest I. A Pokémon's Characteristic is determined by the remainder of its highest IV divided by 5 (gene_modulo).
-      operationId: getCharacteristic
-      parameters:
-        - name: id
-          in: path
-          description: ID of a characteristic
-          required: true
-          schema:
-            type: integer
-            example: 1
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  gene_modulo:
-                    type: integer
-                  possible_values:
-                    type: array
-                    items:
-                      type: integer
-                  descriptions:
-                    $ref: '#/components/schemas/ArrayOfDescriptions'
-                  highest_stat:
-                    $ref: '#/components/schemas/NamedAPIResource'
   '/nature/{id_or_name}/':
     get:
       tags:
@@ -444,33 +408,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedResourceWithNameURL'
-  /characteristic/:
-    get:
-      tags:
-        - pokemon
-      summary: Characteristic Information List
-      description: List for all Characteristics.
-      operationId: getCharacteristicList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedResourceWithURL'
   /nature/:
     get:
       tags:
@@ -1004,21 +941,5 @@ components:
             properties:
               name:
                 type: string
-              url:
-                type: string
-    PaginatedResourceWithURL:
-      type: object
-      properties:
-        count:
-          type: integer
-        next:
-          type: string
-        previous:
-          type: string
-        results:
-          type: array
-          items:
-            type: object
-            properties:
               url:
                 type: string
