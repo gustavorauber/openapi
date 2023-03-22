@@ -11,7 +11,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 2.0.3
+  version: 2.0.4
 externalDocs:
   description: API Docs
   url: 'https://pokeapi.co/docs/v2'
@@ -439,8 +439,8 @@ paths:
     get:
       tags:
         - pokemon
-      summary: Pokemon Location Area Information List
-      description: List for all Pokémon Location Areas.
+      summary: Pokemon List
+      description: List for all Pokémon.
       operationId: getPokemonList
       parameters:
         - name: limit
