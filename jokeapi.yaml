@@ -21,12 +21,12 @@ paths:
     get:
       tags:
         - jokes
-      summary: "Joke look-up in any category. (Any, Christmas, Dark, Misc, Programming, Pun, Spooky)"
-      operationId: any
+      summary: "Joke look-up."
+      operationId: getJokes
       parameters:
         - name: category
           in: path
-          description: "Joke Category or Categories"
+          description: "Joke Category or Categories. (Any, Christmas, Dark, Misc, Programming, Pun, Spooky)"
           required: true
           schema:
             type: array
