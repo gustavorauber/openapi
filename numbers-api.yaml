@@ -74,14 +74,14 @@ paths:
             example: "Boring+number+is+boring"
         - name: min
           in: query
-          description: "Lower limit when random is used as the number."
+          description: "Lower limit when 'random' is used as the number."
           required: false
           schema:
             type: integer
             example: 10
         - name: max
           in: query
-          description: "Upper limit when random is used as the number."
+          description: "Upper limit when 'random' is used as the number."
           required: false
           schema:
             type: integer
