@@ -7,7 +7,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: JokeAPI Docs
   url: https://sv443.net/jokeapi/v2/
@@ -25,12 +25,52 @@ paths:
       operationId: any
       parameters:
         - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
+        - name: blacklistFlags
+          in: query
+          description: >-
+            If it is used, jokes that match the specified flag(s) will not be served (what is a flag?). 
+            If you want to use multiple flags, separate them with a comma (,) or a plus sign (+). 
+            **nsfw** stands for not safe for work.
+          required: false
+          schema:
+            type: string
+            enum:
+            - nsfw
+            - religious
+            - political
+            - racist
+            - sexist
+            - explicit
         - $ref: '#/components/parameters/langParam'
         - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
+        - name: contains
+          in: query
+          description: >-
+            If this parameter is specified, only jokes that contain the 
+            value of this parameter will be served (case insensitive).
+          required: false
+          schema:
+            type: string
+        - name: idRange
+          in: query
+          description: >-
+            If it is used, you will only get jokes that are inside the specified range of IDs.
+            The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+). 
+            If you only want to get a single joke by its ID, you can also ignore the delimiter and 
+            just use the single ID as the value for this parameter.
+          required: false
+          schema:
+            type: string
+        - name: amount
+          in: query
+          description: >-
+            If it is used, you will get a certain number of jokes in a single request. 
+            If JokeAPI has less jokes than demanded, it will not error out but instead send the maximum amount of jokes it can serve. 
+            Maximum possible number is 10 and using an invalid value will make JokeAPI default to 1. 
+            The joke format will change from the default when you set the amount parameter to 2 or more.
+          required: false
+          schema:
+            type: integer
         - $ref: '#/components/parameters/safemodeParam'
       responses:
         '200':
@@ -273,7 +313,6 @@ components:
     blackListParam:
       name: blacklistFlags
       in: query
-      description: "If it is used, jokes that match the specified flag(s) will not be served (what is a flag?). If you want to use multiple flags, separate them with a comma (,) or a plus sign (+). **nsfw** stands for not safe for work."
       required: false
       schema:
         type: string
@@ -311,28 +350,24 @@ components:
     containsParam:
       name: contains
       in: query
-      description: "If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive)."
       required: false
       schema:
         type: string
     idRangeParam:
       name: idRange
       in: query
-      description: "If it is used, you will only get jokes that are inside the specified range of IDs.The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+). If you only want to get a single joke by its ID, you can also ignore the delimiter and just use the single ID as the value for this parameter."
       required: false
       schema:
         type: string
     amountParam:
       name: amount
       in: query
-      description: "If it is used, you will get a certain number of jokes in a single request. If JokeAPI has less jokes than demanded, it will not error out but instead send the maximum amount of jokes it can serve. Maximum possible number is 10 and using an invalid value will make JokeAPI default to 1. The joke format will change from the default when you set the amount parameter to 2 or more."
       required: false
       schema:
         type: integer
     safemodeParam:
       name: safe-mode
       in: query
-      description: ""
       required: false
       schema:
         type: string
