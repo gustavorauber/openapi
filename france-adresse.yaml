@@ -3,7 +3,8 @@ info:
   title: France Adresse - OpenAPI 3.0
   description: |-
     France Adresse - OpenAPI specification
-    
+    Forward and reverse geocoding for locations in France.
+
     Some useful links:
     - [French National Addresses Site](https://adresse.data.gouv.fr)
 
@@ -12,7 +13,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: API Docs
   url: https://adresse.data.gouv.fr/api-doc/adresse
@@ -28,7 +29,7 @@ paths:
         - geocoding
       summary: Forward Geocoding
       description: Get Latitude and Longitude of a given address, forward geocoding.
-      operationId: search
+      operationId: searchAddress
       parameters:
         - name: q
           in: query
@@ -104,7 +105,7 @@ paths:
         - geocoding
       summary: Reverse geocoding
       description: Get address based on given latitude and longitude, reverse geocoding.
-      operationId: reverse
+      operationId: reverseGeocoding
       parameters:
         - name: lat
           in: query
