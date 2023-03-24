@@ -62,7 +62,8 @@ paths:
             If you want to use multiple flags, separate them with a comma (,) or a plus sign (+). 
             **nsfw** stands for not safe for work.
           required: false
-          style: simple
+          style: form
+          explode: false
           schema:
             type: array
             items:
