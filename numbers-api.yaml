@@ -52,6 +52,7 @@ paths:
         - name: json
           in: query
           required: true
+          description: "Supply the parameter to return the response in json format. Not necessary if a content-type header is supplied."
           schema:
             type: string
             default: "json"
