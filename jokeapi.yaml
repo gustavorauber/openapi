@@ -17,13 +17,32 @@ tags:
   - name: jokes
     description: JokeAPI
 paths:
-  /joke/Any:
+  /joke/{category}:
     get:
       tags:
         - jokes
       summary: "Joke look-up in any category."
       operationId: any
       parameters:
+        - name: category
+          in: path
+          description: "Joke Category or Categories"
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - Any
+                - Christmas
+                - Dark
+                - Misc
+                - Programming
+                - Pun
+                - Spooky
+            minItems: 1
+            default: Any
+          style: simple
         - name: format
           in: query
           description: "Response format."
@@ -106,210 +125,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/OK'
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Misc:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in miscellaneous category."
-      operationId: misc
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Programming:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in programming category."
-      operationId: programming
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Dark:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in dark category."
-      operationId: dark
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Pun:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in pun category."
-      operationId: pun
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Spooky:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in spooky category."
-      operationId: spooky
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Christmas:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in christmas category."
-      operationId: christmas
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
         '400':
           description: "Bad Request"
         '403':
