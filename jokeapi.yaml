@@ -24,7 +24,18 @@ paths:
       summary: "Joke look-up in any category."
       operationId: any
       parameters:
-        - $ref: '#/components/parameters/formatParam'
+        - name: format
+          in: query
+          description: "Response format."
+          required: false
+          schema:
+            type: string
+            default: json
+            enum:
+            - json
+            - xml
+            - yaml
+            - txt
         - name: blacklistFlags
           in: query
           description: >-
@@ -41,8 +52,28 @@ paths:
             - racist
             - sexist
             - explicit
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
+        - name: lang
+          in: query
+          description: "Joke language."
+          required: false
+          schema:
+            type: string
+            enum:
+            - cs
+            - de
+            - en
+            - es
+            - fr
+            - pt
+        - name: type
+          in: query
+          description: "Joke type."
+          required: false
+          schema:
+            type: string
+            enum:
+            - single
+            - twopart
         - name: contains
           in: query
           description: >-
@@ -300,7 +331,6 @@ components:
     formatParam:
       name: format
       in: query
-      description: "Response format."
       required: false
       schema:
         type: string
@@ -326,7 +356,6 @@ components:
     langParam:
       name: lang
       in: query
-      description: "Joke language."
       required: false
       schema:
         type: string
@@ -340,7 +369,6 @@ components:
     typeParam:
       name: type
       in: query
-      description: "Joke type."
       required: false
       schema:
         type: string
