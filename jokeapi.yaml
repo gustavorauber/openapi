@@ -21,7 +21,7 @@ paths:
     get:
       tags:
         - jokes
-      summary: "Joke look-up in any category."
+      summary: "Joke look-up in any category. (Any, Christmas, Dark, Misc, Programming, Pun, Spooky)"
       operationId: any
       parameters:
         - name: category
@@ -58,19 +58,22 @@ paths:
         - name: blacklistFlags
           in: query
           description: >-
-            If it is used, jokes that match the specified flag(s) will not be served (what is a flag?). 
+            If it is used, jokes that match the specified flag(s) will not be served. 
             If you want to use multiple flags, separate them with a comma (,) or a plus sign (+). 
             **nsfw** stands for not safe for work.
           required: false
+          style: simple
           schema:
-            type: string
-            enum:
-            - nsfw
-            - religious
-            - political
-            - racist
-            - sexist
-            - explicit
+            type: array
+            items:
+              type: string
+              enum:
+              - nsfw
+              - religious
+              - political
+              - racist
+              - sexist
+              - explicit
         - name: lang
           in: query
           description: "Joke language."
@@ -121,7 +124,12 @@ paths:
           required: false
           schema:
             type: integer
-        - $ref: '#/components/parameters/safemodeParam'
+        - name: safe-mode
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "1"
       responses:
         '200':
           $ref: '#/components/responses/OK'
@@ -142,79 +150,6 @@ paths:
         '523':
           description: "Origin Unreachable"
 components:
-  parameters:
-    formatParam:
-      name: format
-      in: query
-      required: false
-      schema:
-        type: string
-        default: json
-        enum:
-        - json
-        - xml
-        - yaml
-        - txt
-    blackListParam:
-      name: blacklistFlags
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - nsfw
-        - religious
-        - political
-        - racist
-        - sexist
-        - explicit
-    langParam:
-      name: lang
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - cs
-        - de
-        - en
-        - es
-        - fr
-        - pt
-    typeParam:
-      name: type
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - single
-        - twopart
-    containsParam:
-      name: contains
-      in: query
-      required: false
-      schema:
-        type: string
-    idRangeParam:
-      name: idRange
-      in: query
-      required: false
-      schema:
-        type: string
-    amountParam:
-      name: amount
-      in: query
-      required: false
-      schema:
-        type: integer
-    safemodeParam:
-      name: safe-mode
-      in: query
-      required: false
-      schema:
-        type: string
-        default: "1"
   responses:
     OK:
       description: "Ok"
