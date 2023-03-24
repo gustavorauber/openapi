@@ -33,7 +33,7 @@ paths:
       parameters:
         - name: q
           in: query
-          description: Search terms
+          description: "Search terms (e.g: 174, rue du rivoli, Paris)"
           required: false
           schema:
             type: string
@@ -46,7 +46,7 @@ paths:
             example: 5
         - name: autocomplete
           in: query
-          description: Activates or deactivates address auto completion
+          description: "Activates or deactivates address auto completion (0 or 1)"
           required: false
           schema:
             type: integer
@@ -69,13 +69,13 @@ paths:
             example: "2.789"
         - name: postcode
           in: query
-          description: Restricts search by postal code
+          description: "Restricts search by postal code (e.g: 75001, a Parisian neighborhood)"
           schema:
             type: integer
             example: 75000
         - name: citycode
           in: query
-          description: Restricts search by city code
+          description: "Restricts search by city code (e.g: 75101 for Paris)"
           schema:
             type: integer
             example: 75101
