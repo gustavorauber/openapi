@@ -171,7 +171,6 @@ components:
       in: query
       name: fields
       description: |
-        The fields to be returned, comma separated.
-        If not specified, it returns the entire product object.
+        The fields to be returned, comma separated. eg: code,product_name,nutriments
 tags:
   - name: Read Requests
