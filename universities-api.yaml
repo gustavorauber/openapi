@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
   title: University Domains and Names API - OpenAPI 3.0
-  description: "An API which contains domains, names and countries of most of the universities of the world."
+  description: "An API which provides domains, names and countries of most of the universities of the world."
   contact:
     email: rauber@gmail.com
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: University Domains and Names API Docs
   url: https://github.com/Hipo/university-domains-list-api
@@ -22,7 +22,6 @@ paths:
       tags:
         - search
       summary: "University look-up."
-      description: "Provides a search endpoint you can search for an autocomplete for university name or/and filter by country."
       operationId: search
       parameters:
         - name: name
