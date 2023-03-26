@@ -8,6 +8,9 @@ info:
     The bounding box parameters are the latitude(Y) and longitude(X) of two points:
     - P1 is the bottom left coordinate
     - P2 is the upper right coordinate
+
+    Sensor region can also be delimited by a polygon in WKB format.
+    - eg: 01030000000100000005000000ffffffff3f9
     
     - [Newcastle Urban Observatory Site](https://urbanobservatory.ac.uk)
 
@@ -127,7 +130,6 @@ paths:
             example: "Emote Air Quality Sensor"
         - name: polygon_wkb
           in: query
-          description: "Polygon that the sensor falls in Well-Known Binary (WKB) Format"
           required: false
           schema:
             type: string
@@ -272,7 +274,6 @@ paths:
             example: "Emote Air Quality Sensor"
         - name: polygon_wkb
           in: query
-          description: "Polygon that the sensor falls in Well-Known Binary (WKB) Format"
           required: false
           schema:
             type: string
