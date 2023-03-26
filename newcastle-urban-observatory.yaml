@@ -77,23 +77,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  Variables:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        Name:
-                          type: string
-                        Units:
-                          type: string
-                        Theme:
-                          type: string
-                        Upper Limit: 
-                          type: string
-                        Lower Limit:
-                          type: string
+                $ref: '#/components/schemas/ArrayOfVariables'
         '400':
           description: Invalid status value
         default:
@@ -167,7 +151,7 @@ paths:
             example: "Post code Sectors"
         - name: subset_shapes
           in: query
-          description: "Region sensor lies inside of"
+          description: "Region sensor lies inside of. eg: 'NE10 0'"
           required: false
           schema:
             type: string
@@ -178,31 +162,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  Sensors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        Sensor Centroid Longitude:
-                          type: string
-                        Sensor Centroid Latitude:
-                          type: string
-                        Third Party:
-                          type: boolean
-                        Sensor Name: 
-                          type: string
-                        Location (WKT):
-                          type: string
-                        Sensor Height Above Ground:
-                          type: number
-                        Raw ID:
-                          type: string
-                        Ground Height Above Sea Level:
-                          type: number
-                        Broker Name:
-                          type: string
+                $ref: '#/components/schemas/ArrayOfSensors'
         '400':
           description: Invalid status value
         default:
@@ -311,7 +271,7 @@ paths:
             example: "Post code Sectors"
         - name: subset_shapes
           in: query
-          description: "Region sensor lies inside of"
+          description: "Region sensor lies inside of. eg: 'NE10 0'"
           required: false
           schema:
             type: string
@@ -322,34 +282,111 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  Sensors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        data:
-                          type: object
-                        Sensor Centroid Longitude:
-                          type: string
-                        Sensor Centroid Latitude:
-                          type: string
-                        Third Party:
-                          type: boolean
-                        Sensor Name: 
-                          type: string
-                        Location (WKT):
-                          type: string
-                        Sensor Height Above Ground:
-                          type: number
-                        Raw ID:
-                          type: string
-                        Ground Height Above Sea Level:
-                          type: number
-                        Broker Name:
-                          type: string
+                $ref: '#/components/schemas/ArrayOfSensors'
         '400':
           description: Invalid status value
         default:
           description: Unexpected error
+
+  /sensors/{sensor_name}/data/json/:
+      get:
+        tags:
+          - sensors
+        summary: Single Sensor Data
+        operationId: getSingleSensorData
+        parameters:
+          - name: sensor_name
+            in: path
+            description: "eg: PER_EMOTE_2798"
+            required: true
+            schema:
+              type: string
+              example: "PER_EMOTE_2798"
+          - name: data_variable
+            in: query
+            required: false
+            schema:
+              type: string
+              example: "Temperature"
+          - name: last_n_days
+            in: query
+            required: false
+            schema:
+              type: integer
+              example: 3
+          - name: last_n_records
+            in: query
+            required: false
+            schema:
+              type: integer
+              example: 200
+          - name: starttime
+            in: query
+            required: false
+            schema:
+              type: string
+              example: "20150101"
+          - name: endtime
+            in: query
+            required: false
+            schema:
+              type: string
+              example: "20150101"
+        responses:
+          '200':
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ArrayOfSensors'
+                        
+          '400':
+            description: Invalid status value
+          default:
+            description: Unexpected error
+components:
+  schemas:
+    ArrayOfSensors:
+      type: array
+      items:
+        $ref: '#/components/schemas/Sensor'
+    ArrayOfVariables:
+      type: array
+      items:
+        $ref: '#/components/schemas/Variable'
+    Sensor:          
+      type: object
+      properties:
+        data:
+          type: object
+        Sensor Centroid Longitude:
+          type: string
+        Sensor Centroid Latitude:
+          type: string
+        Third Party:
+          type: boolean
+        Sensor Name: 
+          type: string
+        Location (WKT):
+          type: string
+        Sensor Height Above Ground:
+          type: number
+        Raw ID:
+          type: string
+        Ground Height Above Sea Level:
+          type: number
+        Broker Name:
+          type: string
+    Variable:
+      type: object
+      properties:
+        Name:
+          type: string
+        Units:
+          type: string
+        Theme:
+          type: string
+        Upper Limit: 
+          type: string
+        Lower Limit:
+          type: string
