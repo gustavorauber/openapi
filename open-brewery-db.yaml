@@ -2,16 +2,15 @@ openapi: 3.0.3
 info:
   title: Open Brewery DB - OpenAPI 3.0
   description: |-
-    Open Brewery DB is a free dataset and API with public information on breweries, cideries, brewpubs, and bottleshops.
+    Open Brewery DB is a free dataset and API with public information on breweries, cideries, brewpubs and bottleshops.
     
-    Some useful links:
     - [Open Brewery DB](https://www.openbrewerydb.org)
   contact:
     email: rauber@gmail.com
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.1
+  version: 1.0.2
 externalDocs:
   description: Open Brewery DB Docs
   url: https://www.openbrewerydb.org/documentation
@@ -48,6 +47,7 @@ paths:
           description: "Brewery not found"
         '405':
           description: "Validation exception"
+
   /breweries:
     get:
       tags:
@@ -57,14 +57,14 @@ paths:
       parameters:
         - name: by_city
           in: query
-          description: "Filter breweries by city. For the parameters, you can use underscores or url encoding for spaces."
+          description: "Filter breweries by city."
           required: false
           schema:
             type: string
             example: "seattle"
         - name: by_dist
           in: query
-          description: "Sort the results by distance from an origin point, denoted by latitude, longitude."
+          description: "Sort the results by distance from an origin point. e.g:38.8977,77.0365"
           required: false
           schema:
             type: string
@@ -78,14 +78,14 @@ paths:
             example: "brewdog"
         - name: by_state
           in: query
-          description: "Filter breweries by state. Full state name is required, no abbreviations. For the parameters, you can use underscores or url encoding for spaces."
+          description: "Filter breweries by state. Full state name is required, no abbreviations."
           required: false
           schema:
             type: string
             example: "new_york"
         - name: by_postal
           in: query
-          description: "Filter breweries by postal code. May be filtered by basic (5 digit) postal code or more precisely filtered by postal+4 (9 digit) code. **Note**: If filtering by postal+4 the search must include either a hyphen or an underscore."
+          description: "Filter breweries by postal code."
           required: false
           schema:
             type: string
@@ -117,7 +117,7 @@ paths:
             example: 1
         - name: per_page
           in: query
-          description: "Number of breweries to return on each call. **Note**: Default per page is 20. Max per page is 50."
+          description: "Number of breweries to return on each call. Default is 20, max is 50."
           required: false
           schema:
             type: integer
@@ -125,7 +125,7 @@ paths:
             default: 20
         - name: sort
           in: query
-          description: "Sort the results by one or more fields. **asc** for ascending order, **desc** for descending order. **Note**: by_dist does not work with the sort filter since it is a filter of its own."
+          description: "Sort the results by one or more fields. e.g: type,name:asc"
           required: false
           schema:
             type: string
@@ -141,6 +141,7 @@ paths:
                   $ref: '#/components/schemas/Brewery'          
         '400':
           description: "Invalid status value"
+
   /breweries/random:
     get:
       tags:
@@ -150,7 +151,7 @@ paths:
       parameters:
         - name: size
           in: query
-          description: "Number of breweries to return on each call. **Note:** Default is 1. Max is 50."
+          description: "Number of breweries to return on each call. Default is 1, max is 50."
           required: false
           schema:
             type: integer
@@ -167,12 +168,13 @@ paths:
                   $ref: '#/components/schemas/Brewery'          
         '400':
           description: "Invalid status value"
+
   /breweries/search:
     get:
       tags:
         - breweries
       summary: "Search for breweries based on a term."
-      description: "Search for breweries based on a search term. **Note:** For the query parameter, you can use underscores or url encoding for spaces."
+      description: "Search for breweries based on a search term."
       operationId: searchBrewery
       parameters:
         - name: query
@@ -184,7 +186,7 @@ paths:
             example: "dog"
         - name: per_page
           in: query
-          description: "Number of breweries to return on each call. **Note**: Default per page is 20. Max per page is 50."
+          description: "Number of breweries to return on each call. Default is 20, max is 50."
           required: false
           schema:
             type: integer
@@ -201,12 +203,13 @@ paths:
                   $ref: '#/components/schemas/Brewery'          
         '400':
           description: "Invalid status value"
+
   /breweries/autocomplete:
     get:
       tags:
         - breweries
       summary: "Typically used for a drop-down selection."
-      description: "Return a list of names and ids of breweries based on a search term. This endpoint is typically used for a drop-down selection. **Notes:** For the query parameter, you can use underscores or url encoding for spaces. The maximum number of breweries returned is 15."
+      description: "Return a list of names and ids of breweries based on a search term. This endpoint is typically used for a drop-down selection. The maximum number of breweries returned is 15."
       operationId: autocomplete
       parameters:
         - name: query
