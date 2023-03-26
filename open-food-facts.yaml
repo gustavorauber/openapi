@@ -2,9 +2,8 @@ openapi: 3.0.3
 info:
   title: Open Food Facts Open API
   description: |
-    As a developer, the Open Food Facts API allows you to get information
-    and contribute to the products database. You can create great apps to
-    help people make better food choices and also provide data to enhance the database.
+    The Open Food Facts API allows you to get information
+    about registered products and help people make better food choices.
   termsOfService: https://world.openfoodfacts.org/terms-of-use
   contact:
     name: Open Food Facts
@@ -15,8 +14,8 @@ info:
     url: https://opendatacommons.org/licenses/odbl/summary/index.html
   version: '2'
 servers:
-  - description: dev
-    url: https://off:off@world.openfoodfacts.net
+#  - description: dev
+#    url: https://off:off@world.openfoodfacts.net
   - url: https://world.openfoodfacts.org
     description: prod
 paths:
@@ -29,7 +28,7 @@ paths:
         - name: barcode
           in: path
           description: |
-            The barcode of the product to be fetched
+            The barcode of the product to be fetched. e.g: 3017620422003
           required: true
           style: simple
           explode: false
@@ -43,10 +42,9 @@ paths:
             application/json:
               schema:
                 type: object
-      description: |
-        A product can be fetched via its unique barcode.
-        It returns all the details of that product response.
+      description: "A product can be fetched via its unique barcode."
       operationId: getProductByBarcode
+      
   /api/v2/search:
     get:
       summary: Search for Products
@@ -74,100 +72,100 @@ paths:
             example: e322
           in: query
           description: |
-            The additives_tags in english of product(s) you are searching for.
+            The additives_tags in english of product(s).
         - name: allergens_tags
           schema:
             type: string
             example: m
           in: query
           description: |
-            The allergens_tags in english of product(s) you are searching for.
+            The allergens_tags in english of product(s).
         - name: brands_tags
           schema:
             type: string
             example: ferrero
           in: query
           description: |
-            The brands_tags of product(s) you are searching for.
+            The brands_tags of product(s).
         - name: categories_tags
           schema:
             type: string
             example: chocolates
           in: query
           description: |
-            The category of product(s) you are searching for.
+            The category of product(s).
         - name: countries_tags
           schema:
             type: string
             example: united-kingdom
           in: query
           description: |
-            The countries_tags_en of product(s) you are searching for.
+            The countries_tags_en of product(s).
         - name: emb_codes_tags
           schema:
             type: string
           in: query
           description: |
-            The emb_codes_tags of product(s) you are searching for.
+            The emb_codes_tags of product(s).
         - name: labels_tags
           schema:
             type: string
             example: organic
           in: query
           description: |
-            The labels_tags in english of product(s) you are searching for.
+            The labels_tags in english of product(s).
         - name: manufacturing_places_tags
           schema:
             type: string
           in: query
           description: |
-            The manufacturing_places_tags of product(s) you are searching for.
+            The manufacturing_places_tags of product(s).
         - name: nutrition_grades_tags
           schema:
             type: string
             example: e
           in: query
           description: |
-            The nutrition_grades_tags of product(s) you are searching for.
+            The nutrition_grades_tags of product(s).
         - schema:
             type: string
           in: query
           name: origins_tags
           description: |
-            The origins_tags of product(s) you are searching for.
+            The origins_tags of product(s).
         - schema:
             type: string
             example: 1-jar-aus-klarglas
           in: query
           name: packaging_tags_de
           description: |
-            The packaging_tag in german of product(s) you are searching for.
+            The packaging_tag in german of product(s).
         - schema:
             type: string
           in: query
           name: purchase_places_tags
           description: |
-            The purchase_places_tags of product(s) you are searching for.
+            The purchase_places_tags of product(s).
         - schema:
             type: string
             example: nutrition-facts-completed
           in: query
           name: states_tags
           description: |
-            The states_tags in english of product(s) you are searching for.
+            The states_tags in english of product(s).
         - schema:
             type: string
             example: aldi
           in: query
           name: stores_tags
           description: |
-            The stores_tags of product(s) you are searching for.
+            The stores_tags of product(s).
         - schema:
             type: string
           in: query
           name: traces_tags
           description: |
-            The traces_tags of product(s) you are searching for.
+            The traces_tags of product(s) .
 components:
   parameters:
     id:
@@ -246,7 +244,7 @@ components:
       name: fields
       description: |
         The fields to be returned from the product object can also be limited.
-        If not specified, it returns the entire product object response.
+        If not specified, it returns the entire product object.
     tagtype:
       schema:
         type: string
