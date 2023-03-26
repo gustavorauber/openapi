@@ -42,7 +42,6 @@ paths:
             application/json:
               schema:
                 type: object
-      summary: "A product can be fetched via its unique barcode."
       operationId: getProductByBarcode
       
   /api/v2/search:
