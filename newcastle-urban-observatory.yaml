@@ -2,8 +2,12 @@ openapi: 3.0.3
 info:
   title: Newcastle Urban Observatory (UK) - OpenAPI 3.0
   description: |-
-    Newcastle Urban Observatory (UK) - OpenAPI specification
+    Newcastle Urban Observatory (UK)
     API to retrieve sensor information and measurements in the United Kingdom.
+
+    The bounding box parameters are the latitude(Y) and longitude(X) of two points:
+    - P1 is the bottom left coordinate
+    - P2 is the upper right coordinate
     
     - [Newcastle Urban Observatory Site](https://urbanobservatory.ac.uk)
 
@@ -54,11 +58,12 @@ paths:
       tags:
         - sensors
       summary: Variables available
-      operationId: getThemeVariables
+      description: "Get available variables"
+      operationId: getVariables
       parameters:
         - name: theme
           in: query
-          description: "Get available variables by theme. eg: Weather"
+          description: "Filter by theme. eg: Weather"
           required: false
           schema:
             type: string
@@ -129,28 +134,24 @@ paths:
             example: "01030000000100000005000000ffffffff3f9"
         - name: bbox_p1_x
           in: query
-          description: "Bounding Box P1-X. (Bottom, left) "
           required: false
           schema:
             type: number
             example: -1.4
         - name: bbox_p1_y
           in: query
-          description: "Bounding Box P1-Y. (Bottom, left)"
           required: false
           schema:
             type: number
             example: 55.4
         - name: bbox_p2_x
           in: query
-          description: "Bounding Box P2-X. (Top, right)"
           required: false
           schema:
             type: number
             example: -1.2
         - name: bbox_p2_y
           in: query
-          description: "Bounding Box P2-Y. (Top, right)"
           required: false
           schema:
             type: number
@@ -278,28 +279,24 @@ paths:
             example: "01030000000100000005000000ffffffff3f9"
         - name: bbox_p1_x
           in: query
-          description: Bounding Box P1-X
           required: false
           schema:
             type: number
             example: -1.4
         - name: bbox_p1_y
           in: query
-          description: Bounding Box P1-Y
           required: false
           schema:
             type: number
             example: 55.4
         - name: bbox_p2_x
           in: query
-          description: Bounding Box P2-X
           required: false
           schema:
             type: number
             example: -1.2
         - name: bbox_p2_y
           in: query
-          description: Bounding Box P2-Y
           required: false
           schema:
             type: number
