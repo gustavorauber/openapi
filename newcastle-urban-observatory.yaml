@@ -88,7 +88,7 @@ paths:
       tags:
         - sensors
       summary: Sensor information
-      description: Get sensors and their associated metadata.
+      description: Get sensors and associated metadata.
       operationId: getSensorsInfo
       parameters:
         - name: theme
@@ -107,7 +107,7 @@ paths:
             example: "NO2"
         - name: broker
           in: query
-          description: "Filter by their broker/manufacturer."
+          description: "Filter by broker/manufacturer."
           required: false
           schema:
             type: string
@@ -227,7 +227,7 @@ paths:
             example: "NO2"
         - name: broker
           in: query
-          description: "Filter sensors by their broker/manufacturer."
+          description: "Filter sensors by broker/manufacturer."
           required: false
           schema:
             type: string
