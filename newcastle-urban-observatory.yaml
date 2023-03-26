@@ -3,8 +3,8 @@ info:
   title: Newcastle Urban Observatory (UK) - OpenAPI 3.0
   description: |-
     Newcastle Urban Observatory (UK) - OpenAPI specification
+    API to retrieve sensor information and measurements in the United Kingdom.
     
-    Some useful links:
     - [Newcastle Urban Observatory Site](https://urbanobservatory.ac.uk)
 
   contact:
@@ -12,7 +12,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: API Docs
   url: https://newcastle.urbanobservatory.ac.uk/api_docs/
@@ -27,8 +27,8 @@ paths:
       tags:
         - sensors
       summary: Theme Information
-      description: Get all theme names.
-      operationId: getThemes
+      description: Get all themes available. Water Quality, for instance.
+      operationId: getAllThemes
       responses:
         '200':
           description: successful operation
@@ -48,17 +48,17 @@ paths:
           description: Invalid status value
         default:
           description: Unexpected error
+
   /variables/json/:
     get:
       tags:
         - sensors
       summary: Variables available
-      description: Get theme variables.
-      operationId: getVariables
+      operationId: getThemeVariables
       parameters:
         - name: theme
           in: query
-          description: Filter variables by theme.
+          description: "Get available variables by theme. eg: Weather"
           required: false
           schema:
             type: string
@@ -90,31 +90,32 @@ paths:
           description: Invalid status value
         default:
           description: Unexpected error
+
   /sensors/json/:
     get:
       tags:
         - sensors
       summary: Sensor information
-      description: Get sensors.
-      operationId: getSensors
+      description: Get sensors and their associated metadata.
+      operationId: getSensorsInfo
       parameters:
         - name: theme
           in: query
-          description: Filter variables by theme.
+          description: "Filter by theme. eg: Weather"
           required: false
           schema:
             type: string
             example: "Weather"
         - name: sensor_type
           in: query
-          description: Filter information by sensor type.
+          description: "Filter by sensor type. eg: NO2"
           required: false
           schema:
             type: string
             example: "NO2"
         - name: broker
           in: query
-          description: Filter information by their broker/manufacturer.
+          description: "Filter by their broker/manufacturer."
           required: false
           schema:
             type: string
@@ -128,28 +129,28 @@ paths:
             example: "01030000000100000005000000ffffffff3f9"
         - name: bbox_p1_x
           in: query
-          description: Bounding Box P1-X
+          description: "Bounding Box P1-X. (Bottom, left) "
           required: false
           schema:
             type: number
             example: -1.4
         - name: bbox_p1_y
           in: query
-          description: Bounding Box P1-Y
+          description: "Bounding Box P1-Y. (Bottom, left)"
           required: false
           schema:
             type: number
             example: 55.4
         - name: bbox_p2_x
           in: query
-          description: Bounding Box P2-X
+          description: "Bounding Box P2-X. (Top, right)"
           required: false
           schema:
             type: number
             example: -1.2
         - name: bbox_p2_y
           in: query
-          description: Bounding Box P2-Y
+          description: "Bounding Box P2-Y. (Top, right)"
           required: false
           schema:
             type: number
@@ -203,12 +204,13 @@ paths:
           description: Invalid status value
         default:
           description: Unexpected error
+
   /sensors/data/json/:
     get:
       tags:
         - sensors
       summary: Sensor Data
-      description: Get sensors.
+      description: Get data points of sensors.
       operationId: getSensorsData
       parameters:
         - name: data_variable
@@ -220,49 +222,49 @@ paths:
             example: "Temperature"
         - name: last_n_days
           in: query
-          description: "Selects Data from the last n days"
+          description: "Data from the last n days"
           required: false
           schema:
             type: integer
             example: 3
         - name: last_n_records
           in: query
-          description: "Select the number of latest records to retrieve"
+          description: "The number of latest records to retrieve"
           required: false
           schema:
             type: integer
             example: 200
         - name: starttime
           in: query
-          description: "Time slice for which data is queried. Format: **%Y%m%d%H%M%S** or **%Y%m%d**"
+          description: "Format: **%Y%m%d%H%M%S** or **%Y%m%d**"
           required: false
           schema:
             type: string
             example: "20150101"
         - name: endtime
           in: query
-          description: "Time slice for which data is queried. Format: **%Y%m%d%H%M%S** or **%Y%m%d**" 
+          description: "Format: **%Y%m%d%H%M%S** or **%Y%m%d**" 
           required: false
           schema:
             type: string
             example: "20150101"
         - name: theme
           in: query
-          description: Filter variables by theme.
+          description: "Filter sensors by theme."
           required: false
           schema:
             type: string
             example: "Weather"
         - name: sensor_type
           in: query
-          description: Filter information by sensor type.
+          description: "Filter sensors by sensor type."
           required: false
           schema:
             type: string
             example: "NO2"
         - name: broker
           in: query
-          description: Filter information by their broker/manufacturer.
+          description: "Filter sensors by their broker/manufacturer."
           required: false
           schema:
             type: string
