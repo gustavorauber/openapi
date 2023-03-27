@@ -415,7 +415,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Language'
-  '/{resource}/':
+  '/{resource}':
     get:
       tags:
         - resource
