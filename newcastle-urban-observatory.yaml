@@ -2,9 +2,16 @@ openapi: 3.0.3
 info:
   title: Newcastle Urban Observatory (UK) - OpenAPI 3.0
   description: |-
-    Newcastle Urban Observatory (UK) - OpenAPI specification
+    Newcastle Urban Observatory (UK)
+    API to retrieve sensor information and measurements in the United Kingdom.
+
+    The bounding box parameters are the latitude(Y) and longitude(X) of two points:
+    - P1 is the bottom left coordinate
+    - P2 is the upper right coordinate
+
+    Sensor region can also be delimited by a polygon in WKB format.
+    - eg: 01030000000100000005000000ffffffff3f9
     
-    Some useful links:
     - [Newcastle Urban Observatory Site](https://urbanobservatory.ac.uk)
 
   contact:
@@ -12,7 +19,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: API Docs
   url: https://newcastle.urbanobservatory.ac.uk/api_docs/
@@ -27,8 +34,8 @@ paths:
       tags:
         - sensors
       summary: Theme Information
-      description: Get all theme names.
-      operationId: getThemes
+      description: Get all themes available. Water Quality, for instance.
+      operationId: getAllThemes
       responses:
         '200':
           description: successful operation
@@ -48,17 +55,18 @@ paths:
           description: Invalid status value
         default:
           description: Unexpected error
+
   /variables/json/:
     get:
       tags:
         - sensors
       summary: Variables available
-      description: Get theme variables.
+      description: "Get available variables"
       operationId: getVariables
       parameters:
         - name: theme
           in: query
-          description: Filter variables by theme.
+          description: "Filter by theme. eg: Weather"
           required: false
           schema:
             type: string
@@ -69,87 +77,67 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  Variables:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        Name:
-                          type: string
-                        Units:
-                          type: string
-                        Theme:
-                          type: string
-                        Upper Limit: 
-                          type: string
-                        Lower Limit:
-                          type: string
+                $ref: '#/components/schemas/ArrayOfVariables'
         '400':
           description: Invalid status value
         default:
           description: Unexpected error
+
   /sensors/json/:
     get:
       tags:
         - sensors
       summary: Sensor information
-      description: Get sensors.
-      operationId: getSensors
+      description: Get sensors and associated metadata.
+      operationId: getSensorsInfo
       parameters:
         - name: theme
           in: query
-          description: Filter variables by theme.
+          description: "Filter by theme. eg: Weather"
           required: false
           schema:
             type: string
             example: "Weather"
         - name: sensor_type
           in: query
-          description: Filter information by sensor type.
+          description: "Filter by sensor type. eg: NO2"
           required: false
           schema:
             type: string
             example: "NO2"
         - name: broker
           in: query
-          description: Filter information by their broker/manufacturer.
+          description: "Filter by broker/manufacturer."
           required: false
           schema:
             type: string
             example: "Emote Air Quality Sensor"
         - name: polygon_wkb
           in: query
-          description: "Polygon that the sensor falls in Well-Known Binary (WKB) Format"
           required: false
           schema:
             type: string
             example: "01030000000100000005000000ffffffff3f9"
         - name: bbox_p1_x
           in: query
-          description: Bounding Box P1-X
           required: false
           schema:
             type: number
             example: -1.4
         - name: bbox_p1_y
           in: query
-          description: Bounding Box P1-Y
           required: false
           schema:
             type: number
             example: 55.4
         - name: bbox_p2_x
           in: query
-          description: Bounding Box P2-X
           required: false
           schema:
             type: number
             example: -1.2
         - name: bbox_p2_y
           in: query
-          description: Bounding Box P2-Y
           required: false
           schema:
             type: number
@@ -163,7 +151,7 @@ paths:
             example: "Post code Sectors"
         - name: subset_shapes
           in: query
-          description: "Region sensor lies inside of"
+          description: "Region sensor lies inside of. eg: 'NE10 0'"
           required: false
           schema:
             type: string
@@ -174,41 +162,18 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  Sensors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        Sensor Centroid Longitude:
-                          type: string
-                        Sensor Centroid Latitude:
-                          type: string
-                        Third Party:
-                          type: boolean
-                        Sensor Name: 
-                          type: string
-                        Location (WKT):
-                          type: string
-                        Sensor Height Above Ground:
-                          type: number
-                        Raw ID:
-                          type: string
-                        Ground Height Above Sea Level:
-                          type: number
-                        Broker Name:
-                          type: string
+                $ref: '#/components/schemas/ArrayOfSensors'
         '400':
           description: Invalid status value
         default:
           description: Unexpected error
+
   /sensors/data/json/:
     get:
       tags:
         - sensors
       summary: Sensor Data
-      description: Get sensors.
+      description: Get data points of sensors.
       operationId: getSensorsData
       parameters:
         - name: data_variable
@@ -220,84 +185,79 @@ paths:
             example: "Temperature"
         - name: last_n_days
           in: query
-          description: "Selects Data from the last n days"
+          description: "Data from the last n days"
           required: false
           schema:
             type: integer
             example: 3
         - name: last_n_records
           in: query
-          description: "Select the number of latest records to retrieve"
+          description: "The number of latest records to retrieve"
           required: false
           schema:
             type: integer
             example: 200
         - name: starttime
           in: query
-          description: "Time slice for which data is queried. Format: **%Y%m%d%H%M%S** or **%Y%m%d**"
+          description: "Format: **%Y%m%d%H%M%S** or **%Y%m%d**"
           required: false
           schema:
             type: string
             example: "20150101"
         - name: endtime
           in: query
-          description: "Time slice for which data is queried. Format: **%Y%m%d%H%M%S** or **%Y%m%d**" 
+          description: "Format: **%Y%m%d%H%M%S** or **%Y%m%d**" 
           required: false
           schema:
             type: string
             example: "20150101"
         - name: theme
           in: query
-          description: Filter variables by theme.
+          description: "Filter sensors by theme."
           required: false
           schema:
             type: string
             example: "Weather"
         - name: sensor_type
           in: query
-          description: Filter information by sensor type.
+          description: "Filter sensors by sensor type."
           required: false
           schema:
             type: string
             example: "NO2"
         - name: broker
           in: query
-          description: Filter information by their broker/manufacturer.
+          description: "Filter sensors by broker/manufacturer."
           required: false
           schema:
             type: string
             example: "Emote Air Quality Sensor"
         - name: polygon_wkb
           in: query
-          description: "Polygon that the sensor falls in Well-Known Binary (WKB) Format"
           required: false
           schema:
             type: string
             example: "01030000000100000005000000ffffffff3f9"
         - name: bbox_p1_x
           in: query
-          description: Bounding Box P1-X
           required: false
           schema:
             type: number
             example: -1.4
         - name: bbox_p1_y
           in: query
-          description: Bounding Box P1-Y
           required: false
           schema:
             type: number
             example: 55.4
         - name: bbox_p2_x
           in: query
-          description: Bounding Box P2-X
           required: false
           schema:
             type: number
             example: -1.2
         - name: bbox_p2_y
           in: query
-          description: Bounding Box P2-Y
           required: false
           schema:
             type: number
@@ -311,7 +271,7 @@ paths:
             example: "Post code Sectors"
         - name: subset_shapes
           in: query
-          description: "Region sensor lies inside of"
+          description: "Region sensor lies inside of. eg: 'NE10 0'"
           required: false
           schema:
             type: string
@@ -322,34 +282,111 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  Sensors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        data:
-                          type: object
-                        Sensor Centroid Longitude:
-                          type: string
-                        Sensor Centroid Latitude:
-                          type: string
-                        Third Party:
-                          type: boolean
-                        Sensor Name: 
-                          type: string
-                        Location (WKT):
-                          type: string
-                        Sensor Height Above Ground:
-                          type: number
-                        Raw ID:
-                          type: string
-                        Ground Height Above Sea Level:
-                          type: number
-                        Broker Name:
-                          type: string
+                $ref: '#/components/schemas/ArrayOfSensors'
         '400':
           description: Invalid status value
         default:
           description: Unexpected error
+
+  /sensors/{sensor_name}/data/json/:
+      get:
+        tags:
+          - sensors
+        summary: Single Sensor Data
+        operationId: getSingleSensorData
+        parameters:
+          - name: sensor_name
+            in: path
+            description: "eg: PER_EMOTE_2798"
+            required: true
+            schema:
+              type: string
+              example: "PER_EMOTE_2798"
+          - name: data_variable
+            in: query
+            required: false
+            schema:
+              type: string
+              example: "Temperature"
+          - name: last_n_days
+            in: query
+            required: false
+            schema:
+              type: integer
+              example: 3
+          - name: last_n_records
+            in: query
+            required: false
+            schema:
+              type: integer
+              example: 200
+          - name: starttime
+            in: query
+            required: false
+            schema:
+              type: string
+              example: "20150101"
+          - name: endtime
+            in: query
+            required: false
+            schema:
+              type: string
+              example: "20150101"
+        responses:
+          '200':
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ArrayOfSensors'
+                        
+          '400':
+            description: Invalid status value
+          default:
+            description: Unexpected error
+components:
+  schemas:
+    ArrayOfSensors:
+      type: array
+      items:
+        $ref: '#/components/schemas/Sensor'
+    ArrayOfVariables:
+      type: array
+      items:
+        $ref: '#/components/schemas/Variable'
+    Sensor:          
+      type: object
+      properties:
+        data:
+          type: object
+        Sensor Centroid Longitude:
+          type: string
+        Sensor Centroid Latitude:
+          type: string
+        Third Party:
+          type: boolean
+        Sensor Name: 
+          type: string
+        Location (WKT):
+          type: string
+        Sensor Height Above Ground:
+          type: number
+        Raw ID:
+          type: string
+        Ground Height Above Sea Level:
+          type: number
+        Broker Name:
+          type: string
+    Variable:
+      type: object
+      properties:
+        Name:
+          type: string
+        Units:
+          type: string
+        Theme:
+          type: string
+        Upper Limit: 
+          type: string
+        Lower Limit:
+          type: string

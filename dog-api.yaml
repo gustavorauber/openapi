@@ -2,15 +2,13 @@ openapi: 3.0.3
 info:
   title: Dog API - OpenAPI 3.0
   description: |-
-    Collection of public APIs from Dog API
-    
-  termsOfService: http://swagger.io/terms/
+    API to retrieve images of dogs. It's also possible to obtain a tree of breeds and sub-breeds of dogs.    
   contact:
     email: rauber@gmail.com
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: Dog API
   url: https://dog.ceo/dog-api/
@@ -38,8 +36,8 @@ paths:
       tags:
         - all
       summary: List all breeds
-      description: Returns all breeds available.
-      operationId: getAllBreeds
+      description: Lists all dog breeds and sub-breeds registered.
+      operationId: getAllBreedsAndSubBreeds
       responses:
         '200':
           description: OK
@@ -59,13 +57,14 @@ paths:
                   status:
                     type: string
                     description: Status description
+
   /breeds/image/random:
     get:
       tags:
         - all
       summary: Get a random image.
-      description: Display a single random image from all dogs collection.
-      operationId: getRandomImage
+      description: Returns a single random image from all dogs registered.
+      operationId: getOneRandomImage
       responses:
         '200':
           description: OK
@@ -82,12 +81,13 @@ paths:
                   status:
                     type: string
                     description: Status description
+
   /breeds/image/random/{qty}:
     get:
       tags:
         - all
       summary: Get multiple random images.
-      description: Display multiple random images from all dogs collection.
+      description: Returns multiple random images from all dogs registered.
       operationId: getManyRandomImages
       parameters:
         - name: qty 
@@ -112,13 +112,14 @@ paths:
                   status:
                     type: string
                     description: Status description
+
   /breed/{breed}/list:
     get:
       tags:
         - by-breed
       summary: List sub-breeds from a breed 
-      description: Returns an array of all the sub-breeds from a breed.
-      operationId: getSubBreeds
+      description: Returns all the sub-breeds registered of a dog breed.
+      operationId: getAllSubBreeds
       parameters:
         - name: breed 
           in: path
@@ -142,13 +143,14 @@ paths:
                   status:
                     type: string
                     description: Request status description
+
   /breed/{breed}/images:
     get:
       tags:
         - by-breed
       summary: Images from a breed
-      description: Returns an array of all the images from a breed.
-      operationId: getBreedImages
+      description: Returns all the images from a dog breed.
+      operationId: getAllBreedImages
       parameters:
         - name: breed 
           in: path
@@ -172,13 +174,14 @@ paths:
                   status:
                     type: string
                     description: Status description
+
   /breed/{breed}/{sub_breed}/images:
     get:
       tags:
         - by-sub-breed
       summary: Images from a sub-breed
-      description: Returns an array of all the images from the sub-breed.
-      operationId: getSubBreedImages
+      description: Returns all the images from a dog sub-breed.
+      operationId: getAllSubBreedImages
       parameters:
         - name: breed 
           in: path
@@ -199,13 +202,14 @@ paths:
             application/json:
               schema:
                 type: string
+
   /breed/{breed}/images/random:
     get:
       tags:
         - by-breed
       summary: Random image from a breed
-      description: Returns a random dog image from a breed.
-      operationId: getBreedRandomImage
+      description: Returns a single random image of a specific dog breed.
+      operationId: getOneBreedRandomImage
       parameters:
         - name: breed 
           in: path
@@ -229,12 +233,13 @@ paths:
                   status:
                     type: string
                     description: Status description
+
   /breed/{breed}/images/random/{qty}:
     get:
       tags:
         - by-breed
       summary: Multiple random images from a breed
-      description: Returns multiple random dog images from a breed.
+      description: Returns multiple random images of a specific dog breed.
       operationId: getManyBreedRandomImages
       parameters:
         - name: breed 
@@ -265,13 +270,14 @@ paths:
                   status:
                     type: string
                     description: Status description
+
   /breed/{breed}/{sub_breed}/images/random:
     get:
       tags:
         - by-sub-breed
       summary: Random image from a sub-breed
-      description: Returns a single random image from the sub-breed.
-      operationId: getSubBreedRandomImage
+      description: Returns a single random image of a dog sub-breed.
+      operationId: getOneSubBreedRandomImage
       parameters:
         - name: breed 
           in: path
@@ -301,12 +307,13 @@ paths:
                   status:
                     type: string
                     description: Status description
+
   /breed/{breed}/{sub_breed}/images/random/{qty}:
     get:
       tags:
         - by-sub-breed
       summary: Multiple random images from a sub-breed
-      description: Return multiple random dog images from a sub-breed.
+      description: Return multiple random images of a dog sub-breed.
       operationId: getManySubBreedRandomImages
       parameters:
         - name: breed 

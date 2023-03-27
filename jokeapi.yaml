@@ -7,7 +7,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: JokeAPI Docs
   url: https://sv443.net/jokeapi/v2/
@@ -17,21 +17,120 @@ tags:
   - name: jokes
     description: JokeAPI
 paths:
-  /joke/Any:
+  /joke/{category}:
     get:
       tags:
         - jokes
-      summary: "Joke look-up in any category."
-      operationId: any
+      summary: "Joke look-up."
+      operationId: getJokes
       parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
+        - name: category
+          in: path
+          description: "Joke Category or Categories. (Any, Christmas, Dark, Misc, Programming, Pun, Spooky)"
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - Any
+                - Christmas
+                - Dark
+                - Misc
+                - Programming
+                - Pun
+                - Spooky
+            minItems: 1
+            default: Any
+          style: simple
+        - name: format
+          in: query
+          description: "Response format."
+          required: false
+          schema:
+            type: string
+            default: json
+            enum:
+            - json
+            - xml
+            - yaml
+            - txt
+        - name: blacklistFlags
+          in: query
+          description: >-
+            If it is used, jokes that match the specified flag(s) will not be served. 
+            If you want to use multiple flags, separate them with a comma (,) or a plus sign (+). 
+            **nsfw** stands for not safe for work.
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+              - nsfw
+              - religious
+              - political
+              - racist
+              - sexist
+              - explicit
+        - name: lang
+          in: query
+          description: "Joke language."
+          required: false
+          schema:
+            type: string
+            enum:
+            - cs
+            - de
+            - en
+            - es
+            - fr
+            - pt
+        - name: type
+          in: query
+          description: "Joke type."
+          required: false
+          schema:
+            type: string
+            enum:
+            - single
+            - twopart
+        - name: contains
+          in: query
+          description: >-
+            If this parameter is specified, only jokes that contain the 
+            value of this parameter will be served (case insensitive).
+          required: false
+          schema:
+            type: string
+        - name: idRange
+          in: query
+          description: >-
+            If it is used, you will only get jokes that are inside the specified range of IDs.
+            The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+). 
+            If you only want to get a single joke by its ID, you can also ignore the delimiter and 
+            just use the single ID as the value for this parameter.
+          required: false
+          schema:
+            type: string
+        - name: amount
+          in: query
+          description: >-
+            If it is used, you will get a certain number of jokes in a single request. 
+            If JokeAPI has less jokes than demanded, it will not error out but instead send the maximum amount of jokes it can serve. 
+            Maximum possible number is 10 and using an invalid value will make JokeAPI default to 1. 
+            The joke format will change from the default when you set the amount parameter to 2 or more.
+          required: false
+          schema:
+            type: integer
+        - name: safe-mode
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "1"
       responses:
         '200':
           $ref: '#/components/responses/OK'
@@ -51,292 +150,7 @@ paths:
           description: "Internal Server Error"
         '523':
           description: "Origin Unreachable"
-  /joke/Misc:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in miscellaneous category."
-      operationId: misc
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Programming:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in programming category."
-      operationId: programming
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Dark:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in dark category."
-      operationId: dark
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Pun:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in pun category."
-      operationId: pun
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Spooky:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in spooky category."
-      operationId: spooky
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
-  /joke/Christmas:
-    get:
-      tags:
-        - jokes
-      summary: "Joke look-up in christmas category."
-      operationId: christmas
-      parameters:
-        - $ref: '#/components/parameters/formatParam'
-        - $ref: '#/components/parameters/blackListParam'
-        - $ref: '#/components/parameters/langParam'
-        - $ref: '#/components/parameters/typeParam'
-        - $ref: '#/components/parameters/containsParam'
-        - $ref: '#/components/parameters/idRangeParam'
-        - $ref: '#/components/parameters/amountParam'
-        - $ref: '#/components/parameters/safemodeParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/OK'  
-        '400':
-          description: "Bad Request"
-        '403':
-          description: "Forbidden"
-        '404':
-          description: "Not Found"
-        '413':
-          description: "Payload Too Large"
-        '414':
-          description: "URI Too Long"
-        '429':
-          description: "Too Many Requests"
-        '500':
-          description: "Internal Server Error"
-        '523':
-          description: "Origin Unreachable"
 components:
-  parameters:
-    formatParam:
-      name: format
-      in: query
-      description: "Response format."
-      required: false
-      schema:
-        type: string
-        default: json
-        enum:
-        - json
-        - xml
-        - yaml
-        - txt
-    blackListParam:
-      name: blacklistFlags
-      in: query
-      description: "If it is used, jokes that match the specified flag(s) will not be served (what is a flag?). If you want to use multiple flags, separate them with a comma (,) or a plus sign (+). **nsfw** stands for not safe for work."
-      required: false
-      schema:
-        type: string
-        enum:
-        - nsfw
-        - religious
-        - political
-        - racist
-        - sexist
-        - explicit
-    langParam:
-      name: lang
-      in: query
-      description: "Joke language."
-      required: false
-      schema:
-        type: string
-        enum:
-        - cs
-        - de
-        - en
-        - es
-        - fr
-        - pt
-    typeParam:
-      name: type
-      in: query
-      description: "Joke type."
-      required: false
-      schema:
-        type: string
-        enum:
-        - single
-        - twopart
-    containsParam:
-      name: contains
-      in: query
-      description: "If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive)."
-      required: false
-      schema:
-        type: string
-    idRangeParam:
-      name: idRange
-      in: query
-      description: "If it is used, you will only get jokes that are inside the specified range of IDs.The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+). If you only want to get a single joke by its ID, you can also ignore the delimiter and just use the single ID as the value for this parameter."
-      required: false
-      schema:
-        type: string
-    amountParam:
-      name: amount
-      in: query
-      description: "If it is used, you will get a certain number of jokes in a single request. If JokeAPI has less jokes than demanded, it will not error out but instead send the maximum amount of jokes it can serve. Maximum possible number is 10 and using an invalid value will make JokeAPI default to 1. The joke format will change from the default when you set the amount parameter to 2 or more."
-      required: false
-      schema:
-        type: integer
-    safemodeParam:
-      name: safe-mode
-      in: query
-      description: ""
-      required: false
-      schema:
-        type: string
-        default: "1"
   responses:
     OK:
       description: "Ok"
