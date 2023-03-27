@@ -2,10 +2,8 @@ openapi: 3.0.3
 info:
   title: Pokemon API v2 - OpenAPI 3.0
   description: |-
-    Pokemon API - OpenAPI specification
-     Some useful links:
-     - [Pokemon API Site](https://pokeapi.co)
-     - [Bulbapedia](http://bulbapedia.bulbagarden.net)
+    Pokemon API provides information about all things pokemon including pokemons, abilities, characteristics, language and more. 
+
   contact:
     email: rauber@gmail.com
   license:
@@ -206,7 +204,7 @@ paths:
       tags:
         - pokemon
       summary: Pokemon Location Area Information
-      description: Pokémon Location Areas are ares where Pokémon can be found.
+      description: Pokémon Location Areas are areas where Pokémon can be found.
       operationId: getPokemonLocationArea
       parameters:
         - name: id_or_name
@@ -381,14 +379,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Language'
-  /ability/:
+  '/{resource}':
     get:
       tags:
-        - pokemon
-      summary: Ability Information List
-      description: List for all Abilities.
-      operationId: getAbilityList
+        - resource
+      summary: Get a list of a particular resource to use in other endpoints
+      description: >-
+        Get a list of a particular resource to use in other endpoints. For example, get a list of abilities. 
+      operationId: getResource
       parameters:
+        - name: resource
+          in: path
+          description: Resource to retrieve
+          required: true
+          schema:
+            type: string
+            enum:
+              - ability
+              - type
+              - language
+              - pokemon-habitat
+              - pokemon-shape
+              - pokemon-color
+              - pokemon
+              - nature
+              - characteristics
+          example: ability
         - name: limit
           in: query
           required: false
@@ -408,195 +424,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedResourceWithNameURL'
-  /nature/:
-    get:
-      tags:
-        - pokemon
-      summary: Nature Information List
-      description: List for all Nature.
-      operationId: getNatureList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
-  /pokemon/:
-    get:
-      tags:
-        - pokemon
-      summary: Pokemon List
-      description: List for all Pokémon.
-      operationId: getPokemonList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
-  /pokemon-color/:
-    get:
-      tags:
-        - pokemon
-      summary: Pokemon Color Information List
-      description: List for all Colors used for sorting Pokémon in a Pokédex.
-      operationId: getPokemonColorList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
-  /pokemon-habitat/:
-    get:
-      tags:
-        - pokemon
-      summary: Pokemon Habitat Information List
-      description: List for all Habitats.
-      operationId: getPokemonHabitatList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
-  /pokemon-shape/:
-    get:
-      tags:
-        - pokemon
-      summary: Pokemon Shape Information List
-      description: List for all Shapes used for sorting Pokémon in a Pokédex.
-      operationId: getPokemonShapeList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
-  /type/:
-    get:
-      tags:
-        - pokemon
-      summary: Type Information List
-      description: List for all Types.
-      operationId: getTypeList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
-  /language/:
-    get:
-      tags:
-        - utility
-      summary: Language Information List
-      description: List for all Languages.
-      operationId: getLanguageList
-      parameters:
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedResourceWithNameURL'
+
+
 components:
   schemas:
     AbilityEffectChange:
