@@ -7,6 +7,16 @@ info:
     When the return of your request is a list of objects, you do not have to get the whole result in one time, you can paginate it if you want. Some parameters can be used to constrain the number of objects the request returns 
     - **index**: the offset of the first object you want to get
     - **limit**: the maximum number of objects to return 
+    
+    Explicit response values (lyrics, covers, etc):
+    - 0: Not Explicit
+    - 1: Explicit
+    - 2: Unknown
+    - 3: Edited
+    - 4: Partially Explicit (Album 'lyrics' only); 
+    - 5: Partially Unknown (Album 'lyrics' only); 
+    - 6: No Advice Available
+    - 7: Partially No Advice Available (Album 'lyrics' only))
 
     Some useful links:
     - [API Docs](https://developers.deezer.com/api/)
