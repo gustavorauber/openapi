@@ -27,7 +27,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: Find out more about the Deezer API
   url: https://developers.deezer.com/api/
@@ -64,7 +64,12 @@ paths:
       summary: Fetch Album Tracks
       operationId: getAlbumTracks
       parameters:
-        - $ref: '#/components/parameters/idParam'
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "Album ID"
         - $ref: '#/components/parameters/indexParam'
         - $ref: '#/components/parameters/limitParam'
       responses:
@@ -104,7 +109,12 @@ paths:
       description: Get the top 5 tracks of an artist
       operationId: getArtistTopTracks
       parameters:
-        - $ref: '#/components/parameters/idParam'
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "Artist ID"
         - $ref: '#/components/parameters/indexParam'
         - $ref: '#/components/parameters/limitParam'
       responses:
@@ -125,7 +135,12 @@ paths:
       summary: Fetch a list of artist's albums
       operationId: getArtistAlbums
       parameters:
-        - $ref: '#/components/parameters/idParam'
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "Artist ID"
         - $ref: '#/components/parameters/indexParam'
         - $ref: '#/components/parameters/limitParam'
       responses:
@@ -146,7 +161,12 @@ paths:
       summary: Fetch a list of related artists
       operationId: getRelatedArtists
       parameters:
-        - $ref: '#/components/parameters/idParam'
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "Artist ID"
         - $ref: '#/components/parameters/indexParam'
         - $ref: '#/components/parameters/limitParam'
       responses:
@@ -202,7 +222,12 @@ paths:
       summary: List artists by genre
       operationId: listArtistsByGenre
       parameters:
-        - $ref: '#/components/parameters/idParam'
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "Genre ID"
       responses:
         '200':
           description: successful operation
