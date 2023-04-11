@@ -7,7 +7,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.1
+  version: 1.0.2
 externalDocs:
   description: JokeAPI Docs
   url: https://sv443.net/jokeapi/v2/
@@ -26,7 +26,7 @@ paths:
       parameters:
         - name: category
           in: path
-          description: Joke Category or Categories. Use on or more of (Any, Christmas, Dark, Misc, Programming, Pun, Spooky). When using more than one category, separate them by commas.
+          description: Joke Category or Categories. Use one or more of (Any, Christmas, Dark, Misc, Programming, Pun, Spooky). When using more than one category, separate them by commas, with no added space.
           required: true
           schema:
             type: string
