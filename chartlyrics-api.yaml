@@ -26,28 +26,7 @@ paths:
       responses:
         '200':
           description: Success
-
-  /SearchLyricDirect:
-    get:
-      tags:
-        - lyrics
-      summary: Fetch the Lyric from a Search Top Result.
-      operationId: getTopSearchResult
-      parameters:
-        - name: artist
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: song
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          
+        
   /SearchLyricText:
     get:
       tags:
@@ -56,6 +35,27 @@ paths:
       operationId: searchSongsByLyrics
       parameters:
         - name: lyricText
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+
+  /SearchLyricDirect:
+    get:
+      tags:
+        - lyrics
+      summary: Fetch the Lyric from a Search Top Result.
+      operationId: getLyricFromTopSearchResult
+      parameters:
+        - name: artist
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: song
           in: query
           required: true
           schema:
