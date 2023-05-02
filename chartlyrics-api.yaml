@@ -1,0 +1,86 @@
+openapi: 3.0.1
+info:
+  title: ChartLyrics API
+  description: ChartLyrics carries a comprehensive collection of song lyrics.
+  version: 1.0.0
+servers:
+  - url: http://api.chartlyrics.com/apiv1.asmx
+paths:
+  /SearchLyric:
+    get:
+      tags:
+        - lyrics
+      summary: Search Songs.
+      operationId: searchSongs
+      parameters:
+        - name: artist
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: song
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+
+  /SearchLyricDirect:
+    get:
+      tags:
+        - lyrics
+      summary: Fetch the Lyric from a Search Top Result.
+      operationId: getTopSearchResult
+      parameters:
+        - name: artist
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: song
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          
+  /SearchLyricText:
+    get:
+      tags:
+        - lyrics
+      summary: Search songs by partially matching the lyric.
+      operationId: searchSongsByLyrics
+      parameters:
+        - name: lyricText
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          
+  /GetLyric:
+    get:
+      tags:
+        - lyrcs
+      operationId: getLyric
+      parameters:
+        - name: lyricId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: lyricCheckSum
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          
