@@ -1,0 +1,24 @@
+openapi: 3.0.1
+info:
+  title: Random Fox API
+  description: Provides aleatory images of foxes.
+  version: 1.0.0
+servers:
+  - url: https://randomfox.ca
+paths:
+  /floof:
+    get:
+      operationId: getRandomImage
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+                schema:
+                  type: object
+                  properties:
+                    image:
+                      type: string
+                    link:
+                      type: string
+                      
