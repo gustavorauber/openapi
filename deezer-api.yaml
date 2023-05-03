@@ -7,6 +7,19 @@ info:
     When the return of your request is a list of objects, you do not have to get the whole result in one time, you can paginate it if you want. Some parameters can be used to constrain the number of objects the request returns 
     - **index**: the offset of the first object you want to get
     - **limit**: the maximum number of objects to return 
+
+    The **order** parameter accepts one of the following values: 
+      - RANKING
+      - TRACK_ASC
+      - TRACK_DESC
+      - ARTIST_ASC
+      - ARTIST_DESC
+      - ALBUM_ASC
+      - ALBUM_DESC
+      - RATING_ASC
+      - RATING_DESC
+      - DURATION_ASC
+      - DURATION_DESC
     
     Explicit response values (lyrics, covers, etc):
     - 0: Not Explicit
@@ -27,7 +40,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.1
+  version: 1.0.2
 externalDocs:
   description: Find out more about the Deezer API
   url: https://developers.deezer.com/api/
@@ -38,6 +51,7 @@ tags:
   - name: artists
   - name: tracks
   - name: genres
+  - name: podcasts
 paths:
   /album/{id}:
     get:
@@ -180,6 +194,23 @@ paths:
                   $ref: '#/components/schemas/Track'
         '400':
           description: Invalid status value
+  /episode/{id}:
+    get:
+      tags:
+        - podcasts
+      summary: Fetch an episode
+      operationId: getEpisodeById
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+        '400':
+          description: Invalid status value
   /genre:
     get:
       tags:
@@ -239,6 +270,32 @@ paths:
                   $ref: '#/components/schemas/Artist'
         '400':
           description: Invalid status value
+  /podcast/{id}/episodes:
+    get:
+      tags:
+        - podcasts
+      summary: List podcast's episodes
+      operationId: listPodcastEpisodes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "Podcast ID"
+        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PodcastEpisode'
+        '400':
+          description: Invalid status value
   /search:    
     get:
       tags:
@@ -256,18 +313,6 @@ paths:
           required: false
           schema:
             type: string
-            enum: 
-              - RANKING
-              - TRACK_ASC
-              - TRACK_DESC
-              - ARTIST_ASC
-              - ARTIST_DESC
-              - ALBUM_ASC
-              - ALBUM_DESC
-              - RATING_ASC
-              - RATING_DESC
-              - DURATION_ASC
-              - DURATION_DESC
         - $ref: '#/components/parameters/indexParam'
         - $ref: '#/components/parameters/limitParam'
       responses:
@@ -279,6 +324,96 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Track'
+        '400':
+          description: Invalid status value
+  /search/album:    
+    get:
+      tags:
+        - albums
+      summary: Search albums
+      operationId: searchAlbums
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Album'
+        '400':
+          description: Invalid status value
+  /search/artist:    
+    get:
+      tags:
+        - artists
+      summary: Search artists
+      operationId: searchArtists
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Artist'
+        '400':
+          description: Invalid status value
+  /search/podcast:    
+    get:
+      tags:
+        - podcasts
+      summary: Search podcasts
+      operationId: searchPodcasts
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Podcast'
         '400':
           description: Invalid status value
   /track/{id}:
@@ -443,6 +578,47 @@ components:
         tracklist:  
           type: string
           description: "API Link to the top of this artist"
+    Episode:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "The episode's Deezer id"
+        title:
+          type: string
+          description: "The episode's title"
+        description:
+          type: string
+          description: "The episode's description"
+        available:
+          type: boolean
+          description: "If the episode is available or not"
+        release_date:
+          type: string
+          description: "The episode's release date"
+        duration:
+          type: integer
+          description: "The episode's duration (seconds)"
+        link:
+          type: string
+          description: "The url of the episode on Deezer"
+        picture:
+          type: string
+          description:  "The url of the episode's cover."
+        picture_small:
+          type: string
+          description:  "The url of the episode's cover in size small."
+        picture_medium:
+          type: string
+          description:  "The url of the episode's cover in size medium."
+        picture_big:
+          type: string
+          description:  "The url of the episode's cover in size big."
+        picture_xl:
+          type: string
+          description:  "The url of the episode's cover in size xl."
+        podcast:
+          $ref: '#/components/schemas/Podcast'
     Genre:
       type: object
       properties:
@@ -467,6 +643,63 @@ components:
         picture_xl:
           type: string
           description:  "The url of the genre picture in size xl."
+    Podcast:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "The podcast's Deezer id"
+        title:
+          type: string
+          description: "The podcast's title"
+        description:
+          type: string
+          description: "The podcast's description"
+        available:
+          type: boolean
+          description: "If the podcast is available or not."
+        fans:
+          type: integer
+          description: "The number of podcast's fans"
+        url:
+          type: string
+          description: "The URL of the podcast on Deezer"
+        share:
+          type: string
+          description: "The share link of the podcast on Deezer"
+        picture:
+          type: string
+          description:  "The url of the podcast's cover."
+        picture_small:
+          type: string
+          description:  "The url of the podcast's cover in size small."
+        picture_medium:
+          type: string
+          description:  "The url of the podcast's cover in size medium."
+        picture_big:
+          type: string
+          description:  "The url of the podcast's cover in size big."
+        picture_xl:
+          type: string
+          description:  "The url of the podcast's cover in size xl."
+    PodcastEpisode:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "The episode's Deezer id"
+        title:
+          type: string
+          description: "The episode's title"
+        release_date:
+          type: string
+          description: "The episode's release date"
+        duration:
+          type: integer
+          description: "The episode's duration (seconds)"
+        picture:
+          type: string
+          description:  "The url of the episode's cover."
     Track:
       type: object
       properties:
