@@ -1,0 +1,106 @@
+openapi: 3.0.1
+info:
+  title: Game of Thrones Quotes API
+  description: A free API to retrieve some quotes of Game of Thrones!
+  version: 1.0.0
+servers:
+  - url: https://api.gameofthronesquotes.xyz/v1
+paths:
+  /random:
+    get:
+      tags:
+        - quotes
+      summary: Get a random quote.
+      operationId: getRandomQuote
+      responses:
+        '200':
+          description: Success
+  
+  /random/{qty}:
+    get:
+      tags:
+        - quotes
+      summary: Get several random quotes.
+      operationId: getRandomQuotes
+      parameters:
+        - in: path
+          name: qty
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          
+  /author/{character_slug}/{qty}:
+    get:
+      tags:
+        - quotes
+      summary: Get several character quotes.
+      operationId: getCharacterQuotes
+      parameters:
+        - in: path
+          name: character_slug
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: qty
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          
+  /houses:
+     get:
+      tags:
+        - houses
+      summary: List of houses with their members.
+      operationId: listHouses
+      responses:
+        '200':
+          description: Success
+        
+  /house/{slug}:
+    get:
+      tags:
+        - houses
+      summary: Get house details.
+      operationId: getHouseDetails
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          
+  /characters:
+    get:
+      tags:
+        - characters
+      summary: List of characters.
+      operationId: listCharacters
+      responses:
+        '200':
+          description: Success
+          
+  /character/{slug}:
+    get:
+      tags:
+        - characters
+      summary: Get character's details with his quotes
+      operationId: getCharacterDetailsAndQuotes
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
