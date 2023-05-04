@@ -2,7 +2,9 @@ openapi: 3.0.3
 info:
   title: STAPI
   description: |-
-    STAPI, a Star Trek API
+    STAPI, a Star Trek API.
+    STAPI serves a read-only model of all things Star Trek, including characters, performers, species, 
+    episodes, spacecrafts, books, astronomical objects, video releases, and more.
 
     - Common properties of request parameters:  
       **pageNumber **is 0-indexed.
@@ -11,8 +13,6 @@ info:
 servers:
   - url: https://stapi.co/api
     description: STAPI over secure HTTPS protocol
-  - url: http://stapi.co/api
-    description: STAPI over plain HTTP protocol
 paths:
   /v1/rest/{resource}:
     get:
