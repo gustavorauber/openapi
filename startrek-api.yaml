@@ -12,13 +12,40 @@ servers:
   - url: http://stapi.co/api
     description: STAPI over plain HTTP protocol
 paths:
-  /v1/rest/animal:
+  /v1/rest/{resource}:
     get:
-      tags:
-        - Animal
-      summary: Retrieval of a single animal
-      operationId: getAnimal
+      summary: Retrieval of a single resource entity
+      operationId: getEntityV1
       parameters:
+        - name: resource
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - animal
+              - bookCollection
+              - bookSeries
+              - character
+              - comics
+              - comicSeries
+              - comicStrip
+              - episode
+              - food
+              - literature
+              - magazine
+              - magazineSeries
+              - material
+              - medicalCondition
+              - movie
+              - organization
+              - season
+              - series
+              - soundtrack
+              - tradingCard
+              - tradingCardDeck
+              - tradingCardSet
+              - videoGame
         - name: uid
           in: query
           required: true
@@ -27,10 +54,47 @@ paths:
       responses:
         200:
           description: OK
+        default:
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AnimalFullResponse'
+                $ref: '#/components/schemas/Error'
+  /v2/rest/{resource}:
+    get:
+      summary: Retrieval of a single resource entity
+      operationId: getEntityV2
+      parameters:
+        - name: resource
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - astronomicalObject
+              - book
+              - comicCollection
+              - company
+              - conflict
+              - element
+              - location
+              - occupation
+              - performer
+              - spacecraft
+              - species
+              - staff
+              - technology
+              - title
+              - videoRelease
+              - weapon
+        - name: uid
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
         default:
           description: Unexpected error
           content:
@@ -67,64 +131,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    
-  /v1/rest/astronomicalObject/search:
-    get:
-      tags:
-        - AstronomicalObject
-      summary: Pagination over astronomical objects
-      operationId: listAstronomicalObjects
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AstronomicalObjectBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    
-  /v2/rest/astronomicalObject:
-    get:
-      tags:
-        - AstronomicalObject
-      summary: Retrieval of a single astronomical object (V2)
-      operationId: getAstronomicalObject
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AstronomicalObjectV2FullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v2/rest/astronomicalObject/search:
     get:
       tags:
@@ -149,31 +155,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AstronomicalObjectV2BaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/book:
-    get:
-      tags:
-        - Book
-      summary: Retrieval of a single book (V2)
-      operationId: getBook
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BookV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -210,31 +191,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/bookCollection:
-    get:
-      tags:
-        - BookCollection
-      summary: Retrieval of a single book collection
-      operationId: getBookCollection
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BookCollectionFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/bookCollection/search:
     get:
       tags:
@@ -259,31 +215,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BookCollectionBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/bookSeries:
-    get:
-      tags:
-        - BookSeries
-      summary: Retrieval of a single book series
-      operationId: getBookSeries
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BookSeriesFullResponse'
         default:
           description: Unexpected error
           content:
@@ -320,31 +251,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/character:
-    get:
-      tags:
-        - Character
-      summary: Retrieval of a single character
-      operationId: getCharacter
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CharacterFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/character/search:
     get:
       tags:
@@ -369,31 +275,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CharacterBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/comics:
-    get:
-      tags:
-        - Comics
-      summary: Retrieval of a single comics
-      operationId: getComics
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ComicsFullResponse'
         default:
           description: Unexpected error
           content:
@@ -460,56 +341,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v2/rest/comicCollection:
-    get:
-      tags:
-        - ComicCollection
-      summary: Retrieval of a single comic collection (V2)
-      operationId: getComicCollection
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ComicCollectionV2FullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/comicSeries:
-    get:
-      tags:
-        - ComicSeries
-      summary: Retrieval of a single comic series
-      operationId: getComicSeries
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ComicSeriesFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/comicSeries/search:
     get:
       tags:
@@ -540,31 +371,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/comicStrip:
-    get:
-      tags:
-        - ComicStrip
-      summary: Retrieval of a single comic strip
-      operationId: getComicStrip
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ComicStripFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/comicStrip/search:
     get:
       tags:
@@ -589,31 +395,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComicStripBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/company:
-    get:
-      tags:
-        - Company
-      summary: Retrieval of a single company (V2)
-      operationId: getCompany
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CompanyV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -680,31 +461,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v2/rest/conflict:
-    get:
-      tags:
-        - Conflict
-      summary: Retrieval of a single conflict (V2)
-      operationId: getConflict
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConflictV2FullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/common/dataVersion:
     get:
       tags:
@@ -718,31 +474,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataVersion'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/element:
-    get:
-      tags:
-        - Element
-      summary: Retrieval of a single element (V2)
-      operationId: getElement
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ElementV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -779,31 +510,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/episode:
-    get:
-      tags:
-        - Episode
-      summary: Retrieval of a single episode
-      operationId: getEpisode
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EpisodeFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/episode/search:
     get:
       tags:
@@ -828,31 +534,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EpisodeBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/food:
-    get:
-      tags:
-        - Food
-      summary: Retrieval of a single food
-      operationId: getFood
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FoodFullResponse'
         default:
           description: Unexpected error
           content:
@@ -889,31 +570,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/literature:
-    get:
-      tags:
-        - Literature
-      summary: Retrieval of a single literature
-      operationId: getLiterature
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LiteratureFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/literature/search:
     get:
       tags:
@@ -938,58 +594,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LiteratureBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/location:
-    get:
-      tags:
-        - Location
-      description: Retrieval of a single location
-      operationId: v1GetLocation
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Location unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LocationFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/location:
-    get:
-      tags:
-        - Location
-      summary: Retrieval of a single location (V2)
-      operationId: getLocation
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LocationV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -1026,31 +630,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/magazine:
-    get:
-      tags:
-        - Magazine
-      summary: Retrieval of a single magazine
-      operationId: getMagazine
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MagazineFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/magazine/search:
     get:
       tags:
@@ -1075,31 +654,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MagazineBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/magazineSeries:
-    get:
-      tags:
-        - MagazineSeries
-      summary: Retrieval of a single magazine series
-      operationId: getMagazineSeries
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MagazineSeriesFullResponse'
         default:
           description: Unexpected error
           content:
@@ -1136,31 +690,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/material:
-    get:
-      tags:
-        - Material
-      summary: Retrieval of a single material
-      operationId: getMaterial
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MaterialFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/material/search:
     get:
       tags:
@@ -1185,31 +714,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MaterialBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/medicalCondition:
-    get:
-      tags:
-        - MedicalCondition
-      summary: Retrieval of a single medical condition
-      operationId: getMedicalCondition
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MedicalConditionFullResponse'
         default:
           description: Unexpected error
           content:
@@ -1246,31 +750,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/movie:
-    get:
-      tags:
-        - Movie
-      summary: Retrieval of a single movie
-      operationId: getMovie
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MovieFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/movie/search:
     get:
       tags:
@@ -1295,31 +774,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MovieBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/occupation:
-    get:
-      tags:
-        - Occupation
-      summary: Retrieval of a single occupation (V2)
-      operationId: getOccupation
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OccupationV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -1356,31 +810,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/organization:
-    get:
-      tags:
-        - Organization
-      summary: Retrieval of a single organization
-      operationId: getOrganization
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OrganizationFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/organization/search:
     get:
       tags:
@@ -1405,31 +834,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrganizationBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/performer:
-    get:
-      tags:
-        - Performer
-      summary: Retrieval of a single performer (V2)
-      operationId: getPerformer
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PerformerV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -1466,31 +870,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/season:
-    get:
-      tags:
-        - Season
-      summary: Retrieval of a single season
-      operationId: getSeason
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SeasonFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/season/search:
     get:
       tags:
@@ -1515,31 +894,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SeasonBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/series:
-    get:
-      tags:
-        - Series
-      summary: Retrieval of a single series
-      operationId: getSeries
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SeriesFullResponse'
         default:
           description: Unexpected error
           content:
@@ -1576,31 +930,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/soundtrack:
-    get:
-      tags:
-        - Soundtrack
-      summary: Retrieval of a single soundtrack
-      operationId: getSoundtrack
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SoundtrackFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/soundtrack/search:
     get:
       tags:
@@ -1625,31 +954,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SoundtrackBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/spacecraft:
-    get:
-      tags:
-        - Spacecraft
-      summary: Retrieval of a single spacecraft (V2)
-      operationId: getSpacecraft
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -1741,31 +1045,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v2/rest/species:
-    get:
-      tags:
-        - Species
-      summary: Retrieval of a single species (V2)
-      operationId: getSpecies
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpeciesV2FullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v2/rest/species/search:
     get:
       tags:
@@ -1790,31 +1069,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpeciesV2BaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/staff:
-    get:
-      tags:
-        - Staff
-      summary: Retrieval of a single staff member (V2)
-      operationId: getStaff
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StaffV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -1851,31 +1105,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v2/rest/technology:
-    get:
-      tags:
-        - Technology
-      summary: Retrieval of a single technology piece (V2)
-      operationId: getTechnology
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TechnologyV2FullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v2/rest/technology/search:
     get:
       tags:
@@ -1900,31 +1129,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TechnologyV2BaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/title:
-    get:
-      tags:
-        - Title
-      summary: Retrieval of a single title (V2)
-      operationId: getTitle
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TitleV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -1961,31 +1165,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/tradingCard:
-    get:
-      tags:
-        - TradingCard
-      summary: Retrieval of a single trading card
-      operationId: getTradingCard
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TradingCardFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/tradingCard/search:
     get:
       tags:
@@ -2010,31 +1189,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TradingCardBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/tradingCardDeck:
-    get:
-      tags:
-        - TradingCardDeck
-      summary: Retrieval of a single trading card deck
-      operationId: getTradingCardDeck
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TradingCardDeckFullResponse'
         default:
           description: Unexpected error
           content:
@@ -2071,31 +1225,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/tradingCardSet:
-    get:
-      tags:
-        - TradingCardSet
-      summary: Retrieval of a single trading card set
-      operationId: getTradingCardSet
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TradingCardSetFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v1/rest/tradingCardSet/search:
     get:
       tags:
@@ -2120,31 +1249,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TradingCardSetBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/videoGame:
-    get:
-      tags:
-        - VideoGame
-      summary: Retrieval of a single video game
-      operationId: getVideoGame
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VideoGameFullResponse'
         default:
           description: Unexpected error
           content:
@@ -2181,31 +1285,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v2/rest/videoRelease:
-    get:
-      tags:
-        - VideoRelease
-      summary: Retrieval of a single video release (V2)
-      operationId: getVideoRelease
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VideoReleaseV2FullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /v2/rest/videoRelease/search:
     get:
       tags:
@@ -2230,31 +1309,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VideoReleaseBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v2/rest/weapon:
-    get:
-      tags:
-        - Weapon
-      summary: Retrieval of a single weapon (V2)
-      operationId: getWeapon
-      parameters:
-        - name: uid
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WeaponV2FullResponse'
         default:
           description: Unexpected error
           content:
