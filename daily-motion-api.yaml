@@ -34,6 +34,9 @@ info:
       
       **sort**: When sorting a list of videos, you can change the default order with one of the following: recent, visited, visited-hour, visited-today, visited-week, visited-month, relevance, random, trending, old, live-audience,least-visited, live-airing-time, id-asc.
   version: 1.0.0
+externalDocs:
+  description: Daily Motion APIs
+  url: https://developers.dailymotion.com/api/
 servers:
   - url: https://api.dailymotion.com
 tags:
