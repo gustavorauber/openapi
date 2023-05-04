@@ -37,11 +37,12 @@ info:
 servers:
   - url: https://api.dailymotion.com
 paths:
-
   /channels:
     get:
       operationId: listChannels
       summary: Retrieve a list of channels
+      tags: 
+        - channels
       parameters:
         - in: query
           name: fields
@@ -65,11 +66,12 @@ paths:
       responses:
         '200':
           description: Success
-          
   /channels/{id}/videos:
     get:
       operationId: listChannelVideos
       summary: Retrieve the list of connected videos.
+      tags: 
+        - channels
       parameters:
         - in: path
           name: id
@@ -113,11 +115,12 @@ paths:
       responses:
         '200':
           description: Success
-      
   /videos:
     get:
       operationId: searchVideos
       summary: Retrieve a list of videos
+      tags: 
+        - videos
       parameters:
         - in: query
           name: fields
@@ -203,11 +206,12 @@ paths:
                       type: string
                     link:
                       type: string
-          
   /video/{id}:
     get:
       operationId: getVideoById
       summary: Retrieve a video with its identifier
+      tags: 
+        - videos
       parameters:
         - in: path
           name: id
@@ -226,6 +230,8 @@ paths:
     get:
       operationId: getRelatedVideos
       summary: Retrieve the list of connected videos
+      tags: 
+        - videos
       parameters:
         - in: path
           name: id
@@ -260,11 +266,12 @@ paths:
       responses:
         '200':
           description: Success
-          
   /video/{id}/subtitles:
     get:
       operationId: getVideoSubtitles
       summary: Retrieve the list of connected subtitles
+      tags: 
+        - videos
       parameters:
         - in: path
           name: id
