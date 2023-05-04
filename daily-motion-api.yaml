@@ -31,6 +31,8 @@ info:
       thumbnail_1080_url, thumbnail_url, tiny_url, title, updated_time, 
       url, verified, views_last_day, views_last_month, views_last_week, 
       views_total, width.
+
+      **nogenre**: Limit the result set by excluding this genre.
       
       **sort**: When sorting a list of videos, you can change the default order with one of the following: recent, visited, visited-hour, visited-today, visited-week, visited-month, relevance, random, trending, old, live-audience,least-visited, live-airing-time, id-asc.
   version: 1.0.0
@@ -190,7 +192,6 @@ paths:
             type: string
         - in: query
           name: nogenre
-          description: "Limit the result set by excluding this genre"
           schema:
             type: string
         - in: query
@@ -275,7 +276,6 @@ paths:
             type: string
         - in: query
           name: nogenre
-          description: "Limit the result set by excluding this genre"
           schema:
             type: string
         - in: query
