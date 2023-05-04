@@ -1,0 +1,211 @@
+openapi: 3.0.1
+info:
+  title: DailyMotion API
+  description: |-
+    Dailymotion is one of the biggest video platforms in the world
+  
+    Description of some common parameters:  
+    
+    **fields**: List of fields to return, comma-separated, no spaces.  
+    
+      - Options are: allow_embed, allowed_in_playlists, aspect_ratio, 
+    audience_total, available_formats, channel, checksum, country, 
+    created_time, custom_classification, description, duration, embed_html, 
+    end_time, explicit, filmstrip_60_url, geoblocking, geoloc, height, 
+    id, is_created_for_kids, language, likes_total, media_type, mode,
+    onair, owner, partner, player_next_video, preview_240p_url, 
+    preview_360p_url, preview_480p_url, private, published, record_end_time,
+    record_start_time, record_status, recurrence, seeker_url, soundtrack_isrc, soundtrack_popularity, sprite_320x_url, 
+    sprite_url, start_time, status, tags, thumbnail_60_url, 
+    thumbnail_120_url, thumbnail_180_url, thumbnail_240_url, 
+    thumbnail_360_url, thumbnail_480_url, thumbnail_720_url, 
+    thumbnail_1080_url, thumbnail_url, tiny_url, title, updated_time, 
+    url, verified, views_last_day, views_last_month, views_last_week, 
+    views_total, width.
+  version: 1.0.0
+servers:
+  - url: https://api.dailymotion.com
+paths:
+  /videos:
+    get:
+      operationId: getVideos
+      summary: Retrieve a list of videos
+      parameters:
+        - in: query
+          name: fields
+          schema:
+            type: string
+        - in: query
+          name: 360_degree
+          schema:
+            type: boolean
+        - in: query
+          name: country
+          description: "Two letter country code"
+          schema:
+            type: string
+        - in: query
+          name: channel
+          schema:
+            type: string
+        - in: query
+          name: exclude_ids
+          description: "Comma-separated, no spaces. Channels to exclude. eg: lifestyle,people"
+          schema:
+            type: string
+        - in: query
+          name: explicit
+          schema:
+            type: boolean
+        - in: query
+          name: flags
+          description: "Comma-separated, no spaces. Options are: 360_degree, exportable, featured, has_game, hd, live, live_offair, live_onair, live_upcoming, no_live, no_live_recording, partner, premium, no_premium, ugc, ugc_partner, verified."
+          schema:
+            type: string
+        - in: query
+          name: nogenre
+          description: "Limit the result set by excluding this genre"
+          schema:
+            type: string
+        - in: query
+          name: search
+          description: "Limit the result set to this full text search"
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: "the relevance filter can only be used in conjunction with the search filter"
+          schema:
+            enum:
+              - recent
+              - visited
+              - visited-hour
+              - visited-today
+              - visited-week
+              - visited-month
+              - relevance
+              - random
+              - trending
+              - old
+              - live-audience
+              - least-visited
+              - live-airing-time
+              - id-asc
+        - in: query
+          name: shorter_than
+          description: "video length in minutes"
+          schema:
+            type: integer
+        - in: query
+          name: tags
+          description: "Comma-separated, no spaces."
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+                schema:
+                  type: object
+                  properties:
+                    image:
+                      type: string
+                    link:
+                      type: string
+          
+  /video/{id}:
+    get:
+      operationId: getVideoById
+      summary: Retrieve a video with its identifier
+      parameters:
+        - in: path
+          name: id
+          required: True
+          schema:
+            type: string
+        - in: query
+          name: fields
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          
+  /video/{id}/related:
+    get:
+      operationId: getRelatedVideos
+      summary: Retrieve the list of connected videos
+      parameters:
+        - in: path
+          name: id
+          required: True
+          schema:
+            type: string
+        - in: query
+          name: fields
+          schema:
+            type: string
+        - in: query
+          name: channel
+          schema:
+            type: string
+        - in: query
+          name: nogenre
+          description: "Limit the result set by excluding this genre"
+          schema:
+            type: string
+        - in: query
+          name: related_videos_algorithm
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          
+  /video/{id}/subtitles:
+    get:
+      operationId: getVideoSubtitles
+      summary: Retrieve the list of connected subtitles
+      parameters:
+        - in: path
+          name: id
+          required: True
+          schema:
+            type: string
+        - in: query
+          name: fields
+          schema:
+            type: string
+        - in: query
+          name: language
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          
