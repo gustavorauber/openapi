@@ -140,7 +140,7 @@ paths:
           schema:
             type: string
             enum: 
-              - animals
+              - animal
               - bookCollection
               - bookSeries
               - character
