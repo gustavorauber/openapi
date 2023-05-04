@@ -4,31 +4,119 @@ info:
   description: |-
     Dailymotion is one of the biggest video platforms in the world
   
-    Description of some common parameters:  
+    Description of some common parameters: 
     
-    **fields**: List of fields to return, comma-separated, no spaces.  
+    - Channel:
     
-      - Options are: allow_embed, allowed_in_playlists, aspect_ratio, 
-    audience_total, available_formats, channel, checksum, country, 
-    created_time, custom_classification, description, duration, embed_html, 
-    end_time, explicit, filmstrip_60_url, geoblocking, geoloc, height, 
-    id, is_created_for_kids, language, likes_total, media_type, mode,
-    onair, owner, partner, player_next_video, preview_240p_url, 
-    preview_360p_url, preview_480p_url, private, published, record_end_time,
-    record_start_time, record_status, recurrence, seeker_url, soundtrack_isrc, soundtrack_popularity, sprite_320x_url, 
-    sprite_url, start_time, status, tags, thumbnail_60_url, 
-    thumbnail_120_url, thumbnail_180_url, thumbnail_240_url, 
-    thumbnail_360_url, thumbnail_480_url, thumbnail_720_url, 
-    thumbnail_1080_url, thumbnail_url, tiny_url, title, updated_time, 
-    url, verified, views_last_day, views_last_month, views_last_week, 
-    views_total, width.
+      **fields**: List of channel fields to return, comma-separated, no spaces.
+        
+        - Options are: created_time, description, id, name, slug, updated_time.
+      
+    - Video:
+    
+      **fields**: List of video fields to return, comma-separated, no spaces.  
+      
+        - Options are: allow_embed, allowed_in_playlists, aspect_ratio, 
+      audience_total, available_formats, channel, checksum, country, 
+      created_time, custom_classification, description, duration, embed_html, 
+      end_time, explicit, filmstrip_60_url, geoblocking, geoloc, height, 
+      id, is_created_for_kids, language, likes_total, media_type, mode,
+      onair, owner, partner, player_next_video, preview_240p_url, 
+      preview_360p_url, preview_480p_url, private, published, record_end_time,
+      record_start_time, record_status, recurrence, seeker_url, soundtrack_isrc,
+      soundtrack_popularity, sprite_320x_url, 
+      sprite_url, start_time, status, tags, thumbnail_60_url, 
+      thumbnail_120_url, thumbnail_180_url, thumbnail_240_url, 
+      thumbnail_360_url, thumbnail_480_url, thumbnail_720_url, 
+      thumbnail_1080_url, thumbnail_url, tiny_url, title, updated_time, 
+      url, verified, views_last_day, views_last_month, views_last_week, 
+      views_total, width.
+      
+      **sort**: When sorting a list of videos, you can change the default order with one of the following: recent, visited, visited-hour, visited-today, visited-week, visited-month, relevance, random, trending, old, live-audience,least-visited, live-airing-time, id-asc.
   version: 1.0.0
 servers:
   - url: https://api.dailymotion.com
 paths:
+
+  /channels:
+    get:
+      operationId: listChannels
+      summary: Retrieve a list of channels
+      parameters:
+        - in: query
+          name: fields
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: "Change the default result set ordering."
+          schema:
+            enum:
+              - popular
+              - alpha
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          
+  /channels/{id}/videos:
+    get:
+      operationId: listChannelVideos
+      summary: Retrieve the list of connected videos.
+      parameters:
+        - in: path
+          name: id
+          required: True
+          schema:
+            type: string
+        - in: query
+          name: created_after
+          schema:
+            type: integer
+        - in: query
+          name: created_before
+          schema:
+            type: integer
+        - in: query
+          name: fields
+          schema:
+            type: string
+        - in: query
+          name: search
+          description: "Limit the result set to this full text search"
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: "Change the default result set ordering."
+          schema:
+            type: string
+        - in: query
+          name: tags
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+      
   /videos:
     get:
-      operationId: getVideos
+      operationId: searchVideos
       summary: Retrieve a list of videos
       parameters:
         - in: query
@@ -48,6 +136,14 @@ paths:
           name: channel
           schema:
             type: string
+        - in: query
+          name: created_after
+          schema:
+            type: integer
+        - in: query
+          name: created_before
+          schema:
+            type: integer
         - in: query
           name: exclude_ids
           description: "Comma-separated, no spaces. Channels to exclude. eg: lifestyle,people"
@@ -76,21 +172,7 @@ paths:
           name: sort
           description: "the relevance filter can only be used in conjunction with the search filter"
           schema:
-            enum:
-              - recent
-              - visited
-              - visited-hour
-              - visited-today
-              - visited-week
-              - visited-month
-              - relevance
-              - random
-              - trending
-              - old
-              - live-audience
-              - least-visited
-              - live-airing-time
-              - id-asc
+            type: string
         - in: query
           name: shorter_than
           description: "video length in minutes"
@@ -191,6 +273,7 @@ paths:
             type: string
         - in: query
           name: fields
+          description: "List of subtitle fields to return, comma-separated, no spaces. Options are: id, language, language_label, url." 
           schema:
             type: string
         - in: query
