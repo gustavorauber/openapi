@@ -66,6 +66,25 @@ paths:
       responses:
         '200':
           description: Success
+  /channel/{id}:
+    get:
+      operationId: getChannelById
+      summary: Retrieve a channel with its identifier
+      tags: 
+        - channels
+      parameters:
+        - in: path
+          name: id
+          required: True
+          schema:
+            type: string
+        - in: query
+          name: fields
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
   /channels/{id}/videos:
     get:
       operationId: listChannelVideos
