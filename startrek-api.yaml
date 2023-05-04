@@ -1030,12 +1030,11 @@ paths:
     get:
       tags:
         - Magazine
-      description: Retrieval of a single magazine
-      operationId: v1GetMagazine
+      summary: Retrieval of a single magazine
+      operationId: getMagazine
       parameters:
         - name: uid
           in: query
-          description: Magazine unique ID
           required: true
           schema:
             type: string
@@ -1056,18 +1055,16 @@ paths:
     get:
       tags:
         - Magazine
-      description: Pagination over magazines
-      operationId: v1PageMagazines
+      summary: Pagination over magazines
+      operationId: listMagazines
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -1084,70 +1081,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Magazine
-      description: Searching magazines
-      operationId: v1SearchMagazines
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Magazine title
-                publishedYearFrom:
-                  type: integer
-                  description: Starting year the magazine was published
-                  format: int32
-                publishedYearTo:
-                  type: integer
-                  description: Ending year the magazine was published
-                  format: int32
-                numberOfPagesFrom:
-                  type: integer
-                  description: Minimal number of pages
-                  format: int32
-                numberOfPagesTo:
-                  type: integer
-                  description: Maximal number of pages
-                  format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MagazineBaseResponse'
   /v1/rest/magazineSeries:
     get:
       tags:
         - MagazineSeries
-      description: Retrieval of a single magazine series
-      operationId: v1GetMagazineSeries
+      summary: Retrieval of a single magazine series
+      operationId: getMagazineSeries
       parameters:
         - name: uid
           in: query
-          description: Magazine series unique ID
           required: true
           schema:
             type: string
@@ -1168,18 +1110,16 @@ paths:
     get:
       tags:
         - MagazineSeries
-      description: Pagination over magazine series
-      operationId: v1PageMagazineSeries
+      summary: Pagination over magazine series
+      operationId: listMagazineSeries
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -1196,70 +1136,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - MagazineSeries
-      description: Searching magazine series
-      operationId: v1SearchMagazineSeries
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Magazine series title
-                publishedYearFrom:
-                  type: integer
-                  description: Starting year the magazine series was published
-                  format: int32
-                publishedYearTo:
-                  type: integer
-                  description: Ending year the magazine series was published
-                  format: int32
-                numberOfIssuesFrom:
-                  type: integer
-                  description: Minimal number of issues
-                  format: int32
-                numberOfIssuesTo:
-                  type: integer
-                  description: Maximal number of issues
-                  format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MagazineSeriesBaseResponse'
   /v1/rest/material:
     get:
       tags:
         - Material
-      description: Retrieval of a single material
-      operationId: v1GetMaterial
+      summary: Retrieval of a single material
+      operationId: getMaterial
       parameters:
         - name: uid
           in: query
-          description: Material unique ID
           required: true
           schema:
             type: string
@@ -1280,18 +1165,16 @@ paths:
     get:
       tags:
         - Material
-      description: Pagination over materials
-      operationId: v1PageMaterials
+      summary: Pagination over materials
+      operationId: listMaterials
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -1308,84 +1191,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Material
-      description: Searching materials
-      operationId: v1SearchMaterials
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Material name
-                chemicalCompound:
-                  type: boolean
-                  description: Whether it should be a chemical compound
-                biochemicalCompound:
-                  type: boolean
-                  description: Whether it should be a biochemical compound
-                drug:
-                  type: boolean
-                  description: Whether it should be a drug
-                poisonousSubstance:
-                  type: boolean
-                  description: Whether it should be a poisonous substance
-                explosive:
-                  type: boolean
-                  description: Whether it should be an explosive
-                gemstone:
-                  type: boolean
-                  description: Whether it should be a gemstone
-                alloyOrComposite:
-                  type: boolean
-                  description: Whether it should be an alloy or a composite
-                fuel:
-                  type: boolean
-                  description: Whether it should be a fuel
-                mineral:
-                  type: boolean
-                  description: Whether it should be a mineral
-                preciousMaterial:
-                  type: boolean
-                  description: Whether it should be a precious material
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MaterialBaseResponse'
   /v1/rest/medicalCondition:
     get:
       tags:
         - MedicalCondition
-      description: Retrieval of a single medical condition
-      operationId: v1GetMedicalCondition
+      summary: Retrieval of a single medical condition
+      operationId: getMedicalCondition
       parameters:
         - name: uid
           in: query
-          description: Medical condition unique ID
           required: true
           schema:
             type: string
@@ -1406,18 +1220,16 @@ paths:
     get:
       tags:
         - MedicalCondition
-      description: Pagination over medical conditions
-      operationId: v1PageMedicalConditions
+      summary: Pagination over medical conditions
+      operationId: listMedicalConditions
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -1434,57 +1246,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - MedicalCondition
-      description: Searching medical conditions
-      operationId: v1SearchMedicalConditions
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Medical condition name
-                psychologicalCondition:
-                  type: boolean
-                  description: Whether it should be a psychological condition
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MedicalConditionBaseResponse'
   /v1/rest/movie:
     get:
       tags:
         - Movie
-      description: Retrieval of a single movie
-      operationId: v1GetMovie
+      summary: Retrieval of a single movie
+      operationId: getMovie
       parameters:
         - name: uid
           in: query
-          description: Movie unique ID
           required: true
           schema:
             type: string
@@ -1505,18 +1275,16 @@ paths:
     get:
       tags:
         - Movie
-      description: Pagination over movies
-      operationId: v1PageMovies
+      summary: Pagination over movies
+      operationId: listMovies
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -1533,188 +1301,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Movie
-      description: Searching movies
-      operationId: v1SearchMovies
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Movie title
-                stardateFrom:
-                  type: number
-                  description: Starting stardate of movie story
-                  format: float
-                stardateTo:
-                  type: number
-                  description: Ending stardate of movie story
-                  format: float
-                yearFrom:
-                  type: integer
-                  description: Starting year of movie story
-                  format: int32
-                yearTo:
-                  type: integer
-                  description: Ending year of movie story
-                  format: int32
-                usReleaseDateFrom:
-                  type: string
-                  description: Minimal date the movie was first released in the United
-                    States
-                  format: date
-                usReleaseDateTo:
-                  type: string
-                  description: Maximal date the movie was first released in the United
-                    States
-                  format: date
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MovieBaseResponse'
-  /v1/rest/occupation:
-    get:
-      tags:
-        - Occupation
-      description: Retrieval of a single occupation
-      operationId: v1GetOccupation
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Occupation unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OccupationFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/occupation/search:
-    get:
-      tags:
-        - Occupation
-      description: Pagination over occupations
-      operationId: v1PageOccupations
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OccupationBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Occupation
-      description: Searching occupations
-      operationId: v1SearchOccupations
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Occupation name
-                legalOccupation:
-                  type: boolean
-                  description: Whether it should be a legal occupation
-                medicalOccupation:
-                  type: boolean
-                  description: Whether it should be a medical occupation
-                scientificOccupation:
-                  type: boolean
-                  description: Whether it should be a scientific occupation
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OccupationBaseResponse'
   /v2/rest/occupation:
     get:
       tags:
         - Occupation
-      description: Retrieval of a single occupation (V2)
-      operationId: v2GetOccupation
+      summary: Retrieval of a single occupation (V2)
+      operationId: getOccupation
       parameters:
         - name: uid
           in: query
-          description: Occupation unique ID
           required: true
           schema:
             type: string
@@ -1735,18 +1330,16 @@ paths:
     get:
       tags:
         - Occupation
-      description: Pagination over occupations (V2)
-      operationId: v2PageOccupations
+      summary: Pagination over occupations (V2)
+      operationId: listOccupations
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -1763,87 +1356,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Occupation
-      description: Searching occupations (V2)
-      operationId: v2SearchOccupations
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Occupation name
-                artsOccupation:
-                  type: boolean
-                  description: Whether it should be an arts occupation
-                communicationOccupation:
-                  type: boolean
-                  description: Whether it should be a communication occupation
-                economicOccupation:
-                  type: boolean
-                  description: Whether it should be an economic occupation
-                educationOccupation:
-                  type: boolean
-                  description: Whether it should be an education occupation
-                entertainmentOccupation:
-                  type: boolean
-                  description: Whether it should be an entertainment occupation
-                illegalOccupation:
-                  type: boolean
-                  description: Whether it should be an illegal occupation
-                legalOccupation:
-                  type: boolean
-                  description: Whether it should be a legal occupation
-                medicalOccupation:
-                  type: boolean
-                  description: Whether it should be a medical occupation
-                scientificOccupation:
-                  type: boolean
-                  description: Whether it should be a scientific occupation
-                sportsOccupation:
-                  type: boolean
-                  description: Whether it should be a sports occupation
-                victualOccupation:
-                  type: boolean
-                  description: Whether it should be a victual occupation
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OccupationV2BaseResponse'
   /v1/rest/organization:
     get:
       tags:
         - Organization
-      description: Retrieval of a single organization
-      operationId: v1GetOrganization
+      summary: Retrieval of a single organization
+      operationId: getOrganization
       parameters:
         - name: uid
           in: query
-          description: Organization unique ID
           required: true
           schema:
             type: string
@@ -1864,18 +1385,16 @@ paths:
     get:
       tags:
         - Organization
-      description: Pagination over organizations
-      operationId: v1PageOrganizations
+      summary: Pagination over organizations
+      operationId: listOrganizations
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -1892,264 +1411,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Organization
-      description: Searching organizations
-      operationId: v1SearchOrganizations
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Organization name
-                government:
-                  type: boolean
-                  description: Whether it should be a government
-                intergovernmentalOrganization:
-                  type: boolean
-                  description: Whether it should be an intergovernmental organization
-                researchOrganization:
-                  type: boolean
-                  description: Whether it should be a research organization
-                sportOrganization:
-                  type: boolean
-                  description: Whether it should be a sport organization
-                medicalOrganization:
-                  type: boolean
-                  description: Whether it should be a medical organization
-                militaryOrganization:
-                  type: boolean
-                  description: Whether it should be a military organization
-                militaryUnit:
-                  type: boolean
-                  description: Whether it should be a military unit
-                governmentAgency:
-                  type: boolean
-                  description: Whether it should be a government agency
-                lawEnforcementAgency:
-                  type: boolean
-                  description: Whether it should be a law enforcement agency
-                prisonOrPenalColony:
-                  type: boolean
-                  description: Whether it should be a prison or penal colony
-                mirror:
-                  type: boolean
-                  description: Whether this organization should be from mirror universe
-                alternateReality:
-                  type: boolean
-                  description: Whether this organization should be from alternate reality
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OrganizationBaseResponse'
-  /v1/rest/performer:
-    get:
-      tags:
-        - Performer
-      description: Retrieval of a single performer
-      operationId: v1GetPerformer
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Performer unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PerformerFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/performer/search:
-    get:
-      tags:
-        - Performer
-      description: Pagination over performers
-      operationId: v1PagePerformers
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PerformerBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Performer
-      description: Searching performers
-      operationId: v1SearchPerformers
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Performer name
-                birthName:
-                  type: string
-                  description: Performer birth name
-                gender:
-                  type: string
-                  description: Performer gender
-                dateOfBirthFrom:
-                  type: string
-                  description: Minimal date the performer was born
-                  format: date
-                dateOfBirthTo:
-                  type: string
-                  description: Maximal date the performer was born
-                  format: date
-                placeOfBirth:
-                  type: string
-                  description: Place the performer was born
-                dateOfDeathFrom:
-                  type: string
-                  description: Minimal date the performer died
-                  format: date
-                dateOfDeathTo:
-                  type: string
-                  description: Maximal date the performer died
-                  format: date
-                placeOfDeath:
-                  type: string
-                  description: Place the performer died
-                animalPerformer:
-                  type: boolean
-                  description: Whether it should be an animal performer
-                disPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Discovery'
-                ds9Performer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Deep Space Nine'
-                entPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Enterprise'
-                filmPerformer:
-                  type: boolean
-                  description: Whether it should be a performer that appeared in a
-                    Star Trek movie
-                standInPerformer:
-                  type: boolean
-                  description: Whether it should be a stand-in performer
-                stuntPerformer:
-                  type: boolean
-                  description: Whether it should be a stunt performer
-                tasPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: The Animated Series'
-                tngPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: The Next Generation'
-                tosPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: The Original Series'
-                videoGamePerformer:
-                  type: boolean
-                  description: Whether it should be a video game performer
-                voicePerformer:
-                  type: boolean
-                  description: Whether it should be a voice performer
-                voyPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in
-                    Star Trek: Voyager'
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PerformerBaseResponse'
   /v2/rest/performer:
     get:
       tags:
         - Performer
-      description: Retrieval of a single performer (V2)
-      operationId: v2GetPerformer
+      summary: Retrieval of a single performer (V2)
+      operationId: getPerformer
       parameters:
         - name: uid
           in: query
-          description: Performer unique ID
           required: true
           schema:
             type: string
@@ -2170,18 +1440,16 @@ paths:
     get:
       tags:
         - Performer
-      description: Pagination over performers (V2)
-      operationId: v2PagePerformers
+      summary: Pagination over performers (V2)
+      operationId: listPerformers
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -2198,146 +1466,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Performer
-      description: Searching performers (V2)
-      operationId: v2SearchPerformers
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Performer name
-                birthName:
-                  type: string
-                  description: Performer birth name
-                gender:
-                  type: string
-                  description: Performer gender
-                dateOfBirthFrom:
-                  type: string
-                  description: Minimal date the performer was born
-                  format: date
-                dateOfBirthTo:
-                  type: string
-                  description: Maximal date the performer was born
-                  format: date
-                placeOfBirth:
-                  type: string
-                  description: Place the performer was born
-                dateOfDeathFrom:
-                  type: string
-                  description: Minimal date the performer died
-                  format: date
-                dateOfDeathTo:
-                  type: string
-                  description: Maximal date the performer died
-                  format: date
-                placeOfDeath:
-                  type: string
-                  description: Place the performer died
-                animalPerformer:
-                  type: boolean
-                  description: Whether it should be an animal performer
-                audiobookPerformer:
-                  type: boolean
-                  description: Whether it should be an audiobook performer
-                cutPerformer:
-                  type: boolean
-                  description: Whether it should be a cut performer
-                disPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Discovery'
-                ds9Performer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Deep Space Nine'
-                entPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Enterprise'
-                filmPerformer:
-                  type: boolean
-                  description: Whether it should be a performer that appeared in a
-                    Star Trek movie
-                ldPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Lower Decks'
-                picPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Picard'
-                proPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Prodigy'
-                puppeteer:
-                  type: boolean
-                  description: Whether it should be a puppeteer
-                snwPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Strange New Worlds'
-                standInPerformer:
-                  type: boolean
-                  description: Whether it should be a stand-in performer
-                stPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Short Treks'
-                stuntPerformer:
-                  type: boolean
-                  description: Whether it should be a stunt performer
-                tasPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: The Animated Series'
-                tngPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: The Next Generation'
-                tosPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: The Original Series'
-                videoGamePerformer:
-                  type: boolean
-                  description: Whether it should be a video game performer
-                voicePerformer:
-                  type: boolean
-                  description: Whether it should be a voice performer
-                voyPerformer:
-                  type: boolean
-                  description: 'Whether it should be a performer that appeared in Star Trek: Voyager'
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PerformerV2BaseResponse'
   /v1/rest/season:
     get:
       tags:
         - Season
-      description: Retrieval of a single season
-      operationId: v1GetSeason
+      summary: Retrieval of a single season
+      operationId: getSeason
       parameters:
         - name: uid
           in: query
-          description: Season unique ID
           required: true
           schema:
             type: string
@@ -2358,18 +1495,16 @@ paths:
     get:
       tags:
         - Season
-      description: Pagination over seasons
-      operationId: v1PageSeasons
+      summary: Pagination over seasons
+      operationId: listSeasons
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -2386,70 +1521,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Season
-      description: Searching seasons
-      operationId: v1SearchSeasons
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Season title
-                seasonNumberFrom:
-                  type: integer
-                  description: Minimal season number
-                  format: int32
-                seasonNumberTo:
-                  type: integer
-                  description: Maximal season number
-                  format: int32
-                numberOfEpisodesFrom:
-                  type: integer
-                  description: Minimal number of episodes in season
-                  format: int32
-                numberOfEpisodesTo:
-                  type: integer
-                  description: Maximal number of episodes in season
-                  format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SeasonBaseResponse'
   /v1/rest/series:
     get:
       tags:
         - Series
-      description: Retrieval of a single series
-      operationId: v1GetSeries
+      summary: Retrieval of a single series
+      operationId: getSeries
       parameters:
         - name: uid
           in: query
-          description: Series unique ID
           required: true
           schema:
             type: string
@@ -2470,18 +1550,16 @@ paths:
     get:
       tags:
         - Series
-      description: Pagination over series
-      operationId: v1PageSeries
+      summary: Pagination over series
+      operationId: listSeries
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -2498,89 +1576,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Series
-      description: Searching series
-      operationId: v1SearchSeries
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Series title
-                abbreviation:
-                  type: string
-                  description: Series abbreviation
-                productionStartYearFrom:
-                  type: integer
-                  description: Minimal year the series production started
-                  format: int32
-                productionStartYearTo:
-                  type: integer
-                  description: Maximal year the series production started
-                  format: int32
-                productionEndYearFrom:
-                  type: integer
-                  description: Minimal year the series production ended
-                  format: int32
-                productionEndYearTo:
-                  type: integer
-                  description: Maximal year the series production ended
-                  format: int32
-                originalRunStartDateFrom:
-                  type: string
-                  description: Minimal date the series originally ran from
-                  format: date
-                originalRunStartDateTo:
-                  type: string
-                  description: Maximal date the series originally ran from
-                  format: date
-                originalRunEndDateFrom:
-                  type: string
-                  description: Minimal date the series originally ran to
-                  format: date
-                originalRunEndDateTo:
-                  type: string
-                  description: Maximal date the series originally ran to
-                  format: date
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SeriesBaseResponse'
   /v1/rest/soundtrack:
     get:
       tags:
         - Soundtrack
-      description: Retrieval of a single soundtrack
-      operationId: v1GetSoundtrack
+      summary: Retrieval of a single soundtrack
+      operationId: getSoundtrack
       parameters:
         - name: uid
           in: query
-          description: Soundtrack unique ID
           required: true
           schema:
             type: string
@@ -2601,18 +1605,16 @@ paths:
     get:
       tags:
         - Soundtrack
-      description: Pagination over soundtracks
-      operationId: v1PageSoundtracks
+      summary: Pagination over soundtracks
+      operationId: listSoundtracks
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -2629,169 +1631,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Soundtrack
-      description: Searching soundtracks
-      operationId: v1SearchSoundtracks
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Soundtrack title
-                releaseDateFrom:
-                  type: string
-                  description: Minimal release date
-                  format: date
-                releaseDateTo:
-                  type: string
-                  description: Maximal release date
-                  format: date
-                lengthFrom:
-                  type: integer
-                  description: Minimal length, in seconds
-                  format: int32
-                lengthTo:
-                  type: integer
-                  description: Maximal length, in seconds
-                  format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SoundtrackBaseResponse'
-  /v1/rest/spacecraft:
-    get:
-      tags:
-        - Spacecraft
-      description: Retrieval of a single spacecraft
-      operationId: v1GetSpacecraft
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Spacecraft unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/spacecraft/search:
-    get:
-      tags:
-        - Spacecraft
-      description: Pagination over spacecrafts
-      operationId: v1PageSpacecrafts
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Spacecraft
-      description: Searching spacecrafts
-      operationId: v1SearchSpacecrafts
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Spacecraft name
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftBaseResponse'
   /v2/rest/spacecraft:
     get:
       tags:
         - Spacecraft
-      description: Retrieval of a single spacecraft (V2)
-      operationId: v2GetSpacecraft
+      summary: Retrieval of a single spacecraft (V2)
+      operationId: getSpacecraft
       parameters:
         - name: uid
           in: query
-          description: Spacecraft unique ID
           required: true
           schema:
             type: string
@@ -2812,18 +1660,16 @@ paths:
     get:
       tags:
         - Spacecraft
-      description: Pagination over spacecrafts (V2)
-      operationId: v2PageSpacecrafts
+      summary: Pagination over spacecrafts (V2)
+      operationId: listSpacecrafts
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -2834,183 +1680,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpacecraftV2BaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Spacecraft
-      description: Searching spacecrafts (V2)
-      operationId: v2SearchSpacecrafts
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Spacecraft name
-                registry:
-                  type: string
-                  description: Spacecraft registry
-                status:
-                  type: string
-                  description: Spacecraft status
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftV2BaseResponse'
-  /v1/rest/spacecraftClass:
-    get:
-      tags:
-        - SpacecraftClass
-      description: Retrieval of a single spacecraft class
-      operationId: v1GetSpacecraftClass
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: SpacecraftClass unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftClassFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/spacecraftClass/search:
-    get:
-      tags:
-        - SpacecraftClass
-      description: Pagination over spacecraft classes
-      operationId: v1PageSpacecraftClasses
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftClassBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - SpacecraftClass
-      description: Searching spacecraft classes
-      operationId: v1SearchSpacecraftClasses
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Spacecraft class name
-                warpCapableSpecies:
-                  type: boolean
-                  description: Whether it should be a warp-capable spacecraft class
-                alternateReality:
-                  type: boolean
-                  description: Whether this spacecraft class should be from alternate
-                    reality
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftClassBaseResponse'
-  /v2/rest/spacecraftClass:
-    get:
-      tags:
-        - SpacecraftClass
-      description: Retrieval of a single spacecraft class (V2)
-      operationId: v2GetSpacecraftClass
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: SpacecraftClass unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftClassV2FullResponse'
         default:
           description: Unexpected error
           content:
@@ -3021,18 +1690,16 @@ paths:
     get:
       tags:
         - SpacecraftClass
-      description: Pagination over spacecraft classes (V2)
-      operationId: v2PageSpacecraftClasses
+      summary: Pagination over spacecraft classes (V2)
+      operationId: listSpacecraftClasses
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -3049,63 +1716,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - SpacecraftClass
-      description: Searching spacecraft classes (V2)
-      operationId: v2SearchSpacecraftClasses
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Spacecraft class name
-                warpCapableSpecies:
-                  type: boolean
-                  description: Whether it should be a warp-capable spacecraft class
-                mirror:
-                  type: boolean
-                  description: Whether this spacecraft class should be from mirror universe
-                alternateReality:
-                  type: boolean
-                  description: Whether this spacecraft class should be from alternate reality
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacecraftClassV2BaseResponse'
   /v3/rest/spacecraftClass:
     get:
       tags:
         - SpacecraftClass
-      description: Retrieval of a single spacecraft class (V3)
-      operationId: v3GetSpacecraftClass
+      summary: Retrieval of a single spacecraft class (V3)
+      operationId: getSpacecraftClass
       parameters:
         - name: uid
           in: query
-          description: Spacecraft class unique ID
           required: true
           schema:
             type: string
@@ -3122,151 +1741,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/rest/species:
-    get:
-      tags:
-        - Species
-      description: Retrieval of a single species
-      operationId: v1GetSpecies
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Species unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpeciesFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/species/search:
-    get:
-      tags:
-        - Species
-      description: Pagination over species
-      operationId: v1PageSpecies
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpeciesBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Species
-      description: Searching species
-      operationId: v1SearchSpecies
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Species name
-                extinctSpecies:
-                  type: boolean
-                  description: Whether it should be an extinct species
-                warpCapableSpecies:
-                  type: boolean
-                  description: Whether it should be a warp-capable species
-                extraGalacticSpecies:
-                  type: boolean
-                  description: Whether it should be an extra-galactic species
-                humanoidSpecies:
-                  type: boolean
-                  description: Whether it should be a humanoid species
-                reptilianSpecies:
-                  type: boolean
-                  description: Whether it should be a reptilian species
-                nonCorporealSpecies:
-                  type: boolean
-                  description: Whether it should be a non-corporeal species
-                shapeshiftingSpecies:
-                  type: boolean
-                  description: Whether it should be a shapeshifting species
-                spaceborneSpecies:
-                  type: boolean
-                  description: Whether it should be a spaceborne species
-                telepathicSpecies:
-                  type: boolean
-                  description: Whether it should be a telepathic species
-                transDimensionalSpecies:
-                  type: boolean
-                  description: Whether it should be a trans-dimensional species
-                unnamedSpecies:
-                  type: boolean
-                  description: Whether it should be a unnamed species
-                alternateReality:
-                  type: boolean
-                  description: Whether this species should be from alternate reality
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpeciesBaseResponse'
   /v2/rest/species:
     get:
       tags:
         - Species
-      description: Retrieval of a single species (V2)
-      operationId: v2GetSpecies
+      summary: Retrieval of a single species (V2)
+      operationId: getSpecies
       parameters:
         - name: uid
           in: query
-          description: Species unique ID
           required: true
           schema:
             type: string
@@ -3287,18 +1770,16 @@ paths:
     get:
       tags:
         - Species
-      description: Pagination over species (V2)
-      operationId: v2PageSpecies
+      summary: Pagination over species (V2)
+      operationId: listSpecies
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -3315,390 +1796,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Species
-      description: Searching species (V2)
-      operationId: v2SearchSpecies
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Species name
-                extinctSpecies:
-                  type: boolean
-                  description: Whether it should be an extinct species
-                warpCapableSpecies:
-                  type: boolean
-                  description: Whether it should be a warp-capable species
-                extraGalacticSpecies:
-                  type: boolean
-                  description: Whether it should be an extra-galactic species
-                humanoidSpecies:
-                  type: boolean
-                  description: Whether it should be a humanoid species
-                reptilianSpecies:
-                  type: boolean
-                  description: Whether it should be a reptilian species
-                avianSpecies:
-                  type: boolean
-                  description: Whether it should be an avian species
-                nonCorporealSpecies:
-                  type: boolean
-                  description: Whether it should be a non-corporeal species
-                shapeshiftingSpecies:
-                  type: boolean
-                  description: Whether it should be a shapeshifting species
-                spaceborneSpecies:
-                  type: boolean
-                  description: Whether it should be a spaceborne species
-                telepathicSpecies:
-                  type: boolean
-                  description: Whether it should be a telepathic species
-                transDimensionalSpecies:
-                  type: boolean
-                  description: Whether it should be a trans-dimensional species
-                unnamedSpecies:
-                  type: boolean
-                  description: Whether it should be a unnamed species
-                alternateReality:
-                  type: boolean
-                  description: Whether this species should be from alternate reality
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpeciesV2BaseResponse'
-  /v1/rest/staff:
-    get:
-      tags:
-        - Staff
-      description: Retrieval of a single staff member
-      operationId: v1GetStaff
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Staff unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StaffFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/staff/search:
-    get:
-      tags:
-        - Staff
-      description: Pagination over staff members
-      operationId: v1PageStaff
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StaffBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Staff
-      description: Searching staff members
-      operationId: v1SearchStaff
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Staff name
-                birthName:
-                  type: string
-                  description: Staff birth name
-                gender:
-                  type: string
-                  description: Staff gender
-                dateOfBirthFrom:
-                  type: string
-                  description: Minimal date the staff was born
-                  format: date
-                dateOfBirthTo:
-                  type: string
-                  description: Maximal date the staff was born
-                  format: date
-                placeOfBirth:
-                  type: string
-                  description: Place the staff was born
-                dateOfDeathFrom:
-                  type: string
-                  description: Minimal date the staff died
-                  format: date
-                dateOfDeathTo:
-                  type: string
-                  description: Maximal date the staff died
-                  format: date
-                placeOfDeath:
-                  type: string
-                  description: Place the staff died
-                artDepartment:
-                  type: boolean
-                  description: Whether this person should be from art department
-                artDirector:
-                  type: boolean
-                  description: Whether this person should be an art director
-                productionDesigner:
-                  type: boolean
-                  description: Whether this person should be a production designer
-                cameraAndElectricalDepartment:
-                  type: boolean
-                  description: Whether this person should be from camera and electrical
-                    department
-                cinematographer:
-                  type: boolean
-                  description: Whether this person should be a cinematographer
-                castingDepartment:
-                  type: boolean
-                  description: Whether this person should be from casting department
-                costumeDepartment:
-                  type: boolean
-                  description: Whether this person should be from costume department
-                costumeDesigner:
-                  type: boolean
-                  description: Whether this person should be a custume designer
-                director:
-                  type: boolean
-                  description: Whether this person should be a director
-                assistantOrSecondUnitDirector:
-                  type: boolean
-                  description: Whether this person should be an assistant or second unit director director
-                exhibitAndAttractionStaff:
-                  type: boolean
-                  description: Whether this person should be an exhibit and attraction
-                    staff
-                filmEditor:
-                  type: boolean
-                  description: Whether this person should be a film editor
-                linguist:
-                  type: boolean
-                  description: Whether this person should be a linguist
-                locationStaff:
-                  type: boolean
-                  description: Whether this person should be a location staff
-                makeupStaff:
-                  type: boolean
-                  description: Whether this person should be a make-up staff
-                musicDepartment:
-                  type: boolean
-                  description: Whether this person should be from music department
-                composer:
-                  type: boolean
-                  description: Whether this person should be a composer
-                personalAssistant:
-                  type: boolean
-                  description: Whether this person should be a personal assistant
-                producer:
-                  type: boolean
-                  description: Whether this person should be a producer
-                productionAssociate:
-                  type: boolean
-                  description: Whether this person should be a production associate
-                productionStaff:
-                  type: boolean
-                  description: Whether this person should be a production staff
-                publicationStaff:
-                  type: boolean
-                  description: Whether this person should be a publication staff
-                scienceConsultant:
-                  type: boolean
-                  description: Whether this person should be a science consultant
-                soundDepartment:
-                  type: boolean
-                  description: Whether this person should be from sound department
-                specialAndVisualEffectsStaff:
-                  type: boolean
-                  description: Whether this person should be a special and visual
-                    effects staff
-                author:
-                  type: boolean
-                  description: Whether this person should be an author
-                audioAuthor:
-                  type: boolean
-                  description: Whether this person should be an audio author
-                calendarArtist:
-                  type: boolean
-                  description: Whether this person should be a calendar artist
-                comicArtist:
-                  type: boolean
-                  description: Whether this person should be a comic artist
-                comicAuthor:
-                  type: boolean
-                  description: Whether this person should be a comic author
-                comicColorArtist:
-                  type: boolean
-                  description: Whether this person should be a comic color artist
-                comicInteriorArtist:
-                  type: boolean
-                  description: Whether this person should be a comic interior artist
-                comicInkArtist:
-                  type: boolean
-                  description: Whether this person should be a comic ink artist
-                comicPencilArtist:
-                  type: boolean
-                  description: Whether this person should be a comic pencil artist
-                comicLetterArtist:
-                  type: boolean
-                  description: Whether this person should be a comic letter artist
-                comicStripArtist:
-                  type: boolean
-                  description: Whether this person should be a comic strip artist
-                gameArtist:
-                  type: boolean
-                  description: Whether this person should be a game artist
-                gameAuthor:
-                  type: boolean
-                  description: Whether this person should be a game author
-                novelArtist:
-                  type: boolean
-                  description: Whether this person should be a novel artist
-                novelAuthor:
-                  type: boolean
-                  description: Whether this person should be a novel author
-                referenceArtist:
-                  type: boolean
-                  description: Whether this person should be a reference artist
-                referenceAuthor:
-                  type: boolean
-                  description: Whether this person should be a reference author
-                publicationArtist:
-                  type: boolean
-                  description: Whether this person should be a publication artist
-                publicationDesigner:
-                  type: boolean
-                  description: Whether this person should be a publication designer
-                publicationEditor:
-                  type: boolean
-                  description: Whether this person should be a publication editor
-                publicityArtist:
-                  type: boolean
-                  description: Whether this person should be a publicity artist
-                cbsDigitalStaff:
-                  type: boolean
-                  description: Whether this person should be a part of CBS digital
-                    staff
-                ilmProductionStaff:
-                  type: boolean
-                  description: Whether this person should be a part of ILM production
-                    staff
-                specialFeaturesStaff:
-                  type: boolean
-                  description: Whether this person should be a special features artist
-                storyEditor:
-                  type: boolean
-                  description: Whether this person should be a story editor
-                studioExecutive:
-                  type: boolean
-                  description: Whether this person should be a studio executive
-                stuntDepartment:
-                  type: boolean
-                  description: Whether this person should be from stunt department
-                transportationDepartment:
-                  type: boolean
-                  description: Whether this person should be from transportation department
-                videoGameProductionStaff:
-                  type: boolean
-                  description: Whether this person is video game production staff
-                writer:
-                  type: boolean
-                  description: Whether this person should be a writer
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StaffBaseResponse'
   /v2/rest/staff:
     get:
       tags:
         - Staff
-      description: Retrieval of a single staff member (V2)
-      operationId: v2GetStaff
+      summary: Retrieval of a single staff member (V2)
+      operationId: getStaff
       parameters:
         - name: uid
           in: query
-          description: Staff unique ID
           required: true
           schema:
             type: string
@@ -3719,18 +1825,16 @@ paths:
     get:
       tags:
         - Staff
-      description: Pagination over staff members (V2)
-      operationId: v2PageStaff
+      summary: Pagination over staff members (V2)
+      operationId: listStaff
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -3747,421 +1851,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Staff
-      description: Searching staff members (v2)
-      operationId: v2SearchStaff
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Staff name
-                birthName:
-                  type: string
-                  description: Staff birth name
-                gender:
-                  type: string
-                  description: Staff gender
-                dateOfBirthFrom:
-                  type: string
-                  description: Minimal date the staff was born
-                  format: date
-                dateOfBirthTo:
-                  type: string
-                  description: Maximal date the staff was born
-                  format: date
-                placeOfBirth:
-                  type: string
-                  description: Place the staff was born
-                dateOfDeathFrom:
-                  type: string
-                  description: Minimal date the staff died
-                  format: date
-                dateOfDeathTo:
-                  type: string
-                  description: Maximal date the staff died
-                  format: date
-                placeOfDeath:
-                  type: string
-                  description: Place the staff died
-                artDepartment:
-                  type: boolean
-                  description: Whether this person should be from art department
-                artDirector:
-                  type: boolean
-                  description: Whether this person should be an art director
-                productionDesigner:
-                  type: boolean
-                  description: Whether this person should be a production designer
-                cameraAndElectricalDepartment:
-                  type: boolean
-                  description: Whether this person should be from camera and electrical
-                    department
-                cinematographer:
-                  type: boolean
-                  description: Whether this person should be a cinematographer
-                castingDepartment:
-                  type: boolean
-                  description: Whether this person should be from casting department
-                costumeDepartment:
-                  type: boolean
-                  description: Whether this person should be from costume department
-                costumeDesigner:
-                  type: boolean
-                  description: Whether this person should be a custume designer
-                director:
-                  type: boolean
-                  description: Whether this person should be a director
-                assistantOrSecondUnitDirector:
-                  type: boolean
-                  description: Whether this person should be an assistant or second unit director director
-                exhibitAndAttractionStaff:
-                  type: boolean
-                  description: Whether this person should be an exhibit and attraction
-                    staff
-                filmEditor:
-                  type: boolean
-                  description: Whether this person should be a film editor
-                filmationProductionStaff:
-                  type: boolean
-                  description: Whether this person should be a part of Filmation production
-                    staff
-                linguist:
-                  type: boolean
-                  description: Whether this person should be a linguist
-                locationStaff:
-                  type: boolean
-                  description: Whether this person should be a location staff
-                makeupStaff:
-                  type: boolean
-                  description: Whether this person should be a make-up staff
-                merchandiseStaff:
-                  type: boolean
-                  description: Whether this person should be a merchandise staff
-                musicDepartment:
-                  type: boolean
-                  description: Whether this person should be from music department
-                composer:
-                  type: boolean
-                  description: Whether this person should be a composer
-                personalAssistant:
-                  type: boolean
-                  description: Whether this person should be a personal assistant
-                producer:
-                  type: boolean
-                  description: Whether this person should be a producer
-                productionAssociate:
-                  type: boolean
-                  description: Whether this person should be a production associate
-                productionStaff:
-                  type: boolean
-                  description: Whether this person should be a production staff
-                publicationStaff:
-                  type: boolean
-                  description: Whether this person should be a publication staff
-                scienceConsultant:
-                  type: boolean
-                  description: Whether this person should be a science consultant
-                soundDepartment:
-                  type: boolean
-                  description: Whether this person should be from sound department
-                specialAndVisualEffectsStaff:
-                  type: boolean
-                  description: Whether this person should be a special and visual
-                    effects staff
-                author:
-                  type: boolean
-                  description: Whether this person should be an author
-                audioAuthor:
-                  type: boolean
-                  description: Whether this person should be an audio author
-                calendarArtist:
-                  type: boolean
-                  description: Whether this person should be a calendar artist
-                comicArtist:
-                  type: boolean
-                  description: Whether this person should be a comic artist
-                comicAuthor:
-                  type: boolean
-                  description: Whether this person should be a comic author
-                comicColorArtist:
-                  type: boolean
-                  description: Whether this person should be a comic color artist
-                comicCoverArtist:
-                  type: boolean
-                  description: Whether this person should be a comic cover artist
-                comicInteriorArtist:
-                  type: boolean
-                  description: Whether this person should be a comic interior artist
-                comicInkArtist:
-                  type: boolean
-                  description: Whether this person should be a comic ink artist
-                comicPencilArtist:
-                  type: boolean
-                  description: Whether this person should be a comic pencil artist
-                comicLetterArtist:
-                  type: boolean
-                  description: Whether this person should be a comic letter artist
-                comicStripArtist:
-                  type: boolean
-                  description: Whether this person should be a comic strip artist
-                gameArtist:
-                  type: boolean
-                  description: Whether this person should be a game artist
-                gameAuthor:
-                  type: boolean
-                  description: Whether this person should be a game author
-                novelArtist:
-                  type: boolean
-                  description: Whether this person should be a novel artist
-                novelAuthor:
-                  type: boolean
-                  description: Whether this person should be a novel author
-                referenceArtist:
-                  type: boolean
-                  description: Whether this person should be a reference artist
-                referenceAuthor:
-                  type: boolean
-                  description: Whether this person should be a reference author
-                publicationArtist:
-                  type: boolean
-                  description: Whether this person should be a publication artist
-                publicationDesigner:
-                  type: boolean
-                  description: Whether this person should be a publication designer
-                publicationEditor:
-                  type: boolean
-                  description: Whether this person should be a publication editor
-                publicityArtist:
-                  type: boolean
-                  description: Whether this person should be a publicity artist
-                cbsDigitalStaff:
-                  type: boolean
-                  description: Whether this person should be a part of CBS digital
-                    staff
-                ilmProductionStaff:
-                  type: boolean
-                  description: Whether this person should be a part of ILM production
-                    staff
-                specialFeaturesStaff:
-                  type: boolean
-                  description: Whether this person should be a special features artist
-                storyEditor:
-                  type: boolean
-                  description: Whether this person should be a story editor
-                studioExecutive:
-                  type: boolean
-                  description: Whether this person should be a studio executive
-                stuntDepartment:
-                  type: boolean
-                  description: Whether this person should be from stunt department
-                transportationDepartment:
-                  type: boolean
-                  description: Whether this person should be from transportation department
-                videoGameProductionStaff:
-                  type: boolean
-                  description: Whether this person is video game production staff
-                writer:
-                  type: boolean
-                  description: Whether this person should be a writer
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StaffV2BaseResponse'
-  /v1/rest/technology:
-    get:
-      tags:
-        - Technology
-      description: Retrieval of a single technology piece
-      operationId: v1GetTechnology
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Technology unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TechnologyFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/technology/search:
-    get:
-      tags:
-        - Technology
-      description: Pagination over technology pieces
-      operationId: v1PageTechnology
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TechnologyBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Technology
-      description: Searching technology pieces
-      operationId: v1SearchTechnology
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Technology name
-                borgTechnology:
-                  type: boolean
-                  description: Whether it should be a Borg technology
-                borgComponent:
-                  type: boolean
-                  description: Whether it should be a Borg component
-                communicationsTechnology:
-                  type: boolean
-                  description: Whether it should be a communications technology
-                computerTechnology:
-                  type: boolean
-                  description: Whether it should be a computer technology
-                computerProgramming:
-                  type: boolean
-                  description: Whether it should be a technology related to computer programming
-                subroutine:
-                  type: boolean
-                  description: Whether it should be a subroutine
-                database:
-                  type: boolean
-                  description: Whether it should be a database
-                energyTechnology:
-                  type: boolean
-                  description: Whether it should be a energy technology
-                fictionalTechnology:
-                  type: boolean
-                  description: Whether it should be a fictional technology
-                holographicTechnology:
-                  type: boolean
-                  description: Whether it should be a holographic technology
-                identificationTechnology:
-                  type: boolean
-                  description: Whether it should be a identification technology
-                lifeSupportTechnology:
-                  type: boolean
-                  description: Whether it should be a life support technology
-                sensorTechnology:
-                  type: boolean
-                  description: Whether it should be a sensor technology
-                shieldTechnology:
-                  type: boolean
-                  description: Whether it should be a shield technology
-                tool:
-                  type: boolean
-                  description: Whether it should be a tool
-                culinaryTool:
-                  type: boolean
-                  description: Whether it should be a culinary tool
-                engineeringTool:
-                  type: boolean
-                  description: Whether it should be a engineering tool
-                householdTool:
-                  type: boolean
-                  description: Whether it should be a household tool
-                medicalEquipment:
-                  type: boolean
-                  description: Whether it should be a medical equipment
-                transporterTechnology:
-                  type: boolean
-                  description: Whether it's a transporter technology
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TechnologyBaseResponse'
   /v2/rest/technology:
     get:
       tags:
         - Technology
-      description: Retrieval of a single technology piece (V2)
-      operationId: v2GetTechnology
+      summary: Retrieval of a single technology piece (V2)
+      operationId: getTechnology
       parameters:
         - name: uid
           in: query
-          description: Technology unique ID
           required: true
           schema:
             type: string
@@ -4182,18 +1880,16 @@ paths:
     get:
       tags:
         - Technology
-      description: Pagination over technology pieces (V2)
-      operationId: v2PageTechnology
+      summary: Pagination over technology pieces (V2)
+      operationId: listTechnology
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -4210,261 +1906,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Technology
-      description: Searching technology pieces (V2)
-      operationId: v2SearchTechnology
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Technology name
-                borgTechnology:
-                  type: boolean
-                  description: Whether it should be a Borg technology
-                borgComponent:
-                  type: boolean
-                  description: Whether it should be a Borg component
-                communicationsTechnology:
-                  type: boolean
-                  description: Whether it should be a communications technology
-                computerTechnology:
-                  type: boolean
-                  description: Whether it should be a computer technology
-                computerProgramming:
-                  type: boolean
-                  description: Whether it should be a technology related to computer programming
-                subroutine:
-                  type: boolean
-                  description: Whether it should be a subroutine
-                database:
-                  type: boolean
-                  description: Whether it should be a database
-                energyTechnology:
-                  type: boolean
-                  description: Whether it should be a energy technology
-                fictionalTechnology:
-                  type: boolean
-                  description: Whether it should be a fictional technology
-                holographicTechnology:
-                  type: boolean
-                  description: Whether it should be a holographic technology
-                identificationTechnology:
-                  type: boolean
-                  description: Whether it should be a identification technology
-                lifeSupportTechnology:
-                  type: boolean
-                  description: Whether it should be a life support technology
-                sensorTechnology:
-                  type: boolean
-                  description: Whether it should be a sensor technology
-                shieldTechnology:
-                  type: boolean
-                  description: Whether it should be a shield technology
-                securityTechnology:
-                  type: boolean
-                  description: Whether it should be a security technology
-                propulsionTechnology:
-                  type: boolean
-                  description: Whether it should be a propulsion technology
-                spacecraftComponent:
-                  type: boolean
-                  description: Whether it should be a spacecraft component
-                warpTechnology:
-                  type: boolean
-                  description: Whether it should be a warp technology
-                transwarpTechnology:
-                  type: boolean
-                  description: Whether it should be a transwarp technology
-                timeTravelTechnology:
-                  type: boolean
-                  description: Whether it should be a time travel technology
-                militaryTechnology:
-                  type: boolean
-                  description: Whether it should be a military technology
-                victualTechnology:
-                  type: boolean
-                  description: Whether it should be a victual technology
-                tool:
-                  type: boolean
-                  description: Whether it should be a tool
-                culinaryTool:
-                  type: boolean
-                  description: Whether it should be a culinary tool
-                engineeringTool:
-                  type: boolean
-                  description: Whether it should be a engineering tool
-                householdTool:
-                  type: boolean
-                  description: Whether it should be a household tool
-                medicalEquipment:
-                  type: boolean
-                  description: Whether it should be a medical equipment
-                transporterTechnology:
-                  type: boolean
-                  description: Whether it's a transporter technology
-                transportationTechnology:
-                  type: boolean
-                  description: Whether it's a transportation technology
-                weaponComponent:
-                  type: boolean
-                  description: Whether it's a weapon component
-                artificialLifeformComponent:
-                  type: boolean
-                  description: Whether it's an artificial lifeform component
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TechnologyV2BaseResponse'
-  /v1/rest/title:
-    get:
-      tags:
-        - Title
-      description: Retrieval of a single title
-      operationId: v1GetTitle
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Title unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TitleFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/title/search:
-    get:
-      tags:
-        - Title
-      description: Pagination over titles
-      operationId: v1PageTitles
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TitleBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Title
-      description: Searching titles
-      operationId: v1SearchTitles
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Title name
-                militaryRank:
-                  type: boolean
-                  description: Whether it should be a military rank
-                fleetRank:
-                  type: boolean
-                  description: Whether it should be a fleet rank
-                religiousTitle:
-                  type: boolean
-                  description: Whether it should be a religious title
-                position:
-                  type: boolean
-                  description: Whether it should be a position
-                mirror:
-                  type: boolean
-                  description: Whether this title should be from mirror universe
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TitleBaseResponse'
   /v2/rest/title:
     get:
       tags:
         - Title
-      description: Retrieval of a single title (V2)
-      operationId: v2GetTitle
+      summary: Retrieval of a single title (V2)
+      operationId: getTitle
       parameters:
         - name: uid
           in: query
-          description: Title unique ID
           required: true
           schema:
             type: string
@@ -4485,18 +1935,16 @@ paths:
     get:
       tags:
         - Title
-      description: Pagination over titles (V2)
-      operationId: v2PageTitles
+      summary: Pagination over titles (V2)
+      operationId: listTitles
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -4513,69 +1961,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Title
-      description: Searching titles (V2)
-      operationId: v2SearchTitles
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Title name
-                militaryRank:
-                  type: boolean
-                  description: Whether it should be a military rank
-                fleetRank:
-                  type: boolean
-                  description: Whether it should be a fleet rank
-                religiousTitle:
-                  type: boolean
-                  description: Whether it should be a religious title
-                educationTitle:
-                  type: boolean
-                  description: Whether it should be a education title
-                mirror:
-                  type: boolean
-                  description: Whether this title should be from mirror universe
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TitleV2BaseResponse'
   /v1/rest/tradingCard:
     get:
       tags:
         - TradingCard
-      description: Retrieval of a single trading card
-      operationId: v1GetTradingCard
+      summary: Retrieval of a single trading card
+      operationId: getTradingCard
       parameters:
         - name: uid
           in: query
-          description: Trading card unique ID
           required: true
           schema:
             type: string
@@ -4596,18 +1990,16 @@ paths:
     get:
       tags:
         - TradingCard
-      description: Pagination over trading cards
-      operationId: v1PageTradingCards
+      summary: Pagination over trading cards
+      operationId: listTradingCards
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -4624,60 +2016,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - TradingCard
-      description: Searching trading cards
-      operationId: v1SearchTradingCards
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Trading card name
-                tradingCardDeckUid:
-                  type: string
-                  description: UID of trading card deck
-                tradingCardSetUid:
-                  type: string
-                  description: UID of trading card set
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TradingCardBaseResponse'
   /v1/rest/tradingCardDeck:
     get:
       tags:
         - TradingCardDeck
-      description: Retrieval of a single trading card deck
-      operationId: v1GetTradingCardDeck
+      summary: Retrieval of a single trading card deck
+      operationId: getTradingCardDeck
       parameters:
         - name: uid
           in: query
-          description: trading card deck unique ID
           required: true
           schema:
             type: string
@@ -4698,18 +2045,16 @@ paths:
     get:
       tags:
         - TradingCardDeck
-      description: Pagination over trading card decks
-      operationId: v1PageTradingCardDecks
+      summary: Pagination over trading card decks
+      operationId: listTradingCardDecks
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -4726,57 +2071,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - TradingCardDeck
-      description: Searching trading card decks
-      operationId: v1SearchTradingCardDecks
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Trading card deck name
-                tradingCardSetUid:
-                  type: string
-                  description: UID of trading card set
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TradingCardDeckBaseResponse'
   /v1/rest/tradingCardSet:
     get:
       tags:
         - TradingCardSet
-      description: Retrieval of a single trading card set
-      operationId: v1GetTradingCardSet
+      summary: Retrieval of a single trading card set
+      operationId: getTradingCardSet
       parameters:
         - name: uid
           in: query
-          description: Trading card set unique ID
           required: true
           schema:
             type: string
@@ -4797,18 +2100,16 @@ paths:
     get:
       tags:
         - TradingCardSet
-      description: Pagination over trading card sets
-      operationId: v1PageTradingCardSets
+      summary: Pagination over trading card sets
+      operationId: listTradingCardSets
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -4825,113 +2126,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - TradingCardSet
-      description: Searching trading card sets
-      operationId: v1SearchTradingCardSets
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Trading card set name
-                releaseYearFrom:
-                  type: integer
-                  description: Starting year the trading card set was released
-                  format: int32
-                releaseYearTo:
-                  type: integer
-                  description: Ending year the trading card set was released
-                  format: int32
-                cardsPerPackFrom:
-                  type: integer
-                  description: Minimal number of cards per deck
-                  format: int32
-                cardsPerPackTo:
-                  type: integer
-                  description: Minimal number of cards per deck
-                  format: int32
-                packsPerBoxFrom:
-                  type: integer
-                  description: Minimal number of packs per box
-                  format: int32
-                packsPerBoxTo:
-                  type: integer
-                  description: Minimal number of packs per box
-                  format: int32
-                boxesPerCaseFrom:
-                  type: integer
-                  description: Minimal number of boxes per case
-                  format: int32
-                boxesPerCaseTo:
-                  type: integer
-                  description: Minimal number of boxes per case
-                  format: int32
-                productionRunFrom:
-                  type: integer
-                  description: Minimal production run
-                  format: int32
-                productionRunTo:
-                  type: integer
-                  description: Minimal production run
-                  format: int32
-                productionRunUnit:
-                  type: string
-                  description: Production run unit
-                cardWidthFrom:
-                  type: number
-                  description: Minimal card width, in inches
-                  format: double
-                cardWidthTo:
-                  type: number
-                  description: Minimal card width, in inches
-                  format: double
-                cardHeightFrom:
-                  type: number
-                  description: Minimal card height, in inches
-                  format: double
-                cardHeightTo:
-                  type: number
-                  description: Minimal card height, in inches
-                  format: double
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TradingCardSetBaseResponse'
   /v1/rest/videoGame:
     get:
       tags:
         - VideoGame
-      description: Retrieval of a single video game
-      operationId: v1GetVideoGame
+      summary: Retrieval of a single video game
+      operationId: getVideoGame
       parameters:
         - name: uid
           in: query
-          description: VideoGame unique ID
           required: true
           schema:
             type: string
@@ -4952,18 +2155,16 @@ paths:
     get:
       tags:
         - VideoGame
-      description: Pagination over video games
-      operationId: v1PageVideoGames
+      summary: Pagination over video games
+      operationId: listVideoGames
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -4980,177 +2181,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - VideoGame
-      description: Searching video games
-      operationId: v1SearchVideoGames
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Video game title
-                releaseDateFrom:
-                  type: string
-                  description: Minimal date the video game was first released
-                  format: date
-                releaseDateTo:
-                  type: string
-                  description: Minimal date the video game was first released
-                  format: date
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VideoGameBaseResponse'
-  /v1/rest/videoRelease:
-    get:
-      tags:
-        - VideoRelease
-      description: Retrieval of a single video release
-      operationId: v1GetVideoRelease
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Video release unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VideoReleaseFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/videoRelease/search:
-    get:
-      tags:
-        - VideoRelease
-      description: Pagination over video releases
-      operationId: v1PageVideoReleases
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VideoReleaseBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - VideoRelease
-      description: Searching video releases
-      operationId: v1SearchVideoReleases
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Video release title
-                yearFrom:
-                  type: integer
-                  description: Starting year of video release story
-                  format: int32
-                yearTo:
-                  type: integer
-                  description: Ending year of video release story
-                  format: int32
-                runTimeFrom:
-                  type: integer
-                  description: Minimal run time, in minutes
-                  format: int32
-                runTimeTo:
-                  type: integer
-                  description: Minimal run time, in minutes
-                  format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VideoReleaseBaseResponse'
   /v2/rest/videoRelease:
     get:
       tags:
         - VideoRelease
-      description: Retrieval of a single video release (V2)
-      operationId: v2GetVideoRelease
+      summary: Retrieval of a single video release (V2)
+      operationId: getVideoRelease
       parameters:
         - name: uid
           in: query
-          description: Video release unique ID
           required: true
           schema:
             type: string
@@ -5171,18 +2210,16 @@ paths:
     get:
       tags:
         - VideoRelease
-      description: Pagination over video releases (V2)
-      operationId: v2PageVideoReleases
+      summary: Pagination over video releases (V2)
+      operationId: listVideoReleases
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -5199,196 +2236,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - VideoRelease
-      description: Searching video releases (V2)
-      operationId: v2SearchVideoReleases
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                title:
-                  type: string
-                  description: Video release title
-                yearFrom:
-                  type: integer
-                  description: Starting year of video release story
-                  format: int32
-                yearTo:
-                  type: integer
-                  description: Ending year of video release story
-                  format: int32
-                runTimeFrom:
-                  type: integer
-                  description: Minimal run time, in minutes
-                  format: int32
-                runTimeTo:
-                  type: integer
-                  description: Minimal run time, in minutes
-                  format: int32
-                documentary:
-                  type: boolean
-                  description: Whether it should be a documentary
-                specialFeatures:
-                  type: boolean
-                  description: Whether it should contain special features
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VideoReleaseV2BaseResponse'
-  /v1/rest/weapon:
-    get:
-      tags:
-        - Weapon
-      description: Retrieval of a single weapon
-      operationId: v1GetWeapon
-      deprecated: true
-      parameters:
-        - name: uid
-          in: query
-          description: Weapon unique ID
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WeaponFullResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/rest/weapon/search:
-    get:
-      tags:
-        - Weapon
-      description: Pagination over weapons
-      operationId: v1PageWeapons
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WeaponBaseResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Weapon
-      description: Searching weapons
-      operationId: v1SearchWeapons
-      deprecated: true
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Weapon name
-                handHeldWeapon:
-                  type: boolean
-                  description: Whether it should be a hand-help weapon
-                laserTechnology:
-                  type: boolean
-                  description: Whether it should be a laser technology
-                plasmaTechnology:
-                  type: boolean
-                  description: Whether it should be a plasma technology
-                photonicTechnology:
-                  type: boolean
-                  description: Whether it should be a photonic technology
-                phaserTechnology:
-                  type: boolean
-                  description: Whether it should be a phaser technology
-                mirror:
-                  type: boolean
-                  description: Whether this weapon should be from mirror universe
-                alternateReality:
-                  type: boolean
-                  description: Whether this weapon should be from alternate reality
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WeaponBaseResponse'
   /v2/rest/weapon:
     get:
       tags:
         - Weapon
-      description: Retrieval of a single weapon (V2)
-      operationId: v2GetWeapon
+      summary: Retrieval of a single weapon (V2)
+      operationId: getWeapon
       parameters:
         - name: uid
           in: query
-          description: Weapon unique ID
           required: true
           schema:
             type: string
@@ -5409,18 +2265,16 @@ paths:
     get:
       tags:
         - Weapon
-      description: Pagination over weapons (V2)
-      operationId: v2PageWeapons
+      summary: Pagination over weapons (V2)
+      operationId: listWeapons
       parameters:
         - name: pageNumber
           in: query
-          description: Zero-based page number
           schema:
             type: integer
             format: int32
         - name: pageSize
           in: query
-          description: Page size
           schema:
             type: integer
             format: int32
@@ -5437,77 +2291,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Weapon
-      description: Searching weapons (V2)
-      operationId: v2SearchWeapons
-      parameters:
-        - name: pageNumber
-          in: query
-          description: Zero-based page number
-          schema:
-            type: integer
-            format: int32
-        - name: pageSize
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: 'Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC'
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  description: Weapon name
-                handHeldWeapon:
-                  type: boolean
-                  description: Whether it should be a hand-help weapon
-                laserTechnology:
-                  type: boolean
-                  description: Whether it should be a laser technology
-                plasmaTechnology:
-                  type: boolean
-                  description: Whether it should be a plasma technology
-                photonicTechnology:
-                  type: boolean
-                  description: Whether it should be a photonic technology
-                phaserTechnology:
-                  type: boolean
-                  description: Whether it should be a phaser technology
-                directedEnergyWeapon:
-                  type: boolean
-                  description: Whether it should be a directed energy weapon
-                explosiveWeapon:
-                  type: boolean
-                  description: Whether it should be an explosive weapon
-                projectileWeapon:
-                  type: boolean
-                  description: Whether it should be a projectile weapon
-                fictionalWeapon:
-                  type: boolean
-                  description: Whether it should be a fictional weapon
-                mirror:
-                  type: boolean
-                  description: Whether this weapon should be from mirror universe
-                alternateReality:
-                  type: boolean
-                  description: Whether this weapon should be from alternate reality
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WeaponV2BaseResponse'
 components:
   schemas:
     AnimalSearchCriteria:
