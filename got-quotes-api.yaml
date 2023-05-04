@@ -63,7 +63,7 @@ paths:
         '200':
           description: Success
         
-  /house/{slug}:
+  /house/{house_slug}:
     get:
       tags:
         - houses
@@ -71,7 +71,7 @@ paths:
       operationId: getHouseDetails
       parameters:
         - in: path
-          name: slug
+          name: house_slug
           required: true
           schema:
             type: string
@@ -89,7 +89,7 @@ paths:
         '200':
           description: Success
           
-  /character/{slug}:
+  /character/{character_slug}:
     get:
       tags:
         - characters
@@ -97,10 +97,11 @@ paths:
       operationId: getCharacterDetailsAndQuotes
       parameters:
         - in: path
-          name: slug
+          name: character_slug
           required: true
           schema:
             type: string
       responses:
         '200':
           description: Success
+          
