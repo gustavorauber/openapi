@@ -43,6 +43,7 @@ tags:
   - name: channels
   - name: videos
 paths:
+  
   /channels:
     get:
       operationId: listChannels
