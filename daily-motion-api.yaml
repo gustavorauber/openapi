@@ -85,7 +85,7 @@ paths:
       parameters:
         - in: path
           name: id
-          required: True
+          required: true
           schema:
             type: string
         - in: query
@@ -104,7 +104,7 @@ paths:
       parameters:
         - in: path
           name: id
-          required: True
+          required: true
           schema:
             type: string
         - in: query
@@ -243,7 +243,7 @@ paths:
       parameters:
         - in: path
           name: id
-          required: True
+          required: true
           schema:
             type: string
         - in: query
@@ -263,7 +263,7 @@ paths:
       parameters:
         - in: path
           name: id
-          required: True
+          required: true
           schema:
             type: string
         - in: query
@@ -302,7 +302,7 @@ paths:
       parameters:
         - in: path
           name: id
-          required: True
+          required: true
           schema:
             type: string
         - in: query
