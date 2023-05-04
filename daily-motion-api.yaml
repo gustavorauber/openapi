@@ -59,6 +59,7 @@ paths:
           name: sort
           description: "Change the default result set ordering."
           schema:
+            type: string
             enum:
               - popular
               - alpha
