@@ -1,10 +1,13 @@
 openapi: 3.0.1
 info:
   title: "Magic: The Gathering API"
-  description: "You can use the API to get information on cards and sets from the game Magic: The Gathering.
+  description: |-
+    You can use the API to get information on cards and sets from the game Magic - The Gathering.
 
-  Remarks:  
-  - Parameters that accept multiple values are ANDed instead of ORed."
+    Remarks:  
+    
+    - Parameters that accept multiple values are ANDed instead of ORed.
+    - page is 1-indexed.
   version: 1.0.0
 servers:
   - url: https://api.magicthegathering.io/v1
@@ -14,7 +17,7 @@ paths:
       tags:
         - cards
       summary: Get cards.
-      operationId: getCards
+      operationId: listCards
       parameters:
         - in: query
           name: name
@@ -102,6 +105,7 @@ paths:
             type: string
         - in: query
           name: text
+          description: "The oracle text of the card."
           schema:
             type: string
         - in: query
@@ -170,6 +174,7 @@ paths:
             type: string
         - in: query
           name: multiverseid
+          description: "The multiverseid of the card on Wizard’s Gatherer web page."
           schema:
             type: string
       responses:
@@ -252,7 +257,7 @@ paths:
         '503':
           description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
 
-  /sets/{code}:
+  /sets/{set_code}:
     get:
       tags:
         - sets
@@ -260,7 +265,7 @@ paths:
       operationId: getSetByCode
       parameters:
         - in: path
-          name: code
+          name: set_code
           required: true
           example: "KTK"
           schema:
@@ -279,7 +284,7 @@ paths:
         '503':
           description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
 
-  /sets/{code}/booster:
+  /sets/{set_code}/booster:
     get:
       tags:
         - sets
@@ -287,7 +292,7 @@ paths:
       operationId: getSetBoosterPack
       parameters:
         - in: path
-          name: code
+          name: set_code
           required: true
           example: "KTK"
           schema:
@@ -421,4 +426,3 @@ paths:
           description: "Internal Server Error - We had a problem with our server. Please try again later."
         '503':
           description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
-      
