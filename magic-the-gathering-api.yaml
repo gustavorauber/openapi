@@ -1,0 +1,424 @@
+openapi: 3.0.1
+info:
+  title: "Magic: The Gathering API"
+  description: "You can use the API to get information on cards and sets from the game Magic: The Gathering.
+
+  Remarks:  
+  - Parameters that accept multiple values are ANDed instead of ORed."
+  version: 1.0.0
+servers:
+  - url: https://api.magicthegathering.io/v1
+paths:
+  /cards:
+    get:
+      tags:
+        - cards
+      summary: Get cards.
+      operationId: getCards
+      parameters:
+        - in: query
+          name: name
+          example: "nissa"
+          schema:
+            type: string
+        - in: query
+          name: layout
+          schema:
+            type: string
+            enum:
+              - normal
+              - split
+              - flip
+              - double-faced
+              - token
+              - plane
+              - scheme
+              - phenomenon
+              - leveler
+              - vanguard
+              - aftermath
+        - in: query
+          name: cmc
+          description: "Converted mana cost"
+          schema:
+            type: integer
+        - in: query
+          name: colors
+          example: "B,G"
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: colorIdentity
+          example: "B,G"
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: supertypes
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: types
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: subtypes
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: rarity
+          schema:
+            type: string
+        - in: query
+          name: set
+          schema:
+            type: string
+        - in: query
+          name: setName
+          schema:
+            type: string
+        - in: query
+          name: text
+          schema:
+            type: string
+        - in: query
+          name: flavor
+          schema:
+            type: string
+        - in: query
+          name: artist
+          schema:
+            type: string
+        - in: query
+          name: number
+          schema:
+            type: integer
+        - in: query
+          name: power
+          schema:
+            type: string
+        - in: query
+          name: toughness
+          schema:
+            type: string
+        - in: query
+          name: loyalty
+          schema:
+            type: string
+        - in: query
+          name: language
+          description: "Use this parameter along with the name parameter when searching by foreignName."
+          schema:
+            type: string
+        - in: query
+          name: gameFormat
+          schema:
+            type: string
+        - in: query
+          name: legality
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: orderBy
+          description: "The field to order by in the response results."
+          schema:
+            type: string
+        - in: query
+          name: random
+          description: "Fetch any number of cards (controlled by pageSize) randomly."
+          schema:
+            type: integer
+        - in: query
+          name: contains
+          description: "Filter cards based on whether or not they have a specific field available (like imageUrl)."
+          schema:
+            type: string
+        - in: query
+          name: id
+          schema:
+            type: string
+        - in: query
+          name: multiverseid
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+  
+  /cards/{id}:
+    get:
+      tags:
+        - cards
+      summary: Get a single card by ID or Multiverse ID.
+      operationId: getCardByIdOrMultiverseId
+      parameters:
+        - in: path
+          name: id
+          required: true
+          example: "386616"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+
+  /sets:
+    get:
+      tags:
+        - sets
+      summary: Get all sets.
+      operationId: listSets
+      parameters:
+        - in: query
+          name: name
+          example: "origins"
+          schema:
+            type: string
+        - in: query
+          name: block
+          example: "origins"
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+
+  /sets/{code}:
+    get:
+      tags:
+        - sets
+      summary: Get a specific set by set code.
+      operationId: getSetByCode
+      parameters:
+        - in: path
+          name: code
+          required: true
+          example: "KTK"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+
+  /sets/{code}/booster:
+    get:
+      tags:
+        - sets
+      summary: Generate Booster Pack.
+      operationId: getSetBoosterPack
+      parameters:
+        - in: path
+          name: code
+          required: true
+          example: "KTK"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+
+  /types:
+    get:
+      tags:
+        - types
+      summary: Get all Types.
+      operationId: listTypes
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+
+  /subtypes:
+    get:
+      tags:
+        - types
+      summary: Get all Sub Types.
+      operationId: listSubTypes
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+
+  /supertypes:
+    get:
+      tags:
+        - types
+      summary: Get all Super Types.
+      operationId: listSuperTypes
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+
+  /formats:
+    get:
+      tags:
+        - formats
+      summary: Get all Game Formats.
+      operationId: listGameFormats
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: "Bad Request - We could not process that action"
+        '403':
+          description: "Forbidden - You exceeded the rate limit"
+        '404':
+          description: "Not Found - The requested resource could not be found"
+        '500':
+          description: "Internal Server Error - We had a problem with our server. Please try again later."
+        '503':
+          description: "Service Unavailable - We are temporarily offline for maintenance. Please try again later."
+      
