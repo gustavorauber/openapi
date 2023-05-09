@@ -94,9 +94,14 @@ paths:
               type: string
         - in: query
           name: rarity
-          description: "Examples: Common, Uncommon, Rare, Mythic Rare, Special, Basic Land, ..."
           schema:
             type: string
+            enum:
+              - Common
+              - Mythic
+              - Rare
+              - Special
+              - Uncommon
         - in: query
           name: set
           schema:
