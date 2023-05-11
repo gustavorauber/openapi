@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
   title: ChartLyrics API
-  description: ChartLyrics carries a comprehensive collection of song lyrics.
-  version: 1.0.0
+  description: API to search for song lyrics. ChartLyrics carries a comprehensive collection of song lyrics.
+  version: 1.0.1
 servers:
   - url: http://api.chartlyrics.com/apiv1.asmx
 paths:
@@ -13,6 +13,7 @@ paths:
       summary: Search Songs.
       operationId: searchSongs
       parameters:
+        - $ref: "#/components/parameters/contentType"
         - name: artist
           in: query
           required: true
@@ -22,7 +23,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: string   
       responses:
         '200':
           description: Success
@@ -34,6 +35,7 @@ paths:
       summary: Search songs by partially matching the lyric.
       operationId: searchSongsByLyrics
       parameters:
+        - $ref: "#/components/parameters/contentType"
         - name: lyricText
           in: query
           required: true
@@ -50,6 +52,7 @@ paths:
       summary: Fetch the Lyric from a Search Top Result.
       operationId: getLyricFromTopSearchResult
       parameters:
+        - $ref: "#/components/parameters/contentType"
         - name: artist
           in: query
           required: true
@@ -67,9 +70,10 @@ paths:
   /GetLyric:
     get:
       tags:
-        - lyrcs
+        - lyrics
       operationId: getLyric
       parameters:
+        - $ref: "#/components/parameters/contentType"
         - name: lyricId
           in: query
           required: true
@@ -84,3 +88,15 @@ paths:
         '200':
           description: Success
           
+components:
+  parameters:
+    contentType:
+      name: Content-type
+      in: header
+      default: "text/xml"
+      description: "Explicitly provide this parameter with 'text/xml'"
+      schema:
+        type: string
+        enum:
+          - "text/xml"
+      required: true
