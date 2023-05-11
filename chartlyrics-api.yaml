@@ -93,7 +93,6 @@ components:
     contentType:
       name: Content-type
       in: header
-      default: "text/xml"
       description: "Explicitly provide this parameter with 'text/xml'"
       schema:
         type: string
