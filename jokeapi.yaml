@@ -7,7 +7,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.2
+  version: 1.0.3
 externalDocs:
   description: JokeAPI Docs
   url: https://sv443.net/jokeapi/v2/
@@ -49,6 +49,7 @@ paths:
           description: >-
             If it is used, jokes that match the specified flag(s) will not be served. 
             If you want to use multiple flags, separate them with a comma (,) or a plus sign (+). 
+            Possible values are: nfsw, religious, political, racist, sexist, explicit.
             **nsfw** stands for not safe for work.
           required: false
           style: form
